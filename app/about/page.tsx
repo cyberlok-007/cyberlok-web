@@ -56,10 +56,6 @@ export default function CyberlokOverview() {
       {/* SECTION 1: CYBERLOK TEAM                                                */}
       {/* ====================================================================== */}
 
-      {/* ====================================================================== */}
-{/* SECTION 1: CYBERLOK TEAM – HIERARCHICAL STRUCTURE                      */}
-{/* ====================================================================== */}
-
 <WhoWeAre />
 <CyberlokTeam />
 
@@ -70,12 +66,12 @@ export default function CyberlokOverview() {
 
       <section className="border-t border-white/10">
   <Container>
-    <div className="py-16">
-      <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+    <div className="py-10 sm:py-16">
+      <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight">
         Why organizations choose Cyberlok
       </h2>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-6 sm:mt-10 grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
         {[
           {
             title: "Outcome-driven security",
@@ -101,11 +97,11 @@ export default function CyberlokOverview() {
           <SpotlightCard
             key={item.title}
             spotlightColor="rgba(34, 211, 238, 0.18)"
-            className="rounded-3xl border border-white/10 bg-white/5 p-6"
+            className="rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6"
           >
-            <item.icon className="h-6 w-6 text-cyan-300" />
-            <p className="mt-4 text-lg font-semibold">{item.title}</p>
-            <p className="mt-2 text-sm text-white/60 leading-6">
+            <item.icon className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-300" />
+            <p className="mt-3 sm:mt-4 text-base sm:text-lg font-semibold">{item.title}</p>
+            <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-white/60 leading-relaxed">
               {item.desc}
             </p>
           </SpotlightCard>
@@ -121,12 +117,12 @@ export default function CyberlokOverview() {
 
      <section className="border-t border-white/10">
   <Container>
-    <div className="py-16">
-      <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+    <div className="py-10 sm:py-16">
+      <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight">
         How we engage
       </h2>
 
-      <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-8 sm:mt-16 grid gap-4 sm:gap-8 md:grid-cols-2 lg:grid-cols-4">
         {[
           {
             step: "01",
@@ -165,27 +161,27 @@ export default function CyberlokOverview() {
           >
             <div
               className={`
-                relative h-full rounded-3xl
+                relative h-full rounded-2xl sm:rounded-3xl
                 border border-white/10
                 bg-gradient-to-b from-white/[0.08] to-white/[0.02]
-                p-7
+                p-5 sm:p-7
                 transition-all duration-300
                 hover:border-cyan-400/30
                 hover:bg-white/[0.08]
               `}
             >
               {/* Step label */}
-              <span className="block text-sm font-semibold text-cyan-300">
+              <span className="block text-xs sm:text-sm font-semibold text-cyan-300">
                 Step {item.step}
               </span>
 
               {/* Title */}
-              <h3 className="mt-3 text-lg font-semibold text-white leading-snug">
+              <h3 className="mt-2 sm:mt-3 text-base sm:text-lg font-semibold text-white leading-snug">
                 {item.title}
               </h3>
 
               {/* Description */}
-              <p className="mt-3 text-sm text-white/70 leading-7">
+              <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-white/70 leading-relaxed">
                 {item.desc}
               </p>
             </div>
@@ -202,23 +198,23 @@ export default function CyberlokOverview() {
 
       <section className="border-t border-white/10">
         <Container>
-          <div className="py-16">
-            <div className="rounded-3xl border border-cyan-400/20 bg-cyan-500/10 p-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div className="py-10 sm:py-16">
+            <div className="rounded-2xl sm:rounded-3xl border border-cyan-400/20 bg-cyan-500/10 p-5 sm:p-8 flex flex-col gap-5 sm:gap-6 md:flex-row md:items-center md:justify-between">
               <div>
-                <h3 className="text-2xl font-semibold">
+                <h3 className="text-xl sm:text-2xl font-semibold">
                   Need clarity on your security posture?
                 </h3>
-                <p className="mt-2 text-white/70 max-w-xl">
-                  Talk to Cyberlok’s security team and get a clear,
+                <p className="mt-2 text-white/70 text-sm sm:text-base max-w-xl leading-relaxed">
+                  Talk to Cyberlok&apos;s security team and get a clear,
                   actionable roadmap — tailored for Indian organizations.
                 </p>
               </div>
 
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-cyan-500 px-7 py-3 font-semibold text-black hover:bg-cyan-400"
+                className="inline-flex items-center justify-center rounded-full bg-cyan-500 px-5 sm:px-7 py-3 text-sm sm:text-base font-semibold text-black hover:bg-cyan-400 w-full sm:w-auto"
               >
-                Speak with our team <ArrowRight className="ml-2 h-5 w-5" />
+                Speak with our team <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </Link>
             </div>
           </div>

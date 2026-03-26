@@ -5,10 +5,10 @@ export default function Footer() {
   return (
     <footer className="border-t border-white/10 bg-black">
       <Container>
-        <div className="grid gap-8 py-12 md:grid-cols-4">
+        <div className="grid gap-8 py-10 sm:py-12 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <p className="font-semibold tracking-tight">CYBERLOK</p>
-            <p className="mt-3 text-sm text-white/60">
+            <p className="mt-3 text-sm text-white/60 leading-relaxed">
               Cybersecurity services, solutions, awareness, and training for Individuals, SMEs,
               Enterprises and Government initiatives.
             </p>
@@ -42,7 +42,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/10 py-6 text-sm text-white/50">
+        <div className="border-t border-white/10 py-6 text-xs sm:text-sm text-white/50 text-center sm:text-left">
           © {new Date().getFullYear()} Cyberlok. All rights reserved.
         </div>
       </Container>

@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import Container from "@/components/shared/Container";
+import AnimatedContent from "@/components/AnimatedContent/AnimatedContent";
+import ClickSpark from "@/components/ClickSpark/ClickSpark";
 
 type ServiceKey = "Sentinel" | "Pinpoint" | "MSP247" | "nCompass";
 
@@ -17,41 +19,85 @@ export default function ServicesEcosystem() {
   return (
     <section className="border-b border-white/10">
       <Container>
-        <div className="py-20">
+        <div className="py-16 sm:py-20">
 
           {/* ================= HEADER ================= */}
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6 }}
-            className="mb-16 max-w-3xl"
+          <AnimatedContent
+            distance={80}
+            direction="vertical"
+            duration={0.7}
+            ease="power3.out"
+            initialOpacity={0}
+            animateOpacity
           >
-            <p className="text-xs font-semibold tracking-widest text-cyan-300">
-              CYBERLOK SERVICES ECOSYSTEM
-            </p>
+            <div className="mb-12 sm:mb-16 max-w-3xl">
+              <p className="text-xs font-semibold tracking-widest text-cyan-300">
+                CYBERLOK SERVICES ECOSYSTEM
+              </p>
 
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
-              Complete Cyber Protection Under One Umbrella
-            </h2>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
+                Complete Cyber Protection Under One Umbrella
+              </h2>
 
-            <p className="mt-4 text-lg leading-7 text-white/65">
-              Get best-in-class security solutions with our holistic services,
-              cutting-edge technologies, and seasoned cybersecurity experts —
-              designed to protect, detect, and respond across your entire
-              digital landscape.
-            </p>
-          </motion.div>
+              <p className="mt-4 text-base sm:text-lg leading-7 text-white/65">
+                Get best-in-class security solutions with our holistic services,
+                cutting-edge technologies, and seasoned cybersecurity experts —
+                designed to protect, detect, and respond across your entire
+                digital landscape.
+              </p>
+            </div>
+          </AnimatedContent>
+
+          {/* ================= MOBILE SERVICE SWITCHER (ADDED) ================= */}
+          <div className="mb-10 flex lg:hidden gap-2 overflow-x-auto">
+            {(["Sentinel", "Pinpoint", "MSP247", "nCompass"] as ServiceKey[]).map(
+              (key) => (
+                <button
+                  key={key}
+                  onClick={() => setActive(key)}
+                  className={`whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition
+                    ${
+                      active === key
+                        ? "bg-cyan-400 text-black"
+                        : "border border-white/15 text-white/70"
+                    }`}
+                >
+                  {key === "MSP247" ? "MSP 24×7" : key}
+                </button>
+              )
+            )}
+          </div>
 
           {/* ================= CONTENT ================= */}
-          <div className="grid gap-14 lg:grid-cols-[1.2fr_0.8fr] items-start">
-            {/* LEFT */}
-            <ServiceGroups active={active} setActive={setActive} />
+          <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] items-start">
 
-            {/* RIGHT */}
-            <div className="relative hidden lg:flex justify-center">
-              <ServicesWheel active={active} setActive={setActive} />
-            </div>
+            {/* LEFT ACCORDION */}
+            <AnimatedContent
+              distance={100}
+              direction="vertical"
+              duration={0.8}
+              ease="power3.out"
+              initialOpacity={0}
+              animateOpacity
+              delay={0.05}
+            >
+              <ServiceGroups active={active} setActive={setActive} />
+            </AnimatedContent>
+
+            {/* RIGHT WHEEL */}
+            <AnimatedContent
+              distance={60}
+              direction="vertical"
+              duration={0.6}
+              ease="power3.out"
+              initialOpacity={0}
+              animateOpacity
+            >
+              <div className="relative hidden lg:flex justify-center">
+                <ServicesWheel active={active} setActive={setActive} />
+              </div>
+            </AnimatedContent>
+
           </div>
         </div>
       </Container>
@@ -149,16 +195,19 @@ function ServiceBlock({
 
   return (
     <div className="rounded-3xl border border-white/10 bg-white/5">
-      <button
-        onClick={() => setActive(title)}
-        className="flex w-full items-center justify-between p-6 text-left"
-      >
-        <div>
-          <h3 className="text-xl font-semibold">{title}</h3>
-          <p className="mt-1 text-sm text-white/60">{desc}</p>
-        </div>
-        <span className="text-2xl">{isOpen ? "–" : "+"}</span>
-      </button>
+
+      <ClickSpark sparkColor="#22d3ee" sparkSize={6} sparkRadius={18} sparkCount={6} duration={350}>
+        <button
+          onClick={() => setActive(title)}
+          className="flex w-full items-center justify-between p-5 sm:p-6 text-left"
+        >
+          <div>
+            <h3 className="text-lg sm:text-xl font-semibold">{title}</h3>
+            <p className="mt-1 text-sm text-white/60">{desc}</p>
+          </div>
+          <span className="text-2xl">{isOpen ? "–" : "+"}</span>
+        </button>
+      </ClickSpark>
 
       <AnimatePresence>
         {isOpen && (
@@ -166,24 +215,26 @@ function ServiceBlock({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35 }}
-            className="overflow-hidden px-6 pb-6"
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden px-5 sm:px-6 pb-6"
           >
             <ul className="mt-4 space-y-2 text-sm text-white/70">
               {services.map((s) => (
-                <li key={s} className="flex items-start gap-2">
-                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-cyan-400" />
+                <li key={s} className="flex gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-cyan-400" />
                   {s}
                 </li>
               ))}
             </ul>
 
-            <Link
-              href="/contact"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-cyan-500 px-5 py-2 text-sm font-semibold text-black"
-            >
-              Consult with Us →
-            </Link>
+            <ClickSpark sparkColor="#000" sparkSize={7} sparkRadius={16} sparkCount={8} duration={400}>
+              <Link
+                href="/contact"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-cyan-500 px-5 py-2 text-sm font-semibold text-black"
+              >
+                Consult with Us →
+              </Link>
+            </ClickSpark>
           </motion.div>
         )}
       </AnimatePresence>
@@ -211,8 +262,9 @@ function ServicesWheel({
   return (
     <div className="relative h-[420px] w-[420px]">
       <svg viewBox="0 0 200 200" className="h-full w-full select-none">
+
         {/* SENTINEL */}
-        <g onClick={() => setActive("Sentinel")} className="cursor-pointer">
+        <g onClick={() => setActive("Sentinel")} className="cursor-pointer transition-opacity hover:opacity-90">
           <path d="M100 100 L100 0 A100 100 0 0 1 200 100 Z" fill={color("Sentinel")} />
           <text x="140" y="45" textAnchor="middle" fontSize="7" fill={labelColor("Sentinel")} fontWeight="700">
             Sentinel
@@ -220,7 +272,7 @@ function ServicesWheel({
         </g>
 
         {/* PINPOINT */}
-        <g onClick={() => setActive("Pinpoint")} className="cursor-pointer">
+        <g onClick={() => setActive("Pinpoint")} className="cursor-pointer transition-opacity hover:opacity-90">
           <path d="M100 100 L200 100 A100 100 0 0 1 100 200 Z" fill={color("Pinpoint")} />
           <text x="140" y="155" textAnchor="middle" fontSize="7" fill={labelColor("Pinpoint")} fontWeight="700">
             Pinpoint
@@ -228,7 +280,7 @@ function ServicesWheel({
         </g>
 
         {/* MSP247 */}
-        <g onClick={() => setActive("MSP247")} className="cursor-pointer">
+        <g onClick={() => setActive("MSP247")} className="cursor-pointer transition-opacity hover:opacity-90">
           <path d="M100 100 L100 200 A100 100 0 0 1 0 100 Z" fill={color("MSP247")} />
           <text x="60" y="155" textAnchor="middle" fontSize="7" fill={labelColor("MSP247")} fontWeight="700">
             MSP 24×7
@@ -236,7 +288,7 @@ function ServicesWheel({
         </g>
 
         {/* NCOMPASS */}
-        <g onClick={() => setActive("nCompass")} className="cursor-pointer">
+        <g onClick={() => setActive("nCompass")} className="cursor-pointer transition-opacity hover:opacity-90">
           <path d="M100 100 L0 100 A100 100 0 0 1 100 0 Z" fill={color("nCompass")} />
           <text x="55" y="45" textAnchor="middle" fontSize="7" fill={labelColor("nCompass")} fontWeight="700">
             nCompass
@@ -255,6 +307,7 @@ function ServicesWheel({
         <text x="100" y="108" textAnchor="middle" fontSize="8" fill="#000" fontWeight="700">
           SERVICES
         </text>
+
       </svg>
     </div>
   );
