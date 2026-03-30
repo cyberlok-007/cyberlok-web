@@ -15,6 +15,38 @@ import {
   X,
   Users,
   Star,
+  MessageSquareQuote,
+  BookOpen,
+  Newspaper,
+  Download,
+  Globe,
+  Shield,
+  Code2,
+  Mail,
+  Gamepad2,
+  Eye,
+  Settings,
+  GraduationCap,
+  Building2,
+  FileCheck,
+  Smartphone,
+  Network,
+  Server,
+  Target,
+  Lock,
+  Wifi,
+  Key,
+  ClipboardCheck,
+  Package,
+  Wrench,
+  Layers,
+  BarChart3,
+  ScrollText,
+  ShieldCheck,
+  Search,
+  Database,
+  Cpu,
+  HardDrive,
 } from "lucide-react";
 import ClickSpark from "@/components/ClickSpark/ClickSpark";
 import StarBorder from "@/components/StarBorder/StarBorder";
@@ -29,42 +61,45 @@ const servicesMega = [
     category: "Sentinel",
     icon: Radar,
     items: [
-      { name: "Managed Detection & Response (MDR)", href: "/services/mdr" },
-      { name: "SOC as a Service", href: "/services/soc-as-a-service" },
-      { name: "Digital Forensics Investigations", href: "/services/digital-forensics" },
-      { name: "Cybersecurity Consulting", href: "/services/consulting" },
+      { name: "Managed Detection & Response (MDR)", href: "/services/mdr", icon: Shield },
+      { name: "SOC as a Service", href: "/services/soc-as-a-service", icon: Eye },
+      { name: "Digital Forensics Investigations", href: "/services/digital-forensics", icon: Search },
+      { name: "Cybersecurity Consulting", href: "/services/consulting", icon: BarChart3 },
     ],
   },
   {
     category: "Pinpoint",
     icon: Bug,
     items: [
-      { name: "Vulnerability Assessment", href: "/services/vulnerability-assessment" },
-      { name: "Penetration Testing", href: "/services/penetration-testing" },
-      { name: "Red Teaming", href: "/services/red-teaming" },
-      { name: "Secure Code Review", href: "/services/secure-code-review" },
-      { name: "Cloud Security Assessment", href: "/services/cloud-security" },
-      { name: "Phishing Simulation", href: "/services/phishing-simulation" },
-      { name: "Breach & Attack Simulation", href: "/services/breach-attack-simulation" },
-      { name: "Secure Software Development", href: "/services/secure-development" },
+      { name: "Web Application Penetration Testing", href: "/services/offensive-security/web-application-pentesting", icon: Globe },
+      { name: "Vulnerability Assessment", href: "/services/vulnerability-assessment", icon: Bug },
+      { name: "Penetration Testing", href: "/services/penetration-testing", icon: Target },
+      { name: "Red Teaming", href: "/services/red-teaming", icon: Shield },
+      { name: "Secure Code Review", href: "/services/secure-code-review", icon: Code2 },
+      { name: "Cloud Security Assessment", href: "/services/cloud-security", icon: HardDrive },
+      { name: "Phishing Simulation", href: "/services/phishing-simulation", icon: Mail },
+      { name: "Breach & Attack Simulation", href: "/services/breach-attack-simulation", icon: Gamepad2 },
+      { name: "Secure Software Development", href: "/services/secure-development", icon: Lock },
     ],
   },
   {
     category: "MSP 24×7",
     icon: Cloud,
     items: [
-      { name: "Security Solutions Implementation", href: "/services/security-implementation" },
-      { name: "Security Patching Services", href: "/services/security-patching" },
-      { name: "Patch Management Services", href: "/services/patch-management" },
+      { name: "Security Solutions Implementation", href: "/services/security-implementation", icon: Wrench },
+      { name: "Security Patching Services", href: "/services/security-patching", icon: Layers },
+      { name: "Patch Management Services", href: "/services/patch-management", icon: ClipboardCheck },
+      { name: "Configuration Audits", href: "/services/configuration-audits", icon: Settings },
     ],
   },
   {
     category: "nCompass",
     icon: Users,
     items: [
-      { name: "Security Awareness Training", href: "/services/security-awareness-training" },
-      { name: "Cybersecurity Staffing Services", href: "/services/cybersecurity-staffing" },
-      { name: "Governance, Risk & Compliance (GRC)", href: "/services/grc-compliance" },
+      { name: "Security Awareness Training", href: "/services/security-awareness-training", icon: GraduationCap },
+      { name: "Cybersecurity Staffing Services", href: "/services/cybersecurity-staffing", icon: Building2 },
+      { name: "Governance, Risk & Compliance", href: "/services/grc-compliance", icon: ShieldCheck },
+      { name: "SBOM Management", href: "/services/sbom-management", icon: Package },
     ],
   },
 ];
@@ -170,9 +205,12 @@ const ServiceCategory = memo(function ServiceCategory({
               key={item.name}
               href={item.href}
               onMouseEnter={() => setActiveIndex(index)}
-              className="relative block px-1 py-1 text-sm text-white/70 transition-colors hover:text-white"
+              className="relative flex items-center gap-2.5 px-1 py-1 text-sm text-white/70 transition-colors hover:text-white"
             >
-              {item.name}
+              {item.icon && (
+                <item.icon className="h-3.5 w-3.5 text-cyan-400/70 shrink-0" />
+              )}
+              <span className="flex-1">{item.name}</span>
               <span
                 className={`
                   pointer-events-none absolute left-0 -bottom-0.5 h-[2px] w-full
@@ -297,7 +335,7 @@ export default function Navbar() {
                         href="/testimonials"
                         className="flex items-start gap-3 rounded-xl px-3 py-2 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-white"
                       >
-                        <Star className="h-4 w-4 mt-0.5 text-cyan-400" />
+                        <MessageSquareQuote className="h-4 w-4 mt-0.5 text-cyan-400" />
                         <div>
                           <span className="block font-medium">Testimonials</span>
                           <span className="text-xs text-white/50">What our clients say about us</span>
@@ -307,7 +345,7 @@ export default function Navbar() {
                         href="/case-studies"
                         className="flex items-start gap-3 rounded-xl px-3 py-2 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-white"
                       >
-                        <Star className="h-4 w-4 mt-0.5 text-cyan-400" />
+                        <BookOpen className="h-4 w-4 mt-0.5 text-cyan-400" />
                         <div>
                           <span className="block font-medium">Case Studies</span>
                           <span className="text-xs text-white/50">Detailed security success stories</span>
@@ -344,7 +382,7 @@ export default function Navbar() {
                         href="/blog"
                         className="flex items-start gap-3 rounded-xl px-3 py-2 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-white"
                       >
-                        <FileText className="h-4 w-4 mt-0.5 text-cyan-400" />
+                        <Newspaper className="h-4 w-4 mt-0.5 text-cyan-400" />
                         <div>
                           <span className="block font-medium">Blog</span>
                           <span className="text-xs text-white/50">Security insights and updates</span>
@@ -354,7 +392,7 @@ export default function Navbar() {
                         href="/resources"
                         className="flex items-start gap-3 rounded-xl px-3 py-2 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-white"
                       >
-                        <FileText className="h-4 w-4 mt-0.5 text-cyan-400" />
+                        <Download className="h-4 w-4 mt-0.5 text-cyan-400" />
                         <div>
                           <span className="block font-medium">Resources</span>
                           <span className="text-xs text-white/50">Whitepapers & threat reports</span>

@@ -24,6 +24,7 @@ import {
 import Container from "@/components/shared/Container";
 import AnimatedContent from "@/components/AnimatedContent/AnimatedContent";
 import ClickSpark from "@/components/ClickSpark/ClickSpark";
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import StarBorder from "@/components/StarBorder/StarBorder";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -600,6 +601,8 @@ export default function ContactPage() {
 
         <Container>
           <div className="relative">
+            <Breadcrumbs items={[{ label: "Contact" }]} className="mb-6" />
+            
             <motion.div initial="hidden" animate="show" className="mx-auto max-w-3xl text-center px-2">
               <motion.div custom={0} variants={fadeUp}>
                 <Badge variant="outline" className="border-cyan-400/30 text-cyan-300">

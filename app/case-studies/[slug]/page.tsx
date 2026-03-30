@@ -17,6 +17,7 @@ import {
   CheckCircle2,
   Quote,
 } from "lucide-react";
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 18 },
@@ -210,7 +211,10 @@ export default function CaseStudyDetailPage() {
           <div className="absolute -bottom-40 right-1/4 h-[400px] w-[400px] rounded-full bg-cyan-400/5 blur-3xl" />
         </div>
         <Container>
-          <div className="px-2 py-8 sm:py-12 md:py-16">
+          <div className="px-2 py-6 sm:py-8">
+            <Breadcrumbs items={[{ label: "Case Studies", href: "/case-studies" }, { label: caseStudy.client }]} className="mb-4" />
+          </div>
+          <div className="px-2 pb-8 sm:pb-12 md:pb-16">
             <motion.div initial="hidden" animate="show" className="max-w-4xl mx-auto">
               <motion.div custom={0} variants={fadeUp}>
                 <Link

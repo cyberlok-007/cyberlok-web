@@ -8,6 +8,7 @@ import CyberlokTeam from "@/components/about/CyberlokTeam";
 import WhoWeAre from "@/components/about/WhoWeAre";
 import SpotlightCard from "@/components/SpotlightCard/SpotlightCard";
 import AnimatedContent from "@/components/AnimatedContent/AnimatedContent";
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 
 /* -------------------------------------------------------------------------- */
 /*                            CYBERLOK SECTIONS                                */
@@ -50,15 +51,25 @@ function TeamCard({
 
 export default function CyberlokOverview() {
   return (
-    <div className="border-b border-white/10">
+    <div>
+      <div className="border-b border-white/10">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-40 right-1/4 h-[500px] w-[500px] rounded-full bg-cyan-400/10 blur-3xl" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(34,211,238,0.10),transparent_50%)]" />
+        </div>
+        <Container>
+          <div className="py-10 sm:py-14">
+            <Breadcrumbs items={[{ label: "About" }]} className="mb-6" />
+          </div>
+        </Container>
+      </div>
 
       {/* ====================================================================== */}
       {/* SECTION 1: CYBERLOK TEAM                                                */}
       {/* ====================================================================== */}
 
-<WhoWeAre />
-<CyberlokTeam />
-
+      <WhoWeAre />
+      <CyberlokTeam />
 
       {/* ====================================================================== */}
       {/* SECTION 2: WHY CYBERLOK                                                 */}

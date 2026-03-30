@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Container from "@/components/shared/Container";
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import {
   ArrowRight,
   ShieldCheck,
@@ -11,6 +12,8 @@ import {
   GraduationCap,
   ServerCog,
   ScrollText,
+  Settings2,
+  Package,
 } from "lucide-react";
 
 const categories = [
@@ -69,6 +72,20 @@ const categories = [
     href: "/services/training-awareness",
     icon: GraduationCap,
     highlights: ["Awareness", "Phishing Drills", "Secure Coding"],
+  },
+  {
+    title: "Configuration Audits",
+    desc: "Comprehensive review of system configurations, security settings and hardening compliance.",
+    href: "/services/configuration-audits",
+    icon: Settings2,
+    highlights: ["Security Hardening", "Compliance Check", "Best Practices"],
+  },
+  {
+    title: "SBOM Management",
+    desc: "Software Bill of Materials tracking, vulnerability management and supply chain security.",
+    href: "/services/sbom-management",
+    icon: Package,
+    highlights: ["SBOM Generation", "Vulnerability Tracking", "Supply Chain"],
   },
 ];
 
@@ -142,7 +159,8 @@ export default function ServicesPage() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(34,211,238,0.16),transparent_45%),radial-gradient(circle_at_80%_30%,rgba(34,211,238,0.10),transparent_50%)]" />
         <Container>
           <div className="px-2 py-10 sm:py-14 md:py-20">
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 sm:px-4 py-2 text-xs sm:text-sm text-white/70">
+            <Breadcrumbs items={[{ label: "Services" }]} />
+            <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 sm:px-4 py-2 text-xs sm:text-sm text-white/70">
               Cybersecurity Services
             </p>
             <h1 className="mt-4 sm:mt-6 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-tight">

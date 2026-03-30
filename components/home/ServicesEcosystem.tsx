@@ -157,6 +157,7 @@ function ServiceGroups({
           "Security Solutions Implementation",
           "Security Patching Services",
           "Patch Management Services",
+          "Configuration Audits",
         ]}
       />
 
@@ -168,6 +169,7 @@ function ServiceGroups({
         services={[
           "Security Awareness Training",
           "Cybersecurity Staffing Services",
+          "SBOM Management",
         ]}
       />
     </div>

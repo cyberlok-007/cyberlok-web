@@ -6,6 +6,7 @@ import AnimatedContent from "@/components/AnimatedContent/AnimatedContent";
 import ClickSpark from "@/components/ClickSpark/ClickSpark";
 import { motion } from "framer-motion";
 import { ArrowRight, Shield, Bug, FileCheck2, Building2, Star } from "lucide-react";
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 18 },
@@ -180,7 +181,10 @@ export default function CaseStudiesPage() {
           <div className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(rgba(255,255,255,0.15)_1px,transparent_1px)] [background-size:32px_32px]" />
         </div>
         <Container>
-          <div className="px-2 py-12 sm:py-16 md:py-20">
+          <div className="px-2 py-8 sm:py-10">
+            <Breadcrumbs items={[{ label: "Case Studies" }]} className="mb-6" />
+          </div>
+          <div className="px-2 pb-12 sm:pb-16 md:pb-20">
             <motion.div initial="hidden" animate="show" className="mx-auto max-w-3xl text-center">
               <motion.div custom={0} variants={fadeUp}>
                 <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-2 text-sm text-cyan-300">

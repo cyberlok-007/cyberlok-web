@@ -23,6 +23,21 @@ import {
   Code,
   ShieldCheck,
   MailWarning,
+  Target,
+  ClipboardCheck,
+  CheckCircle2,
+  GraduationCap,
+  TrendingUp,
+  ShieldAlert,
+  Lock,
+  Mail,
+  Globe,
+  KeyRound,
+  Eye,
+  Database,
+  Server,
+  Fingerprint,
+  Monitor,
 } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
 import AnimatedContent from "@/components/AnimatedContent/AnimatedContent";
@@ -105,6 +120,48 @@ const fadeUp: Variants = {
       duration: 0.65,
       ease: [0.22, 1, 0.36, 1],
       delay: i * 0.08,
+    },
+  }),
+};
+
+/** Scale in animation */
+const scaleIn: Variants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  show: (i: number = 0) => ({
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1],
+      delay: i * 0.1,
+    },
+  }),
+};
+
+/** Slide in from left */
+const slideInLeft: Variants = {
+  hidden: { opacity: 0, x: -30 },
+  show: (i: number = 0) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
+      delay: i * 0.1,
+    },
+  }),
+};
+
+/** Slide in from right */
+const slideInRight: Variants = {
+  hidden: { opacity: 0, x: 30 },
+  show: (i: number = 0) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
+      delay: i * 0.1,
     },
   }),
 };
@@ -346,17 +403,36 @@ export default function HomePage() {
               className="mt-10 sm:mt-16 grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4"
             >
               {[
-                { label: "Security Assessments", to: 15, suffix: "+" },
-                { label: "Critical Findings Resolved", to: 116, suffix: "+" },
-                { label: "Professionals Trained", to: 80, suffix: "+" },
-                { label: "Average Risk Reduction", to: 72, suffix: "%" },
-              ].map((m) => (
-                <div
+                { label: "Security Assessments", to: 15, suffix: "+", icon: ClipboardCheck },
+                { label: "Critical Findings Resolved", to: 116, suffix: "+", icon: CheckCircle2 },
+                { label: "Professionals Trained", to: 80, suffix: "+", icon: GraduationCap },
+                { label: "Average Risk Reduction", to: 72, suffix: "%", icon: TrendingUp },
+              ].map((m, i) => (
+                <motion.div
                   key={m.label}
-                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6 transition hover:-translate-y-1 hover:bg-white/10"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6 transition hover:bg-white/10 cursor-pointer"
                 >
                   {/* glow */}
                   <div className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-cyan-400/15 blur-3xl opacity-0 transition group-hover:opacity-100" />
+                  
+                  {/* animated border */}
+                  <div className="absolute inset-0 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute inset-0 rounded-2xl sm:rounded-3xl border border-cyan-400/30" />
+                  </div>
+
+                  {/* icon */}
+                  <motion.div
+                    className="inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl bg-cyan-500/10 border border-cyan-400/20 mb-3"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <m.icon className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-400" />
+                  </motion.div>
 
                   {/* NUMBER */}
                   <div className="text-2xl sm:text-3xl font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 to-cyan-500">
@@ -370,7 +446,7 @@ export default function HomePage() {
 
                   {/* divider */}
                   <div className="mt-3 sm:mt-4 h-px w-full bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-                </div>
+                </motion.div>
               ))}
             </motion.div>
 
@@ -506,52 +582,63 @@ export default function HomePage() {
         delay={0.05}
       >
         <div className="mt-8 sm:mt-14 grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-5">
-          {audiences.map((a) => (
-            <ClickSpark
+          {audiences.map((a, i) => (
+            <motion.div
               key={a.title}
-              sparkColor="#22d3ee"
-              sparkSize={6}
-              sparkRadius={16}
-              sparkCount={7}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              whileHover={{ y: -8, scale: 1.02 }}
             >
-              <Link
-                href={a.href}
-                className="group relative flex h-full flex-col justify-between
-                  rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6
-                  transition
-                  hover:border-cyan-400/30 hover:bg-white/10"
+              <ClickSpark
+                sparkColor="#22d3ee"
+                sparkSize={6}
+                sparkRadius={16}
+                sparkCount={7}
               >
-                <div className="pointer-events-none absolute -top-24 -right-24
-                  h-56 w-56 rounded-full bg-cyan-400/15 blur-3xl
-                  opacity-0 transition group-hover:opacity-100"
-                />
+                <Link
+                  href={a.href}
+                  className="group relative flex h-full flex-col justify-between
+                    rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6
+                    transition
+                    hover:border-cyan-400/30 hover:bg-white/10"
+                >
+                  <div className="pointer-events-none absolute -top-24 -right-24
+                    h-56 w-56 rounded-full bg-cyan-400/15 blur-3xl
+                    opacity-0 transition group-hover:opacity-100"
+                  />
 
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center
-                      rounded-xl sm:rounded-2xl border border-cyan-400/25 bg-cyan-500/10">
-                      <a.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
-                    </span>
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <motion.span 
+                        className="inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center
+                          rounded-xl sm:rounded-2xl border border-cyan-400/25 bg-cyan-500/10"
+                        whileHover={{ rotate: 5, scale: 1.05 }}
+                      >
+                        <a.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
+                      </motion.span>
 
-                    <span className="rounded-full border border-white/10
-                      bg-black/40 px-2 sm:px-3 py-1 text-xs text-white/70">
-                      {a.tag}
-                    </span>
+                      <span className="rounded-full border border-white/10
+                        bg-black/40 px-2 sm:px-3 py-1 text-xs text-white/70">
+                        {a.tag}
+                      </span>
+                    </div>
+
+                    <p className="mt-4 sm:mt-6 text-base sm:text-lg font-semibold">{a.title}</p>
+                    <p className="mt-1 sm:mt-2 text-sm text-white/60 leading-relaxed">
+                      {a.desc}
+                    </p>
                   </div>
 
-                  <p className="mt-4 sm:mt-6 text-base sm:text-lg font-semibold">{a.title}</p>
-                  <p className="mt-1 sm:mt-2 text-sm text-white/60 leading-relaxed">
-                    {a.desc}
+                  <p className="mt-4 sm:mt-6 inline-flex items-center gap-1
+                    text-sm font-semibold text-cyan-300">
+                    View Packages
+                    <ChevronRight className="h-4 w-4 transition group-hover:translate-x-1" />
                   </p>
-                </div>
-
-                <p className="mt-4 sm:mt-6 inline-flex items-center gap-1
-                  text-sm font-semibold text-cyan-300">
-                  View Packages
-                  <ChevronRight className="h-4 w-4 transition group-hover:translate-x-1" />
-                </p>
-              </Link>
-            </ClickSpark>
+                </Link>
+              </ClickSpark>
+            </motion.div>
           ))}
         </div>
       </AnimatedContent>
@@ -585,6 +672,154 @@ export default function HomePage() {
 
 
       <ServicesEcosystem />
+
+      {/* SECURITY SOLUTIONS */}
+      <section className="relative border-b border-white/10 overflow-hidden">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-40 left-0 h-[500px] w-[500px] rounded-full bg-cyan-400/10 blur-3xl" />
+          <div className="absolute inset-0 opacity-[0.06] [background-image:radial-gradient(rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:36px_36px]" />
+        </div>
+        <Container>
+          <div className="py-12 sm:py-16 md:py-20">
+
+            {/* HEADER */}
+            <AnimatedContent
+              distance={80}
+              direction="vertical"
+              duration={0.7}
+              ease="power3.out"
+              initialOpacity={0}
+              animateOpacity
+            >
+              <div className="mb-8 sm:mb-12">
+                <p className="text-xs font-semibold tracking-widest text-cyan-300">
+                  SECURITY SOLUTIONS
+                </p>
+                <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight">
+                  Enterprise-Grade Security Products
+                </h2>
+                <p className="mt-3 sm:mt-4 max-w-3xl text-sm sm:text-base text-white/65 leading-relaxed">
+                  Comprehensive security solutions powered by industry-leading technology.
+                  Protect your organization with Cyberlok&apos;s enterprise security portfolio.
+                </p>
+              </div>
+            </AnimatedContent>
+
+            {/* SOLUTIONS GRID */}
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  icon: Monitor,
+                  title: "Endpoint Detection & Response (EDR)",
+                  desc: "Advanced endpoint protection with real-time threat detection, investigation, and automated response capabilities.",
+                  features: ["Real-time monitoring", "Threat hunting", "Automated containment", "Forensic analysis"],
+                },
+                {
+                  icon: Database,
+                  title: "Data Loss Prevention (DLP)",
+                  desc: "Protect sensitive data across endpoints, networks, and cloud with intelligent data classification and policy enforcement.",
+                  features: ["Data classification", "Policy enforcement", "Endpoint protection", "Cloud DLP"],
+                },
+                {
+                  icon: Mail,
+                  title: "Email Security",
+                  desc: "Comprehensive email protection against phishing, malware, BEC, and zero-day attacks with AI-powered detection.",
+                  features: ["Anti-phishing", "BEC protection", "Malware detection", "Email archiving"],
+                },
+                {
+                  icon: Globe,
+                  title: "Web Application Firewall (WAF)",
+                  desc: "Protect your web applications from OWASP Top 10 threats, DDoS attacks, and application-layer vulnerabilities.",
+                  features: ["OWASP protection", "DDoS mitigation", "API security", "Bot management"],
+                },
+                {
+                  icon: Fingerprint,
+                  title: "Zero Trust Architecture",
+                  desc: "Implement zero trust security model with continuous verification, least privilege access, and micro-segmentation.",
+                  features: ["Identity verification", "Micro-segmentation", "Least privilege", "Continuous monitoring"],
+                },
+                {
+                  icon: Server,
+                  title: "SIEM/SOAR",
+                  desc: "Unified security monitoring with intelligent correlation, automated playbook execution, and compliance reporting.",
+                  features: ["Log aggregation", "Threat correlation", "Automated response", "Compliance reports"],
+                },
+                {
+                  icon: KeyRound,
+                  title: "SSO & Identity Management",
+                  desc: "Enterprise single sign-on with seamless access to all applications while maintaining strong security controls.",
+                  features: ["Single sign-on", "MFA integration", "Directory services", "Access governance"],
+                },
+                {
+                  icon: Lock,
+                  title: "Privileged Access Management (PAM)",
+                  desc: "Secure and monitor privileged accounts with credential vaulting, session recording, and just-in-time access.",
+                  features: ["Credential vaulting", "Session recording", "Just-in-time access", "Password rotation"],
+                },
+                {
+                  icon: ShieldCheck,
+                  title: "Enterprise Password Manager",
+                  desc: "Secure password management for teams with shared vaults, breach monitoring, and secure password sharing.",
+                  features: ["Password vault", "Breach monitoring", "Team sharing", "API access"],
+                },
+              ].map((solution, i) => (
+                <motion.div
+                  key={solution.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  whileHover={{ y: -6 }}
+                  className="group relative rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-6 transition hover:border-cyan-400/30 hover:bg-white/[0.08]"
+                >
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-500/10 border border-cyan-400/20">
+                    <solution.icon className="h-7 w-7 text-cyan-300" />
+                  </div>
+
+                  <h3 className="mt-4 text-lg font-semibold">{solution.title}</h3>
+                  <p className="mt-2 text-sm text-white/60 leading-relaxed">{solution.desc}</p>
+
+                  <ul className="mt-4 space-y-1.5">
+                    {solution.features.map((feature) => (
+                      <li key={feature} className="flex items-center gap-2 text-xs text-white/70">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-cyan-400 shrink-0" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link
+                    href="/contact"
+                    className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-cyan-300 hover:text-cyan-200 transition"
+                  >
+                    Learn More <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="mt-10 sm:mt-14 text-center"
+            >
+              <p className="text-sm text-white/60">
+                Need a custom security solution? We integrate with your existing tools.
+              </p>
+              <Link
+                href="/contact"
+                className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition"
+              >
+                Talk to Our Security Team <ArrowRight className="h-4 w-4" />
+              </Link>
+            </motion.div>
+
+          </div>
+        </Container>
+      </section>
 
       {/* CAPABILITIES - interactive */}
       <section className="border-b border-white/10">
@@ -642,19 +877,25 @@ export default function HomePage() {
                 sparkCount={6}
                 duration={350}
               >
-                <button
+                <motion.button
                   onClick={() => setActiveCap(idx)}
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
                   className={cn(
                     "relative w-full text-left rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-5 transition",
                     activeCap === idx
                       ? "bg-cyan-500/10 border-cyan-400/25 shadow-[0_0_0_1px_rgba(34,211,238,0.25)]"
-                      : "hover:bg-white/10"
+                      : "hover:bg-white/10 hover:border-cyan-400/20"
                   )}
                 >
                   <div className="flex items-start gap-3 sm:gap-4">
-                    <span className="inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl sm:rounded-2xl border border-cyan-400/20 bg-cyan-500/10">
+                    <motion.span 
+                      className="inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl sm:rounded-2xl border border-cyan-400/20 bg-cyan-500/10"
+                      animate={activeCap === idx ? { rotate: [0, -5, 5, 0] } : {}}
+                      transition={{ duration: 0.5 }}
+                    >
                       <cap.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
-                    </span>
+                    </motion.span>
 
                     <div>
                       <p className="text-base sm:text-lg font-semibold">
@@ -665,7 +906,16 @@ export default function HomePage() {
                       </p>
                     </div>
                   </div>
-                </button>
+                  
+                  {/* active indicator */}
+                  <motion.div
+                    className="absolute right-4 top-1/2 -translate-y-1/2"
+                    animate={{ opacity: activeCap === idx ? 1 : 0, x: activeCap === idx ? 0 : 10 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ChevronRight className="h-4 w-4 text-cyan-400" />
+                  </motion.div>
+                </motion.button>
               </ClickSpark>
             ))}
           </div>
@@ -776,31 +1026,49 @@ export default function HomePage() {
               {[
                 {
                   title: "Outcome-Driven Security",
+                  icon: Target,
                   desc: "We prioritize tangible risk reduction over checkbox compliance. Every engagement is built around clear objectives, measurable impact, and sustained improvement—not static reports.",
                 },
                 {
                   title: "Technical Depth with Business Context",
+                  icon: Cpu,
                   desc: "Our teams combine hands-on security expertise with a deep understanding of operations, compliance, and leadership priorities—bridging the gap between security and business.",
                 },
                 {
                   title: "Built for Scale and Maturity",
+                  icon: Rocket,
                   desc: "From establishing your first security baseline to operating at enterprise scale, our approach adapts to your organization's size, complexity, and risk profile.",
                 },
                 {
                   title: "Beyond One-Time Assessments",
+                  icon: ShieldCheck,
                   desc: "Cyberlok stays engaged beyond discovery—supporting remediation, continuous monitoring, and long-term posture improvement as threats evolve.",
                 },
               ].map((d, idx) => (
                 <motion.div
                   key={d.title}
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.25 }}
-                  transition={{ duration: 0.45, delay: idx * 0.06 }}
-                  className="group relative rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-7 transition hover:-translate-y-1 hover:bg-white/10"
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  transition={{ duration: 0.4, delay: idx * 0.08 }}
+                  className="group relative rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-7 transition hover:bg-white/10"
                 >
                   {/* glow */}
                   <div className="pointer-events-none absolute -top-24 -right-24 h-48 w-48 rounded-full bg-cyan-400/15 blur-3xl opacity-0 transition group-hover:opacity-100" />
+                  
+                  {/* animated border */}
+                  <div className="absolute inset-0 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute inset-0 rounded-2xl sm:rounded-3xl border border-cyan-400/20" />
+                  </div>
+
+                  <motion.div
+                    className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-500/10 border border-cyan-400/20 mb-4"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <d.icon className="h-6 w-6 text-cyan-300" />
+                  </motion.div>
 
                   <p className="text-base sm:text-lg font-semibold">
                     {d.title}
@@ -816,9 +1084,28 @@ export default function HomePage() {
             </div>
 
             {/* CTA */}
-            <div className="mt-8 sm:mt-16 rounded-2xl sm:rounded-3xl border border-cyan-400/15 bg-gradient-to-br from-cyan-500/10 via-white/5 to-transparent p-6 sm:p-10">
-              <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                <div className="max-w-xl">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="mt-8 sm:mt-16 rounded-2xl sm:rounded-3xl border border-cyan-400/15 bg-gradient-to-br from-cyan-500/10 via-white/5 to-transparent p-6 sm:p-10 relative overflow-hidden"
+            >
+              {/* animated glow */}
+              <motion.div
+                className="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-cyan-400/10 blur-3xl"
+                animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+                transition={{ duration: 4, repeat: Infinity }}
+              />
+              
+              <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="max-w-xl"
+                >
                   <p className="text-xs sm:text-sm font-semibold text-cyan-300 tracking-widest">
                     READY TO MOVE FORWARD?
                   </p>
@@ -829,17 +1116,31 @@ export default function HomePage() {
                     We&apos;ll assess your exposure, prioritize what matters most, and
                     define a clear, actionable plan to strengthen your security posture.
                   </p>
-                </div>
+                </motion.div>
 
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center rounded-full bg-cyan-500 px-6 sm:px-8 py-3 font-semibold text-black transition hover:bg-cyan-400 w-full sm:w-auto mt-4 md:mt-0"
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                  Request Assessment
-                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                </Link>
+                  <ClickSpark sparkColor="#22d3ee" sparkSize={8} sparkRadius={20} sparkCount={10}>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Link
+                        href="/contact"
+                        className="relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 px-6 sm:px-8 py-3 font-semibold text-black shadow-[0_0_30px_rgba(34,211,238,0.3)] hover:shadow-[0_0_40px_rgba(34,211,238,0.5)] transition-all w-full sm:w-auto mt-4 md:mt-0"
+                      >
+                        <span className="absolute inset-0 rounded-full bg-white/20 opacity-0 hover:opacity-100 blur-lg transition-opacity" />
+                        <span className="relative flex items-center gap-2">
+                          Request Assessment
+                          <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
+                        </span>
+                      </Link>
+                    </motion.div>
+                  </ClickSpark>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </Container>
       </section>
