@@ -181,7 +181,7 @@ export default function PhishingSimulationPage() {
               transition={{ duration: 0.5 }}
               className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 sm:px-4 py-2 text-xs sm:text-sm text-white/70"
             >
-              <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-300" />
+              <Mail className="h-3 w-3 sm:h-4 sm:w-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
               Pinpoint - Phishing Simulation
             </motion.p>
 
@@ -192,7 +192,7 @@ export default function PhishingSimulationPage() {
               className="mt-4 sm:mt-6 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-tight"
             >
               Test Your{" "}
-              <span className="text-cyan-300">Human Firewall</span>
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Human Firewall</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -212,7 +212,7 @@ export default function PhishingSimulationPage() {
             >
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 sm:px-6 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-5 sm:px-6 py-3 text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30 transition"
               >
                 Start Campaign <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
               </Link>
@@ -240,7 +240,7 @@ export default function PhishingSimulationPage() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="text-center"
               >
-                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-300">{stat.value}</p>
+                <p className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">{stat.value}</p>
                 <p className="mt-1 text-xs sm:text-sm text-white/60">{stat.label}</p>
               </motion.div>
             ))}
@@ -288,22 +288,22 @@ export default function PhishingSimulationPage() {
                         transition={{ duration: 0.3, delay: i * 0.1 + 0.2, type: "spring" }}
                         className="flex h-14 w-14 items-center justify-center rounded-full border border-cyan-400/30 bg-black shadow-[0_0_20px_rgba(34,211,238,0.3)]"
                       >
-                        <phase.icon className="h-6 w-6 text-cyan-300" />
+                        <phase.icon className="h-6 w-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                       </motion.div>
                     </div>
 
                     <div className="md:ml-20 rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6 hover:bg-white/[0.08] transition hover:border-cyan-400/20">
                       <div className="flex items-start gap-4">
                         <span className="flex md:hidden h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-cyan-400/20 bg-cyan-500/10">
-                          <phase.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
+                          <phase.icon className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                         </span>
                         
                         <div className="flex-1">
                           <div className="flex items-center gap-2">
-                            <span className="hidden md:inline-flex items-center justify-center w-6 h-6 rounded-full bg-cyan-500/20 text-xs font-bold text-cyan-300">
+                            <span className="hidden md:inline-flex items-center justify-center w-6 h-6 rounded-full bg-cyan-500/20 text-xs font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                               {i + 1}
                             </span>
-                            <span className="md:hidden text-xs font-semibold text-cyan-400">0{i + 1}</span>
+                            <span className="md:hidden text-xs font-semibold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">0{i + 1}</span>
                             <h3 className="text-base sm:text-lg font-semibold">{phase.title}</h3>
                           </div>
                           
@@ -314,7 +314,7 @@ export default function PhishingSimulationPage() {
                           <ul className="mt-3 space-y-1.5">
                             {phase.activities.map((activity) => (
                               <li key={activity} className="flex items-start gap-2 text-xs sm:text-sm text-white/70">
-                                <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-400 mt-0.5 shrink-0" />
+                                <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mt-0.5 shrink-0" />
                                 {activity}
                               </li>
                             ))}
@@ -357,7 +357,7 @@ export default function PhishingSimulationPage() {
                       transition={{ duration: 0.3, delay: i * 0.1 }}
                       className="flex items-center gap-4 rounded-xl bg-white/5 p-4"
                     >
-                      <Mail className="h-5 w-5 text-cyan-400 shrink-0" />
+                      <Mail className="h-5 w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent shrink-0" />
                       <div>
                         <p className="font-semibold text-sm">{vector.name}</p>
                         <p className="text-xs text-white/60">{vector.desc}</p>
@@ -389,7 +389,7 @@ export default function PhishingSimulationPage() {
                       transition={{ duration: 0.3, delay: i * 0.1 }}
                       className="flex items-center gap-4 rounded-xl bg-white/5 p-4"
                     >
-                      <Target className="h-5 w-5 text-cyan-400 shrink-0" />
+                      <Target className="h-5 w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent shrink-0" />
                       <div>
                         <p className="font-semibold text-sm">{template.name}</p>
                         <p className="text-xs text-white/60">{template.desc}</p>
@@ -432,7 +432,7 @@ export default function PhishingSimulationPage() {
                   transition={{ duration: 0.3, delay: i * 0.05 }}
                   className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4"
                 >
-                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-400 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mt-0.5 shrink-0" />
                   <span className="text-xs sm:text-sm text-white/70">{d}</span>
                 </motion.div>
               ))}
@@ -496,7 +496,7 @@ export default function PhishingSimulationPage() {
                 </div>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 sm:px-7 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition w-full sm:w-auto mt-4 md:mt-0"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-5 sm:px-7 py-3 text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30 transition w-full sm:w-auto mt-4 md:mt-0"
                 >
                   Get a Quote <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Link>

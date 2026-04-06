@@ -54,7 +54,7 @@ const contactChannels = [
     value: "+91 8261918705",
     description: "Mon-Sat 9AM-8PM IST",
     href: "tel:+91 8261918705",
-    color: "cyan",
+    color: "from-blue-500 to-indigo-500",
   },
   {
     icon: Mail,
@@ -62,7 +62,7 @@ const contactChannels = [
     value: "cyberlok127.0.0.1@gmail.com",
     description: "Response within 24 hours",
     href: "mailto:cyberlok127.0.0.1@gmail.com",
-    color: "cyan",
+    color: "from-purple-500 to-pink-500",
   },
   {
     icon: MessageSquare,
@@ -70,7 +70,7 @@ const contactChannels = [
     value: "+91 8261918705",
     description: "Quick responses on WhatsApp",
     href: "https://wa.me/8261918705",
-    color: "cyan",
+    color: "from-green-500 to-emerald-500",
   },
 ];
 
@@ -219,20 +219,24 @@ function ContactChannels() {
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {contactChannels.map((channel, i) => (
         <AnimatedContent key={channel.title} distance={20} direction="vertical" duration={0.6} delay={i * 0.1}>
-          <ClickSpark sparkColor="#22d3ee" sparkSize={5} sparkRadius={12} sparkCount={5}>
-            <Card className="group relative overflow-hidden border-white/10 bg-white/5 transition-all hover:border-cyan-400/30 hover:bg-white/10">
-              <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-cyan-400/10 blur-3xl opacity-0 transition-opacity group-hover:opacity-100" />
+          <ClickSpark sparkColor="#3b82f6" sparkSize={5} sparkRadius={12} sparkCount={5}>
+            <Card className="group relative overflow-hidden border-white/10 bg-white/5 transition-all hover:border-blue-400/30 hover:bg-white/10">
+              <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent blur-3xl opacity-0 transition-opacity group-hover:opacity-100" />
               <CardHeader>
-                <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl border border-cyan-400/25 bg-cyan-500/10">
-                  <channel.icon className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-300" />
-                </div>
-                <CardTitle className="mt-3 sm:mt-4 text-base sm:text-lg text-white">{channel.title}</CardTitle>
+                <motion.div 
+                  whileHover={{ rotate: 360, scale: 1.1 }}
+                  transition={{ duration: 0.6 }}
+                  className={`inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${channel.color} shadow-lg`}
+                >
+                  <channel.icon className="h-6 w-6 text-white" />
+                </motion.div>
+                <CardTitle className="mt-4 text-base sm:text-lg text-white">{channel.title}</CardTitle>
                 <CardDescription className="text-sm sm:text-base text-white/60">{channel.description}</CardDescription>
               </CardHeader>
               <CardContent>
                 <Link
                   href={channel.href}
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 transition-colors hover:text-cyan-200"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 transition-colors hover:text-blue-300"
                 >
                   {channel.value}
                   <ArrowRight className="h-4 w-4" />
@@ -282,9 +286,10 @@ function ContactForm() {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.2, type: "spring" }}
-          className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-500/20"
+          whileHover={{ rotate: 360, scale: 1.1 }}
+          className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-emerald-500 shadow-lg"
         >
-          <CheckCircle2 className="h-10 w-10 text-green-400" />
+          <CheckCircle2 className="h-10 w-10 text-white" />
         </motion.div>
         <h3 className="text-2xl font-semibold text-white">Message Sent Successfully</h3>
         <p className="mt-3 max-w-md text-white/70">
@@ -293,7 +298,7 @@ function ContactForm() {
         <Button
           onClick={() => setIsSubmitted(false)}
           variant="outline"
-          className="mt-6 border-cyan-400/30 text-cyan-300 hover:bg-cyan-500/10"
+          className="mt-6 border-blue-400/30 text-blue-400 hover:bg-blue-500/10"
         >
           Send Another Message
         </Button>
@@ -453,7 +458,7 @@ function FAQAccordion() {
             >
               <span className="pr-4 font-medium text-white">{faq.question}</span>
               <ChevronDown
-                className={`h-5 w-5 text-cyan-400 transition-transform duration-300 ${
+                className={`h-5 w-5 text-blue-400 transition-transform duration-300 ${
                   openIndex === i ? "rotate-180" : ""
                 }`}
               />
@@ -486,6 +491,7 @@ function OfficeLocations() {
       email: "mumbai@cyberlok.in",
       type: "remote",
       note: "Our Mumbai team operates remotely, serving clients across the metropolitan region.",
+      color: "from-purple-500 to-pink-500",
     },
     {
       city: "Virar",
@@ -495,6 +501,7 @@ function OfficeLocations() {
       email: "virar@cyberlok.in",
       type: "hq",
       note: "Our headquarters and core operations center.",
+      color: "from-blue-500 to-indigo-500",
     },
     {
       city: "Pune",
@@ -502,6 +509,7 @@ function OfficeLocations() {
       email: "pune@cyberlok.in",
       type: "remote",
       note: "Remote team supporting clients across the Pune & Maharashtra region.",
+      color: "from-green-500 to-emerald-500",
     },
   ];
 
@@ -512,29 +520,29 @@ function OfficeLocations() {
           <Card
             className={`group relative overflow-hidden transition-all ${
               office.type === "hq"
-                ? "border-cyan-400/40 bg-black/40"
+                ? "border-blue-400/40 bg-black/40"
                 : "border-white/10 bg-black/40"
             }`}
           >
             <div
               className={`absolute -top-20 -right-20 h-40 w-40 rounded-full blur-3xl transition-opacity ${
-                office.type === "hq" ? "bg-cyan-400/20" : "bg-cyan-400/10"
+                office.type === "hq" ? "bg-blue-400/20" : "bg-blue-400/10"
               } opacity-0 transition-opacity group-hover:opacity-100`}
             />
             <CardHeader>
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div
-                    className={`flex h-10 w-10 items-center justify-center rounded-xl ${
-                      office.type === "hq" ? "bg-cyan-500/20 border border-cyan-400/30" : "bg-cyan-500/10 border border-cyan-400/20"
-                    }`}
+                <div className="flex items-center gap-3">
+                  <motion.div 
+                    whileHover={{ rotate: 360, scale: 1.1 }}
+                    transition={{ duration: 0.6 }}
+                    className={`inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${office.color} shadow-lg`}
                   >
-                    <MapPin className={`h-5 w-5 ${office.type === "hq" ? "text-cyan-300" : "text-cyan-400/70"}`} />
-                  </div>
+                    <MapPin className="h-5 w-5 text-white" />
+                  </motion.div>
                   <CardTitle className="text-lg text-white">{office.city}</CardTitle>
                 </div>
                 {office.type === "hq" ? (
-                  <Badge className="bg-cyan-500/20 text-cyan-300 border-cyan-400/30 text-xs">
+                  <Badge className="bg-blue-500/20 text-blue-400 border-blue-400/30 text-xs">
                     Headquarters
                   </Badge>
                 ) : (
@@ -550,7 +558,7 @@ function OfficeLocations() {
               {office.type !== "hq" && <p className="text-sm text-white/60 italic">{office.note}</p>}
               <div className="pt-2">
                 <p className="text-xs text-white/40">{office.phone}</p>
-                <p className={`text-xs ${office.type === "hq" ? "text-cyan-400/80" : "text-cyan-400/60"}`}>
+                <p className={`text-xs ${office.type === "hq" ? "text-blue-400/80" : "text-blue-400/60"}`}>
                   {office.email}
                 </p>
               </div>
@@ -564,24 +572,39 @@ function OfficeLocations() {
 
 function ResponseTime() {
   const metrics = [
-    { label: "Initial Response", value: "< 1 hour", description: "For all inquiries" },
-    { label: "Security Assessment", value: "24-48 hrs", description: "Quote delivery" },
-    { label: "Incident Response", value: "15 min", description: "SOC triage time" },
-    { label: "Emergency Support", value: "24/7", description: "Always available" },
+    { label: "Initial Response", value: "< 1 hour", description: "For all inquiries", icon: Clock, color: "from-blue-500 to-indigo-500" },
+    { label: "Security Assessment", value: "24-48 hrs", description: "Quote delivery", icon: Shield, color: "from-purple-500 to-pink-500" },
+    { label: "Incident Response", value: "15 min", description: "SOC triage time", icon: AlertTriangle, color: "from-orange-500 to-red-500" },
+    { label: "Emergency Support", value: "24/7", description: "Always available", icon: Phone, color: "from-green-500 to-emerald-500" },
   ];
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 sm:grid-cols-2">
       {metrics.map((metric, i) => (
-        <AnimatedContent key={metric.label} distance={15} direction="vertical" duration={0.5} delay={i * 0.1}>
-          <div className="flex h-[150px] flex-col items-center justify-center rounded-xl border border-white/10 bg-black/40 p-4 text-center transition-all hover:border-cyan-400/30 hover:bg-white/5">
-            <p className={`font-bold text-cyan-300 ${metric.value === "24/7" ? "text-xl" : "text-2xl"}`}>
+        <motion.div
+          key={metric.label}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: i * 0.1 }}
+          whileHover={{ y: -4, scale: 1.02 }}
+          className="group relative flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:border-blue-400/30"
+        >
+          <motion.div 
+            whileHover={{ rotate: 360, scale: 1.1 }}
+            transition={{ duration: 0.6 }}
+            className={`inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${metric.color} shadow-lg`}
+          >
+            <metric.icon className="h-6 w-6 text-white" />
+          </motion.div>
+          <div className="flex-1 text-left">
+            <p className={`font-bold text-blue-400 ${metric.value === "24/7" ? "text-xl" : "text-2xl"}`}>
               {metric.value}
             </p>
-            <p className="mt-2 text-sm font-medium text-white">{metric.label}</p>
-            <p className="mt-1 text-xs text-white/50">{metric.description}</p>
+            <p className="text-sm font-medium text-white">{metric.label}</p>
+            <p className="text-xs text-white/50">{metric.description}</p>
           </div>
-        </AnimatedContent>
+        </motion.div>
       ))}
     </div>
   );
@@ -594,9 +617,8 @@ export default function ContactPage() {
 
       <section className="relative overflow-hidden border-b border-white/10 py-12 sm:py-16 md:py-20">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-40 left-1/4 h-[500px] w-[500px] rounded-full bg-cyan-400/10 blur-3xl" />
-          <div className="absolute -bottom-40 right-1/4 h-[400px] w-[400px] rounded-full bg-cyan-400/5 blur-3xl" />
-          <div className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(rgba(255,255,255,0.15)_1px,transparent_1px)] [background-size:32px_32px]" />
+          <div className="absolute -top-40 right-1/4 h-[700px] w-[700px] rounded-full bg-gradient-to-br from-cyan-400/20 via-blue-500/10 to-transparent blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-3xl" />
         </div>
 
         <Container>
@@ -605,7 +627,7 @@ export default function ContactPage() {
             
             <motion.div initial="hidden" animate="show" className="mx-auto max-w-3xl text-center px-2">
               <motion.div custom={0} variants={fadeUp}>
-                <Badge variant="outline" className="border-cyan-400/30 text-cyan-300">
+                <Badge variant="outline" className="border-cyan-400/30 text-blue-400">
                   <Shield className="mr-1 h-3 w-3" />
                   Get in Touch
                 </Badge>
@@ -631,7 +653,7 @@ export default function ContactPage() {
       <section className="border-b border-white/10 py-12 sm:py-16">
         <Container>
           <AnimatedContent distance={30} direction="vertical" duration={0.7}>
-            <h2 className="mb-2 text-xs font-semibold tracking-widest text-cyan-300">CONTACT CHANNELS</h2>
+            <h2 className="mb-2 text-xs font-semibold tracking-widest text-blue-400">CONTACT CHANNELS</h2>
             <h3 className="text-xl sm:text-2xl font-semibold text-white">Multiple Ways to Reach Us</h3>
             <p className="mt-3 max-w-2xl text-sm sm:text-base text-white/60">
               Choose the contact method that works best for you. Our team is available during business
@@ -644,12 +666,12 @@ export default function ContactPage() {
         </Container>
       </section>
 
-      <section className="border-b border-white/10 py-12 sm:py-16">
+      <section id="send-message" className="border-b border-white/10 py-12 sm:py-16">
         <Container>
           <div className="grid gap-8 lg:gap-12 lg:grid-cols-2">
             <div>
               <AnimatedContent distance={30} direction="vertical" duration={0.7}>
-                <h2 className="mb-2 text-xs font-semibold tracking-widest text-cyan-300">SEND A MESSAGE</h2>
+                <h2 className="mb-2 text-xs font-semibold tracking-widest text-blue-400">SEND A MESSAGE</h2>
                 <h3 className="text-xl sm:text-2xl font-semibold text-white">Tell Us About Your Needs</h3>
                 <p className="mt-3 text-sm sm:text-base text-white/60">
                   Fill out the form and our security consultants will get back to you within 24 hours
@@ -663,37 +685,57 @@ export default function ContactPage() {
 
             <div className="space-y-6 sm:space-y-8">
               <AnimatedContent distance={30} direction="vertical" duration={0.7}>
-                <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-cyan-500/10 via-white/5 to-transparent p-5 sm:p-8">
-                  <h3 className="text-lg sm:text-xl font-semibold text-white">Why Choose Cyberlok?</h3>
-                  <div className="mt-4 sm:mt-6 space-y-3 sm:space-y-4">
-                    {[
-                      { title: "Industry Experts", desc: "Team members with decades of experience in offensive and defensive security" },
-                      { title: "Tailored Solutions", desc: "Security programs designed around your specific risks and requirements" },
-                      { title: "Proven Results", desc: "We've helped organizations reduce risk by an average of 72%" },
-                      { title: "Continuous Support", desc: "We're with you from assessment through implementation and beyond" },
-                    ].map((item, i) => (
-                      <div key={i} className="flex gap-3 sm:gap-4">
-                        <div className="flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-lg border border-cyan-400/25 bg-cyan-500/10">
-                          <CheckCircle2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-cyan-400" />
+                <Card className="group relative overflow-hidden border-white/10 bg-gradient-to-br from-white/5 to-transparent transition-all hover:border-blue-400/30">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                  <CardHeader>
+                    <CardTitle className="text-lg sm:text-xl font-semibold text-white">Why Choose Cyberlok?</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {[
+                        { title: "Industry Experts", desc: "Team members with decades of experience in offensive and defensive security", color: "from-blue-500 to-indigo-500" },
+                        { title: "Tailored Solutions", desc: "Security programs designed around your specific risks and requirements", color: "from-purple-500 to-pink-500" },
+                        { title: "Proven Results", desc: "We've helped organizations reduce risk by an average of 72%", color: "from-green-500 to-emerald-500" },
+                        { title: "Continuous Support", desc: "We're with you from assessment through implementation and beyond", color: "from-orange-500 to-red-500" },
+                      ].map((item, i) => (
+                        <div key={i} className="flex items-start gap-4">
+                          <motion.div 
+                            whileHover={{ rotate: 360, scale: 1.1 }}
+                            transition={{ duration: 0.6 }}
+                            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${item.color} shadow-lg`}
+                          >
+                            <CheckCircle2 className="h-5 w-5 text-white" />
+                          </motion.div>
+                          <div className="flex-1">
+                            <p className="text-base font-medium text-white">{item.title}</p>
+                            <p className="mt-1 text-sm text-white/60">{item.desc}</p>
+                          </div>
                         </div>
-                        <div>
-                          <p className="text-sm sm:text-base font-medium text-white">{item.title}</p>
-                          <p className="mt-0.5 text-xs sm:text-sm text-white/60">{item.desc}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
               </AnimatedContent>
 
               <AnimatedContent distance={30} direction="vertical" duration={0.7} delay={0.1}>
-                <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-8">
-                  <div className="flex items-center gap-2 mb-3 sm:mb-4">
-                    <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-400" />
-                    <h3 className="text-base sm:text-lg font-semibold text-white">Response Times</h3>
-                  </div>
-                  <ResponseTime />
-                </div>
+                <Card className="group relative overflow-hidden border-white/10 bg-gradient-to-br from-white/5 to-transparent transition-all hover:border-blue-400/30">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                  <CardHeader>
+                    <div className="flex items-center gap-3">
+                      <motion.div 
+                        whileHover={{ rotate: 360, scale: 1.1 }}
+                        transition={{ duration: 0.6 }}
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 shadow-lg"
+                      >
+                        <Clock className="h-5 w-5 text-white" />
+                      </motion.div>
+                      <CardTitle className="text-lg sm:text-xl font-semibold text-white">Response Times</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <ResponseTime />
+                  </CardContent>
+                </Card>
               </AnimatedContent>
             </div>
           </div>
@@ -703,7 +745,7 @@ export default function ContactPage() {
       <section className="border-b border-white/10 py-12 sm:py-16">
         <Container>
           <AnimatedContent distance={30} direction="vertical" duration={0.7}>
-            <h2 className="mb-2 text-xs font-semibold tracking-widest text-cyan-300">INDIA PRESENCE</h2>
+            <h2 className="mb-2 text-xs font-semibold tracking-widest text-blue-400">INDIA PRESENCE</h2>
             <h3 className="text-xl sm:text-2xl font-semibold text-white">Our Offices</h3>
             <p className="mt-3 max-w-2xl text-sm sm:text-base text-white/60">
               With offices across Mumbai, Virar, and Pune, we provide comprehensive cybersecurity
@@ -720,7 +762,7 @@ export default function ContactPage() {
         <Container>
           <div className="mx-auto max-w-3xl px-2">
             <AnimatedContent distance={30} direction="vertical" duration={0.7}>
-              <h2 className="mb-2 text-center text-xs font-semibold tracking-widest text-cyan-300">
+              <h2 className="mb-2 text-center text-xs font-semibold tracking-widest text-blue-400">
                 COMMON QUESTIONS
               </h2>
               <h3 className="text-center text-xl sm:text-2xl font-semibold text-white">Frequently Asked Questions</h3>
@@ -737,7 +779,8 @@ export default function ContactPage() {
 
       <section className="relative overflow-hidden py-12 sm:py-16 md:py-20">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
+          <div className="absolute -top-40 right-1/4 h-[700px] w-[700px] rounded-full bg-gradient-to-br from-cyan-400/20 via-blue-500/10 to-transparent blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-3xl" />
         </div>
 
         <Container>
@@ -754,17 +797,17 @@ export default function ContactPage() {
                 today.
               </p>
               <div className="mt-6 sm:mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-                <ClickSpark sparkColor="#22d3ee" sparkSize={6} sparkRadius={14} sparkCount={6}>
+                <ClickSpark sparkColor="#3b82f6" sparkSize={6} sparkRadius={14} sparkCount={6}>
                   <Link
                     href="/contact#"
-                    className="group relative inline-flex items-center gap-2 rounded-full bg-cyan-500 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-black transition-all hover:bg-cyan-400 w-full sm:w-auto justify-center"
+                    className="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-black transition-all hover:shadow-lg hover:shadow-cyan-500/30 w-full sm:w-auto justify-center"
                   >
                     <span className="absolute inset-0 rounded-full bg-white/20 opacity-0 blur-lg transition group-hover:opacity-100" />
                     <span className="relative">Request Security Assessment</span>
                     <ArrowRight className="relative h-4 w-4 sm:h-5 sm:w-5 transition group-hover:translate-x-1" />
                   </Link>
                 </ClickSpark>
-                <ClickSpark sparkColor="#22d3ee" sparkSize={5} sparkRadius={12} sparkCount={5}>
+                <ClickSpark sparkColor="#3b82f6" sparkSize={5} sparkRadius={12} sparkCount={5}>
                   <Link
                     href="/services"
                     className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white transition-all hover:bg-white/10 w-full sm:w-auto"

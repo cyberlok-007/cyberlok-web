@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
+import ScrollToTop from '@/components/ScrollToTop/ScrollToTop'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -45,6 +46,7 @@ export default function RootLayout({
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <ScrollToTop />
       </body>
     </html>
   );

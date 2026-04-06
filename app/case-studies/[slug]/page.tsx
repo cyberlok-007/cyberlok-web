@@ -192,7 +192,7 @@ export default function CaseStudyDetailPage() {
           <p className="mt-4 text-white/60">The case study you&apos;re looking for doesn&apos;t exist.</p>
           <Link
             href="/case-studies"
-            className="mt-6 inline-flex items-center gap-2 text-cyan-300 hover:text-cyan-200"
+            className="mt-6 inline-flex items-center gap-2 text-blue-400 hover:text-cyan-200"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Case Studies
@@ -207,8 +207,8 @@ export default function CaseStudyDetailPage() {
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-40 left-1/4 h-[500px] w-[500px] rounded-full bg-cyan-400/10 blur-3xl" />
-          <div className="absolute -bottom-40 right-1/4 h-[400px] w-[400px] rounded-full bg-cyan-400/5 blur-3xl" />
+          <div className="absolute -top-40 right-1/4 h-[700px] w-[700px] rounded-full bg-gradient-to-br from-cyan-400/20 via-blue-500/10 to-transparent blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-3xl" />
         </div>
         <Container>
           <div className="px-2 py-6 sm:py-8">
@@ -219,7 +219,7 @@ export default function CaseStudyDetailPage() {
               <motion.div custom={0} variants={fadeUp}>
                 <Link
                   href="/case-studies"
-                  className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-cyan-300 transition-colors mb-6"
+                  className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-blue-400 transition-colors mb-6"
                 >
                   <ArrowLeft className="h-4 w-4" />
                   All Case Studies
@@ -228,10 +228,10 @@ export default function CaseStudyDetailPage() {
 
               <motion.div custom={1} variants={fadeUp} className="flex items-center gap-3 mb-4">
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-cyan-400/25 bg-cyan-500/10">
-                  <caseStudy.industryIcon className="h-6 w-6 text-cyan-300" />
+                  <caseStudy.industryIcon className="h-6 w-6 text-blue-400" />
                 </span>
                 <div>
-                  <p className="text-sm text-cyan-300/80">{caseStudy.industry}</p>
+                  <p className="text-sm text-blue-400/80">{caseStudy.industry}</p>
                   <p className="text-xl sm:text-2xl font-semibold text-white">{caseStudy.client}</p>
                 </div>
               </motion.div>
@@ -248,7 +248,7 @@ export default function CaseStudyDetailPage() {
                 {caseStudy.services.map((service) => (
                   <span
                     key={service}
-                    className="rounded-full border border-cyan-400/20 bg-cyan-500/10 px-4 py-1.5 text-xs sm:text-sm text-cyan-300"
+                    className="rounded-full border border-cyan-400/20 bg-cyan-500/10 px-4 py-1.5 text-xs sm:text-sm text-blue-400"
                   >
                     {service}
                   </span>
@@ -296,7 +296,7 @@ export default function CaseStudyDetailPage() {
                           key={i}
                           className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4"
                         >
-                          <CheckCircle2 className="h-5 w-5 text-cyan-400 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="h-5 w-5 text-blue-400 shrink-0 mt-0.5" />
                           <span className="text-sm sm:text-base text-white/80">{result}</span>
                         </div>
                       ))}
@@ -307,11 +307,11 @@ export default function CaseStudyDetailPage() {
                 {/* Testimonial */}
                 <AnimatedContent distance={30} direction="vertical" duration={0.7} delay={0.3}>
                   <div className="relative rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-cyan-500/10 via-white/5 to-transparent p-6 sm:p-8">
-                    <Quote className="absolute top-6 right-6 sm:right-8 h-12 w-12 text-cyan-400/20" />
+                    <Quote className="absolute top-6 right-6 sm:right-8 h-12 w-12 text-blue-400" />
                     <div className="relative">
                       <div className="flex items-center gap-1 mb-4">
                         {Array.from({ length: caseStudy.rating }).map((_, i) => (
-                          <Star key={i} className="h-5 w-5 fill-cyan-400 text-cyan-400" />
+                          <Star key={i} className="h-5 w-5 text-blue-400" />
                         ))}
                       </div>
                       <p className="text-base sm:text-lg text-white/80 leading-relaxed italic">
@@ -319,7 +319,7 @@ export default function CaseStudyDetailPage() {
                       </p>
                       <div className="mt-4">
                         <p className="font-semibold text-white">{caseStudy.author}</p>
-                        <p className="text-sm text-cyan-300">{caseStudy.role}</p>
+                        <p className="text-sm text-blue-400">{caseStudy.role}</p>
                       </div>
                     </div>
                   </div>
@@ -348,10 +348,10 @@ export default function CaseStudyDetailPage() {
                     <p className="text-sm text-white/60 mb-4">
                       Let&apos;s discuss how we can help your organization achieve similar results.
                     </p>
-                    <ClickSpark sparkColor="#22d3ee" sparkSize={5} sparkRadius={12} sparkCount={5}>
+                    <ClickSpark sparkColor="#3b82f6" sparkSize={5} sparkRadius={12} sparkCount={5}>
                       <Link
                         href="/contact"
-                        className="group inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 py-3 text-sm font-semibold text-black transition-all hover:bg-cyan-400 w-full"
+                        className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-5 py-3 text-sm font-semibold text-black transition-all hover:shadow-lg hover:shadow-cyan-500/30 w-full"
                       >
                         Get Started
                         <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -386,10 +386,10 @@ export default function CaseStudyDetailPage() {
                       >
                         <div className="flex items-center gap-3 mb-4">
                           <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-cyan-400/20 bg-cyan-500/10">
-                            <related.industryIcon className="h-4 w-4 text-cyan-300" />
+                            <related.industryIcon className="h-4 w-4 text-blue-400" />
                           </span>
                           <div>
-                            <p className="text-xs text-cyan-300/80">{related.industry}</p>
+                            <p className="text-xs text-blue-400/80">{related.industry}</p>
                             <p className="text-sm font-semibold text-white">{related.client}</p>
                           </div>
                         </div>
@@ -402,7 +402,7 @@ export default function CaseStudyDetailPage() {
                           {related.shortDesc}
                         </p>
 
-                        <span className="mt-4 inline-block text-xs sm:text-sm font-medium text-cyan-300 group-hover:text-cyan-200 transition-colors">
+                        <span className="mt-4 inline-block text-xs sm:text-sm font-medium text-blue-400 group-hover:text-cyan-200 transition-colors">
                           Read More →
                         </span>
                       </motion.div>
@@ -418,7 +418,8 @@ export default function CaseStudyDetailPage() {
       {/* CTA */}
       <section className="relative overflow-hidden py-12 sm:py-16 md:py-20">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
+          <div className="absolute -top-40 right-1/4 h-[700px] w-[700px] rounded-full bg-gradient-to-br from-cyan-400/20 via-blue-500/10 to-transparent blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-3xl" />
         </div>
         <Container>
           <AnimatedContent distance={30} direction="vertical" duration={0.7}>
@@ -433,10 +434,10 @@ export default function CaseStudyDetailPage() {
                 Let&apos;s discuss how Cyberlok can help transform your organization&apos;s security posture.
               </p>
               <div className="mt-6 sm:mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
-                <ClickSpark sparkColor="#22d3ee" sparkSize={6} sparkRadius={14} sparkCount={6}>
+                <ClickSpark sparkColor="#3b82f6" sparkSize={6} sparkRadius={14} sparkCount={6}>
                   <Link
                     href="/contact"
-                    className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-black transition-all hover:bg-cyan-400 w-full sm:w-auto"
+                    className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-black transition-all hover:shadow-lg hover:shadow-cyan-500/30 w-full sm:w-auto"
                   >
                     <span className="absolute inset-0 rounded-full bg-white/20 opacity-0 blur-lg transition group-hover:opacity-100" />
                     <span className="relative">Start Your Journey</span>

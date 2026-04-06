@@ -137,11 +137,11 @@ export default function DefensiveSecurityPage() {
           <div className="px-2 py-10 sm:py-14 md:py-20">
             <Breadcrumbs items={[{ label: "Services", href: "/services" }, { label: "Defensive Security" }]} />
             <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 sm:px-4 py-2 text-xs sm:text-sm text-white/70">
-              <Radar className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-300" /> Defensive Security
+              <Radar className="h-3 w-3 sm:h-4 sm:w-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" /> Defensive Security
             </p>
             <h1 className="mt-4 sm:mt-6 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-tight">
               Detect, Respond &{" "}
-              <span className="text-cyan-300">Build Resilience</span>
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Build Resilience</span>
             </h1>
             <p className="mt-3 sm:mt-5 max-w-3xl text-base sm:text-lg leading-relaxed text-white/70">
               Cyberlok&apos;s defensive security services provide continuous monitoring, threat detection and rapid
@@ -151,7 +151,7 @@ export default function DefensiveSecurityPage() {
             <div className="mt-6 sm:mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 sm:px-6 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-5 sm:px-6 py-3 text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30 transition"
               >
                 Get Security Monitoring <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
               </Link>
@@ -172,7 +172,7 @@ export default function DefensiveSecurityPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 py-8 sm:py-12">
             {stats.map((stat) => (
               <div key={stat.label} className="text-center">
-                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-300">{stat.value}</p>
+                <p className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">{stat.value}</p>
                 <p className="mt-1 text-xs sm:text-sm text-white/60">{stat.label}</p>
               </div>
             ))}
@@ -200,7 +200,7 @@ export default function DefensiveSecurityPage() {
                   className="rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6 hover:bg-white/[0.08] transition"
                 >
                   <span className="inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl sm:rounded-2xl border border-cyan-400/20 bg-cyan-500/10">
-                    <service.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
+                    <service.icon className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                   </span>
 
                   <h3 className="mt-4 sm:mt-5 text-base sm:text-lg font-semibold">{service.title}</h3>
@@ -209,7 +209,7 @@ export default function DefensiveSecurityPage() {
                   <ul className="mt-4 sm:mt-5 space-y-1.5">
                     {service.features.map((f) => (
                       <li key={f} className="flex items-start gap-2 text-xs sm:text-sm text-white/70">
-                        <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-400 mt-0.5 shrink-0" />
+                        <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mt-0.5 shrink-0" />
                         {f}
                       </li>
                     ))}
@@ -246,18 +246,18 @@ export default function DefensiveSecurityPage() {
                   }`}
                 >
                   {tier.popular && (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-cyan-500/20 px-3 py-1 text-xs font-semibold text-cyan-300">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-cyan-500/20 px-3 py-1 text-xs font-semibold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                       Most Popular
                     </span>
                   )}
                   <h3 className="mt-3 sm:mt-4 text-lg sm:text-xl font-semibold">{tier.name}</h3>
                   <p className="mt-1 text-xs sm:text-sm text-white/60">{tier.desc}</p>
-                  <p className="mt-4 sm:mt-5 text-cyan-300 font-semibold text-sm sm:text-base">{tier.price}</p>
+                  <p className="mt-4 sm:mt-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-semibold text-sm sm:text-base">{tier.price}</p>
 
                   <ul className="mt-4 sm:mt-5 space-y-2">
                     {tier.features.map((f) => (
                       <li key={f} className="flex items-start gap-2 text-xs sm:text-sm text-white/70">
-                        <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-400 mt-0.5 shrink-0" />
+                        <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mt-0.5 shrink-0" />
                         {f}
                       </li>
                     ))}
@@ -299,7 +299,7 @@ export default function DefensiveSecurityPage() {
                   key={p.step}
                   className="rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6"
                 >
-                  <span className="text-2xl sm:text-3xl font-bold text-cyan-400/30">{p.step}</span>
+                  <span className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent/30">{p.step}</span>
                   <p className="mt-2 sm:mt-3 font-semibold text-sm sm:text-base">{p.title}</p>
                   <p className="mt-2 text-xs sm:text-sm text-white/60 leading-relaxed">{p.desc}</p>
                 </div>
@@ -332,7 +332,7 @@ export default function DefensiveSecurityPage() {
                   ].map((item) => (
                     <div key={item.title} className="flex items-start gap-3">
                       <span className="inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg bg-cyan-500/10 border border-cyan-400/20">
-                        <item.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
+                        <item.icon className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                       </span>
                       <div>
                         <p className="font-semibold text-sm sm:text-base">{item.title}</p>
@@ -361,7 +361,7 @@ export default function DefensiveSecurityPage() {
                     "User behavior anomalies",
                   ].map((item) => (
                     <div key={item} className="flex items-center gap-3 rounded-lg bg-black/30 p-3">
-                      <CheckCircle2 className="h-4 w-4 text-cyan-400 shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent shrink-0" />
                       <p className="text-xs sm:text-sm text-white/70">{item}</p>
                     </div>
                   ))}
@@ -390,7 +390,7 @@ export default function DefensiveSecurityPage() {
                 </div>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 sm:px-7 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition w-full sm:w-auto mt-4 md:mt-0"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-5 sm:px-7 py-3 text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30 transition w-full sm:w-auto mt-4 md:mt-0"
                 >
                   Request Assessment <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Link>
@@ -398,15 +398,15 @@ export default function DefensiveSecurityPage() {
 
               <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 sm:gap-8">
                 <div className="flex items-center gap-3">
-                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-400" />
+                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                   <p className="text-xs sm:text-sm text-white/70">No infrastructure required</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-400" />
+                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                   <p className="text-xs sm:text-sm text-white/70">Scalable to your needs</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-400" />
+                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                   <p className="text-xs sm:text-sm text-white/70">99.9% uptime SLA</p>
                 </div>
               </div>

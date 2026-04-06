@@ -121,11 +121,11 @@ export default function SBOMManagementPage() {
             <Breadcrumbs items={[{ label: "Services", href: "/services" }, { label: "SBOM Management" }]} />
 
             <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 sm:px-4 py-2 text-xs sm:text-sm text-white/70">
-              <FileText className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-300" /> SBOM Management
+              <FileText className="h-3 w-3 sm:h-4 sm:w-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" /> SBOM Management
             </p>
             <h1 className="mt-4 sm:mt-6 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-tight">
               Visibility into Your{" "}
-              <span className="text-cyan-300">Software Supply Chain</span>
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Software Supply Chain</span>
             </h1>
             <p className="mt-3 sm:mt-5 max-w-3xl text-base sm:text-lg leading-relaxed text-white/70">
               Cyberlok&apos;s SBOM management services provide complete visibility into your software components,
@@ -136,7 +136,7 @@ export default function SBOMManagementPage() {
             <div className="mt-6 sm:mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 sm:px-6 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-5 sm:px-6 py-3 text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30 transition"
               >
                 Get SBOM Coverage <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
               </Link>
@@ -171,7 +171,7 @@ export default function SBOMManagementPage() {
                   className="rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6 hover:bg-white/[0.08] transition"
                 >
                   <span className="inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl sm:rounded-2xl border border-cyan-400/20 bg-cyan-500/10">
-                    <cap.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
+                    <cap.icon className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                   </span>
                   <h3 className="mt-4 sm:mt-5 text-base sm:text-lg font-semibold">{cap.title}</h3>
                   <p className="mt-2 text-xs sm:text-sm text-white/60 leading-relaxed">{cap.desc}</p>
@@ -249,7 +249,7 @@ export default function SBOMManagementPage() {
                       className="rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-4"
                     >
                       <div className="flex items-center gap-3">
-                        <span className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-cyan-500/10 text-xs sm:text-sm font-bold text-cyan-300">
+                        <span className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-cyan-500/10 text-xs sm:text-sm font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                           {i + 1}
                         </span>
                         <p className="font-semibold text-sm sm:text-base">{p.title}</p>
@@ -283,7 +283,7 @@ export default function SBOMManagementPage() {
                   key={d}
                   className="rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-4"
                 >
-                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-400 mb-2" />
+                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-2" />
                   <p className="text-xs sm:text-sm text-white/70">{d}</p>
                 </div>
               ))}
@@ -298,7 +298,7 @@ export default function SBOMManagementPage() {
           <div className="py-10 sm:py-16">
             <div className="rounded-2xl sm:rounded-3xl border border-cyan-400/20 bg-cyan-500/5 p-5 sm:p-8">
               <div className="flex items-center gap-3 mb-4 sm:mb-5">
-                <ShieldCheck className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-300" />
+                <ShieldCheck className="h-5 w-5 sm:h-6 sm:w-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                 <p className="font-semibold text-sm sm:text-base">Regulatory Compliance</p>
               </div>
               <p className="text-sm sm:text-base text-white/70 mb-4 sm:mb-6">
@@ -314,7 +314,7 @@ export default function SBOMManagementPage() {
                   "State/Government contracts - SBOM disclosure requirements",
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-cyan-400 mt-0.5 shrink-0" />
+                    <CheckCircle2 className="h-4 w-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mt-0.5 shrink-0" />
                     <p className="text-xs sm:text-sm text-white/70">{item}</p>
                   </div>
                 ))}
@@ -364,7 +364,7 @@ export default function SBOMManagementPage() {
                 </div>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 sm:px-7 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition w-full sm:w-auto mt-4 md:mt-0"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-5 sm:px-7 py-3 text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30 transition w-full sm:w-auto mt-4 md:mt-0"
                 >
                   Request Consultation <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Link>

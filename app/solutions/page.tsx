@@ -12,6 +12,7 @@ import {
   Rocket,
   Landmark,
   User,
+  Users,
   CheckCircle2,
   Shield,
   AlertTriangle,
@@ -40,17 +41,31 @@ import {
   Fingerprint,
   Heart,
   UserCog,
+  BarChart3,
+  ShieldCheck,
+  FileCheck2,
+  IndianRupee,
+  TrendingUp,
+  Wifi,
+  HelpCircle,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface Challenge {
   title: string;
   desc: string;
   icon: LucideIcon;
   stat: string;
+  color?: string;
 }
 
 interface Service {
@@ -63,10 +78,14 @@ interface Service {
 interface Package {
   name: string;
   price: string;
-  period: string;
+  priceSuffix?: string;
+  priceNote?: string;
+  period?: string;
   highlight?: boolean;
   desc: string;
   features: string[];
+  icon?: LucideIcon;
+  color?: string;
 }
 
 interface Stat {
@@ -78,7 +97,8 @@ interface Testimonial {
   name: string;
   role: string;
   quote: string;
-  result: string;
+  result?: string;
+  rating?: number;
 }
 
 interface SegmentData {
@@ -93,21 +113,27 @@ interface SegmentData {
   services: Service[];
   packages: Package[];
   compliance: string[];
-  testimonials: Testimonial[];
+  testimonials?: Testimonial[];
+  faqs?: Faq[];
+}
+
+interface Faq {
+  q: string;
+  a: string;
 }
 
 interface Segment {
   id: string;
   label: string;
   icon: LucideIcon;
+  color: string;
 }
 
 const segments: Segment[] = [
-  { id: "individuals", label: "Individuals", icon: User },
-  { id: "smes", label: "SMEs", icon: Building2 },
-  { id: "corporates", label: "Corporates", icon: Cpu },
-  { id: "enterprises", label: "Enterprises", icon: Rocket },
-  { id: "government", label: "Government", icon: Landmark },
+  { id: "individuals", label: "Individuals", icon: User, color: "from-blue-500 to-indigo-500" },
+  { id: "smes", label: "SMEs", icon: Building2, color: "from-green-500 to-emerald-500" },
+  { id: "corporates", label: "Corporates", icon: Cpu, color: "from-purple-500 to-pink-500" },
+  { id: "government", label: "Government", icon: Landmark, color: "from-orange-500 to-red-500" },
 ];
 
 const segmentData: Record<string, SegmentData> = {
@@ -118,12 +144,12 @@ const segmentData: Record<string, SegmentData> = {
     openingStatement: "We are not selling you fear. We are telling you what we see every week in our lab in Mumbai.",
     openingDesc: "People walk in thinking their phone is fine. We find stalkerware installed by a jealous partner. Banking trojans they downloaded from a WhatsApp forward. Spyware that has been quietly recording calls for months. The threat is real. It is not complicated. And it is easier to fix than most people think.",
     stats: [
-      { value: "₹249", label: "Device Audit Starting" },
-      { value: "24/7", label: "Dark Web Monitoring" },
-      { value: "100K+", label: "Devices Secured" },
-      { value: "1", label: "Flat Fee, No Subscription" },
+      { value: "1 in 4", label: "Indians faced cybercrime in 2025" },
+      { value: "₹1.5L Cr", label: "Annual cybercrime cost estimate" },
+      { value: "95%", label: "Unaware of digital security" },
+      { value: "₹50K+", label: "Average losses per victim" },
     ],
-    color: "cyan",
+    color: "gradient-blue",
     challenges: [
       { 
         title: "Your UPI is not as safe as you think", 
@@ -158,96 +184,176 @@ const segmentData: Record<string, SegmentData> = {
     ],
     services: [
       { 
+        icon: Shield, 
+        title: "Personal Identity Protection", 
+        desc: "Monitor your Aadhaar, PAN, and financial accounts for unauthorized activity with real-time alerts. Includes dark web scanning and instant breach notifications.",
+        price: "From ₹299/Pay Once"
+      },
+      { 
+        icon: Wifi, 
+        title: "Home Network Security", 
+        desc: "Secure your home Wi-Fi, Jio/Airtel routers, smart devices, and family browsing. Router security setup with parental controls and VPN for all devices.",
+        price: "From ₹499/Pay Once"
+      },
+      { 
+        icon: CreditCard, 
+        title: "UPI & Payment Protection", 
+        desc: "Protect your UPI transactions, bank accounts, and credit cards from fraud and scams. UPI fraud alerts, transaction monitoring, and SIM swap detection.",
+        price: "From ₹199/Pay Once"
+      },
+      { 
         icon: Smartphone, 
-        title: "Mobile Device Security Test", 
-        desc: "We physically take your device, run a full security audit — check for malware, spyware, suspicious apps, unusual permissions, network vulnerabilities, data leaks — and hand you back a plain-language report.",
-        price: "₹249 for Android | ₹499 for iOS"
+        title: "Mobile Security Suite", 
+        desc: "Protect your Android/iPhone from malware, phishing apps, and online threats. Malware protection, app permission audit, and safe browsing.",
+        price: "From ₹249/Pay Once"
       },
       { 
-        icon: EyeOff, 
-        title: "Dark Web Check", 
-        desc: "We check if your email, phone number or personal data is circulating on known breach databases and dark web markets. One scan. Clear result. If it is there, we tell you exactly what was leaked and what to change.",
-        price: "₹199"
-      },
-      { 
-        icon: Lock, 
-        title: "Account Security Review", 
-        desc: "We go through your email, social accounts and banking apps with you — check login history, connected apps, recovery settings, two-factor status — and fix everything that should not be there.",
-        price: "Included in audits"
+        icon: Mail, 
+        title: "Phishing & Fraud Protection", 
+        desc: "AI-powered protection against WhatsApp scams, fake calls, and phishing SMS. WhatsApp scam detection and SMS fraud filtering.",
+        price: "From ₹249/Pay Once"
       },
       { 
         icon: Heart, 
-        title: "Family Security Package", 
-        desc: "Covers up to 5 devices — yours, your spouse, your parents, your children. One assessment, one report, one flat price. Because your family is only as secure as its weakest device.",
-        price: "₹1,799 for up to 5 devices"
+        title: "Family Security Bundle", 
+        desc: "Comprehensive protection for your entire family including parental controls and kids' digital safety. Multi-device coverage up to 5 devices.",
+        price: "From ₹1199/Pay Once"
+      },
+      { 
+        icon: Database, 
+        title: "Data Recovery Service", 
+        desc: "Professional recovery of lost, deleted, or corrupted files from compromised, formatted, or damaged devices.",
+        price: "From ₹499/Pay Once"
       },
     ],
     packages: [
       {
-        name: "Basic Audit",
-        price: "₹249",
-        period: "Android",
+        name: "Device Security",
+        price: "₹499",
+        period: "Pay Once",
         highlight: false,
-        desc: "Essential security check for your Android device",
+        icon: Smartphone,
+        color: "from-blue-500 to-indigo-500",
+        desc: "Essential protection for your mobile device",
         features: [
+          "Mobile Security Suite",
           "Malware & spyware detection",
-          "App permission review",
-          "Network vulnerability scan",
-          "Data leak check",
-          "Plain-language report",
-          "Fix recommendations",
+          "App permission audit",
+          "Safe browsing protection",
+          "Device vulnerability scan",
+          "Fix recommendations report",
         ],
       },
       {
-        name: "Deep Audit",
-        price: "₹399",
-        period: "Android",
-        highlight: true,
-        desc: "Most popular - Comprehensive Android security assessment",
-        features: [
-          "Everything in Basic Audit",
-          "Advanced root detection",
-          "APK analysis for sideloaded apps",
-          "SMS & call log review",
-          "Network traffic analysis",
-          "1-hour consultation included",
-        ],
-      },
-      {
-        name: "Professional Audit",
-        price: "₹599",
-        period: "Android / iOS",
+        name: "Payment Shield",
+        price: "₹299",
+        period: "Pay Once",
         highlight: false,
-        desc: "Complete security assessment with expert analysis",
+        icon: CreditCard,
+        color: "from-red-500 to-orange-500",
+        desc: "Protect your bank accounts & UPI",
         features: [
-          "Everything in Deep Audit",
-          "Forensic analysis of device",
-          "Social media account audit",
-          "Banking app security check",
-          "2-hour consultation with expert",
-          "Priority support (30 days)",
+          "UPI & Payment Protection",
+          "Real-time fraud alerts",
+          "SIM swap detection",
+          "Transaction monitoring",
+          "Banking trojan removal",
+          "Instant breach notifications",
+        ],
+      },
+      {
+        name: "Identity Guard",
+        price: "₹799",
+        period: "Pay Once",
+        highlight: true,
+        icon: Fingerprint,
+        color: "from-purple-500 to-pink-500",
+        desc: "Complete identity & data protection",
+        features: [
+          "Personal Identity Protection",
+          "Aadhaar & PAN monitoring",
+          "Dark web data scanning",
+          "Social media audit",
+          "Account takeover detection",
+          "1-hour expert consultation",
+        ],
+      },
+      {
+        name: "Family Shield",
+        price: "₹1499",
+        period: "Pay Once",
+        highlight: false,
+        icon: Heart,
+        color: "from-green-500 to-emerald-500",
+        desc: "Protect your entire family (up to 5 devices)",
+        features: [
+          "Family Security Bundle",
+          "All Device Security features",
+          "All Payment Shield features",
+          "Parental controls setup",
+          "Kids' online safety tools",
+          "2-hour family consultation",
+        ],
+      },
+      {
+        name: "Data Recovery",
+        price: "₹999",
+        period: "Pay Once",
+        highlight: false,
+        icon: Database,
+        color: "from-cyan-500 to-blue-500",
+        desc: "Emergency data recovery service",
+        features: [
+          "Lost/deleted file recovery",
+          "Corrupted drive restoration",
+          "Formatted partition recovery",
+          "Ransomware file rescue",
+          "Forensic data extraction",
+          "Free initial assessment",
         ],
       },
     ],
-    compliance: ["No subscription", "No hidden renewal", "Pay once, get your report"],
+    compliance: ["No subscription", "No hidden renewal", "Pay once, get protected"],
     testimonials: [
       {
-        name: "Suresh, 44",
-        role: "Business Owner, Andheri",
-        quote: "I got a call from someone who knew my name, my bank, my last transaction amount and my registered mobile number. He said he was from the fraud department. I nearly gave him my OTP.",
-        result: "Cyber fraud prevented",
+        name: "Priya Sharma",
+        role: "Working Professional, Mumbai",
+        quote: "Cyberlok helped me secure my phone after I almost fell for a WhatsApp scam. Their fraud alerts saved me ₹25,000.",
+        rating: 5,
       },
       {
-        name: "Anonymous",
-        role: "Professional, Mumbai",
-        quote: "My ex had installed something on my phone before we broke up. Your team found it in 20 minutes. I had no idea it was there for 8 months.",
-        result: "Stalkerware removed",
+        name: "Rajesh Kumar",
+        role: "Small Business Owner, Bangalore",
+        quote: "I thought cybersecurity was only for big companies. Cyberlok showed me how vulnerable my data was and helped me stay safe online.",
+        rating: 5,
       },
       {
-        name: "Parent",
-        role: "Concerned Parent, Thane",
-        quote: "My daughter was talking to someone online who turned out to be an adult man. We only found out because Cyberlok checked her phone when she complained it was slow.",
-        result: "Online predator identified",
+        name: "Anita Desai",
+        role: "Parent, Delhi",
+        quote: "The family bundle gives me peace of mind. My kids can explore the internet safely, and I get alerts for any suspicious activity.",
+        rating: 5,
+      },
+    ],
+    faqs: [
+      {
+        q: "Do I need cybersecurity if I'm just a regular person?",
+        a: "Absolutely. Cybercriminals target Indians through UPI fraud, WhatsApp scams, fake job offers, and phishing. With our increasing digital payments and online presence, everyone is a potential target.",
+      },
+      {
+        q: "How is Cyberlok different from free antivirus?",
+        a: "Free antivirus only protects against known malware. Cyberlok provides comprehensive identity protection including Aadhaar monitoring, UPI fraud detection, dark web scanning, and 24/7 support in Hindi and English.",
+      },
+      {
+        q: "Can I protect my whole family with one subscription?",
+        a: "Yes! Our Family Security Bundle covers up to 5 devices per family member with shared parental controls. It supports both Android and iOS devices and includes regional fraud protection.",
+      },
+      {
+        q: "What if my bank account is compromised?",
+        a: "If we detect any suspicious activity, we immediately alert you and guide you through RBI-recommended recovery steps. Our team helps with bank escalation, complaint filing, and fraud resolution.",
+      },
+      {
+        q: "Can Cyberlok recover my files if they are deleted or encrypted by ransomware?",
+        a: "Yes! Our Data Recovery Service uses advanced forensic techniques to recover deleted files, restore data from corrupted drives, and rescue files from ransomware-attacked devices. Success rates vary based on the severity of damage, but we offer a free initial assessment.",
       },
     ],
   },
@@ -255,97 +361,153 @@ const segmentData: Record<string, SegmentData> = {
     tagline: "Enterprise-Grade Security for Growing Indian Businesses",
     subtitle: "Affordable, compliant, and scalable security solutions designed specifically for SMEs navigating the Indian threat landscape.",
     stats: [
-      { value: "48hrs", label: "Time to Protection" },
-      { value: "₹4,999", label: "Starting Price/mo" },
-      { value: "73%", label: "Incident Reduction" },
-      { value: "200+", label: "SMEs Protected" },
+      { value: "51+", label: "SMEs Protected" },
+      { value: "48", label: "hrs Deployment" },
+      { value: "77%", label: "Incident Reduction" },
+      { value: "4.9/5", label: "Customer Rating" },
     ],
-    color: "cyan",
+    color: "gradient-blue",
     challenges: [
-      { title: "Limited Security Budget", desc: "Enterprise threats with startup budgets. Attackers know you lack defenses.", icon: CreditCard, stat: "₹50L avg breach cost for SMEs" },
-      { title: "No Dedicated Security Team", desc: "IT handles everything. No time for security, compliance, or threat monitoring.", icon: UserCheck, stat: "67% of SMEs have no security staff" },
-      { title: "Vendor & Supplier Risk", desc: "Third-party vendors often become attack vectors. UPI payments, GST portals, and cloud tools all pose risks.", icon: Network, stat: "40% of breaches start with vendors" },
-      { title: "Employee Awareness Gap", desc: "Phishing emails targeting staff. One wrong click can compromise your entire business.", icon: Mail, stat: "82% of breaches involve human error" },
+      { 
+        title: "Limited Security Budget", 
+        desc: "Enterprise threats with startup budgets. Attackers specifically target SMEs because they know you lack defenses. A single breach can cost ₹50 lakh or more—often fatal for small businesses.",
+        icon: CreditCard, 
+        stat: "₹50L+ average breach cost for SMEs",
+        color: "from-red-500 to-orange-500"
+      },
+      { 
+        title: "No Dedicated Security Team", 
+        desc: "Your IT team is juggling everything—servers, support tickets, backups. Security becomes an afterthought until something breaks. Meanwhile, threats don't wait.",
+        icon: UserCheck, 
+        stat: "67% of SMEs have no security staff",
+        color: "from-purple-500 to-pink-500"
+      },
+      { 
+        title: "Vendor & Supplier Risk", 
+        desc: "Your accountant's software. The GST portal you use daily. The cloud tool your team loves. Every vendor is a potential entry point for attackers.",
+        icon: Network, 
+        stat: "40% of breaches start with third-party vendors",
+        color: "from-blue-500 to-indigo-500"
+      },
+      { 
+        title: "Employee Awareness Gap", 
+        desc: "That phishing email looks real. The WhatsApp message from 'your bank' seems legitimate. One confused employee can open the door to attackers.",
+        icon: Mail, 
+        stat: "82% of breaches involve human error",
+        color: "from-yellow-500 to-orange-500"
+      },
     ],
     services: [
+      { icon: Rocket, title: "Quick Deployment", desc: "Get security up and running in 48 hours. Our streamlined onboarding gets Indian businesses protected fast." },
+      { icon: IndianRupee, title: "Affordable Excellence", desc: "Enterprise-grade security at Indian SME prices. Transparent pricing in INR that scales with your growth. Inclusive of GST." },
+      { icon: Users, title: "Local Support", desc: "Your own security advisor who understands Indian business. Support in Hindi, English, and regional languages." },
+      { icon: FileCheck2, title: "Compliance Made Simple", desc: "Navigate CERT-In, DPDP Act, and RBI guidelines easily. We handle the complexity while you focus on business." },
       { icon: Bug, title: "Vulnerability Assessment", desc: "Quarterly scanning of web apps, servers, and network infrastructure. Identify weaknesses before attackers do." },
       { icon: Shield, title: "Endpoint Protection", desc: "Advanced antivirus, EDR, and patch management for all devices. Protect laptops, servers, and POS systems." },
       { icon: Mail, title: "Email Security", desc: "Phishing protection, spam filtering, and BEC detection for business email accounts." },
       { icon: UserCheck, title: "Security Awareness Training", desc: "Monthly phishing simulations and training. Turn employees into your first line of defense." },
-      { icon: FileCheck, title: "DPDP Compliance", desc: "Data protection assessment and compliance roadmap for Digital Personal Data Protection Act." },
-      { icon: Cloud, title: "Cloud Security", desc: "Secure configuration review for AWS, Azure, Google Cloud, and SaaS applications like Tally, Zoho, and Busy." },
     ],
     packages: [
       {
-        name: "Secure Starter",
-        price: "₹4,999",
-        period: "per month",
-        desc: "Essential security for growing businesses",
+        name: "Starter",
+        price: "₹7,999",
+        priceSuffix: " Pay Once",
+        priceNote: "Inclusive of GST",
+        desc: "Perfect for small teams starting with security",
+        icon: Shield,
+        color: "from-green-500 to-emerald-500",
         features: [
-          "Quarterly Vulnerability Assessment",
-          "Basic Endpoint Protection (10 devices)",
-          "Email Security & Spam Filtering",
-          "Security Awareness Training (10 users)",
-          "Monthly Security Newsletter",
-          "Email Support (48hr response)",
-          "Basic Compliance Checklist",
+          "Web & Network Security Assessment (1× per year)",
+          "Mobile Device Security (8–10 devices)",
+          "Endpoint Security (10–15 systems)",
+          "Configuration Review (firewall, router, servers)",
+          "Infrastructure Security Monitoring",
+          "Phishing Simulation (1 campaign / year)",
+          "Email Support (48 hr response)",
         ],
       },
       {
-        name: "Growth Shield",
-        price: "₹14,999",
-        period: "per month",
+        name: "Growth",
+        price: "₹15,999",
+        priceSuffix: " Pay Once",
+        priceNote: "Inclusive of GST",
         highlight: true,
-        desc: "Complete protection for ambitious SMEs",
+        desc: "For growing businesses handling sensitive operations",
+        icon: Rocket,
+        color: "from-blue-500 to-indigo-500",
         features: [
-          "Bi-annual Penetration Testing",
-          "Advanced Endpoint Protection (25 devices)",
-          "24/7 SOC Monitoring",
-          "Dark Web Monitoring for Business Data",
-          "Security Awareness Training (25 users)",
-          "DPDP Act Compliance Assessment",
-          "Incident Response Planning",
-          "Quarterly Security Reviews",
-          "Priority Support (4hr response)",
+          "Web & Network Security Assessment (2× per year)",
+          "Cloud Security Testing (1× per year)",
+          "Mobile Device Security (10–15 devices)",
+          "Endpoint Security (20–25 systems)",
+          "Infrastructure Security Monitoring",
+          "Security Awareness Training (up to 15 employees)",
+          "Phishing Simulation (1 campaign / year)",
+          "Cybersecurity Consulting (2 sessions / year)",
+          "Priority Support (8 hr response)",
         ],
       },
       {
-        name: "Scale Pro",
-        price: "₹29,999",
-        period: "per month",
-        desc: "Enterprise-grade security for scaling teams",
+        name: "Advanced",
+        price: "Contact",
+        priceSuffix: " for Quote",
+        desc: "For organizations needing enterprise-grade protection",
+        icon: Award,
+        color: "from-purple-500 to-pink-500",
         features: [
-          "Full Application Penetration Testing",
-          "SOC-as-a-Service (unlimited devices)",
-          "Cloud Security Assessment",
-          "Security Awareness Training (unlimited)",
-          "Red Team Exercise (annual)",
-          "DPDP & RBI Compliance Support",
+          "Full Web, Network & Cloud Security Testing",
+          "Mobile & Endpoint Security at Scale",
+          "Continuous Infrastructure Monitoring",
+          "Advanced Risk Protection",
+          "AI & Emerging Threat Security Assessment",
+          "Custom Security Strategy & Reviews",
+          "Cybersecurity Consulting (Unlimited)",
           "Dedicated Security Engineer",
-          "Monthly CISO Advisory Sessions",
-          "Board-ready Security Reports",
+          "Fast Response SLA (4 hr)",
         ],
       },
     ],
-    compliance: ["CERT-In Incident Reporting", "DPDP Act Compliance", "GST Data Security", "RBI Payment Security"],
+    compliance: ["DPDP Act", "CERT-In", "ISO 27001 (optional)"],
     testimonials: [
       {
         name: "Vikram Mehta",
         role: "CEO, TechStart India",
         quote: "Before Cyberlok, our security was just an antivirus. Now we have real protection, DPDP compliance confidence, and I actually understand our risks.",
-        result: "Zero security incidents in 18 months",
+        result: "Zero incidents in 18 months",
       },
       {
         name: "Sunita Reddy",
         role: "Operations Director, RetailCo India",
-        quote: "Cyberlok&apos;s Growth package gave us enterprise security at SME prices. The ROI was visible within the first quarter.",
+        quote: "Cyberlok's Growth package gave us enterprise security at SME prices. The ROI was visible within the first quarter.",
         result: "73% reduction in security incidents",
       },
       {
         name: "Arun Patel",
         role: "Founder, CloudFirst Solutions",
-        quote: "As a bootstrapped startup, security seemed like a luxury. Cyberlok showed us it&apos;s a necessity—and made it affordable in rupees.",
+        quote: "As a bootstrapped startup, security seemed like a luxury. Cyberlok showed us it's a necessity—and made it affordable in rupees.",
         result: "DPDP compliant in 3 months",
+      },
+    ],
+    faqs: [
+      {
+        q: "We're too small to be targeted—why do we need security?",
+        a: "43% of cyberattacks target SMEs precisely because they have fewer defenses. Most Indian businesses lose ₹50+ lakh to breaches—enough to shut down permanently.",
+      },
+      {
+        q: "What does protection cost?",
+        a: "Plans start at ₹7,999 with annual billing (Pay Once). That's less than a coffee per day. We offer flexible payment options—no hidden charges, GST included.",
+      },
+      {
+        q: "How fast can we get protected?",
+        a: "Starter packages deploy within 48 hours. Growth packages take 1-2 weeks for complete setup. We prioritize quick onboarding for Indian businesses.",
+      },
+      {
+        q: "Where is our data stored?",
+        a: "All data is stored in India on secure, compliant infrastructure. We follow CERT-In and DPDP guidelines for data localization and protection.",
+      },
+      {
+        q: "Do you offer support in local languages?",
+        a: "Yes! Our support team is based in India and can assist in Hindi, English, and regional languages based on your preference.",
       },
     ],
   },
@@ -353,12 +515,12 @@ const segmentData: Record<string, SegmentData> = {
     tagline: "Comprehensive Security for Established Organizations",
     subtitle: "Risk-based security programs with compliance management, threat intelligence, and executive reporting for mid-to-large Indian corporates.",
     stats: [
-      { value: "100+", label: "Endpoints Covered" },
-      { value: "₹49,999", label: "Starting Price/mo" },
-      { value: "99.9%", label: "Uptime SLA" },
-      { value: "6hr", label: "CERT-In Response" },
+      { value: "200+", label: "Enterprise Clients" },
+      { value: "95%", label: "Compliance Success" },
+      { value: "24/7", label: "SOC Operations" },
+      { value: "6hrs", label: "CERT-In Response" },
     ],
-    color: "cyan",
+    color: "gradient-blue",
     challenges: [
       { title: "Multi-Location Operations", desc: "Offices across cities, remote workforce, and third-party managed services create complex attack surfaces.", icon: Building2, stat: "Avg 3.2 locations per corporate" },
       { title: "Regulatory Compliance", desc: "DPDP Act, RBI guidelines, SEBI cybersecurity, and industry-specific requirements demand documented controls.", icon: FileCheck, stat: "₹250 Cr max penalty for DPDP" },
@@ -366,79 +528,107 @@ const segmentData: Record<string, SegmentData> = {
       { title: "Supply Chain Risk", desc: "Third-party vendors, software supply chains, and outsourcing partners expand your threat perimeter.", icon: Network, stat: "67% breaches involve third parties" },
     ],
     services: [
-      { icon: Monitor, title: "SOC-as-a-Service", desc: "24/7 security operations center with Indian analysts. Real-time monitoring, threat detection, and incident response." },
-      { icon: Network, title: "Network Security", desc: "Firewall management, IDS/IPS, network segmentation, and secure VPN for remote workforce." },
-      { icon: FileSearch, title: "Penetration Testing", desc: "Annual application, network, and social engineering tests. Meet ISO 27001 and regulatory requirements." },
-      { icon: ShieldAlert, title: "DPDP Compliance", desc: "Data inventory, consent management, breach notification, and DPDP Act compliance implementation." },
-      { icon: Database, title: "Data Loss Prevention", desc: "Monitor and protect sensitive data across endpoints, email, and cloud. Prevent accidental or intentional data leaks." },
-      { icon: Award, title: "ISO 27001 Support", desc: "Information security management system implementation, gap assessment, and audit preparation." },
-      { icon: Eye, title: "Threat Intelligence", desc: "Dark web monitoring, brand protection, and threat feeds specific to Indian organizations." },
-      { icon: KeyRound, title: "Identity & Access", desc: "IAM implementation, privileged access management, and access certification campaigns." },
+      { icon: Eye, title: "SOC-as-a-Service", desc: "24/7 security operations center with Indian analysts. Real-time monitoring, threat detection, and incident response." },
+      { icon: Cloud, title: "Cloud Security", desc: "Multi-cloud posture management for AWS, Azure, GCP. Secure your cloud transformation with purpose-built tools." },
+      { icon: Target, title: "Offensive Security", desc: "Advanced penetration testing, red team operations, and purple team exercises for proactive defense." },
+      { icon: FileCheck2, title: "Risk & Compliance", desc: "Enterprise risk assessment, DPDP Act & CERT-In compliance, RBI/SEBI cybersecurity guidelines." },
+      { icon: Server, title: "Unified Security Operations", desc: "Consolidate your security tools into a single platform with single pane of glass visibility." },
+      { icon: BarChart3, title: "Executive Risk Management", desc: "Board-ready dashboards and risk metrics that speak the language of business leaders." },
+      { icon: ShieldCheck, title: "Regulatory Navigation", desc: "CERT-In, DPDP, RBI, SEBI—our experts turn compliance complexity into streamlined processes." },
+      { icon: Zap, title: "Rapid Response Force", desc: "When incidents strike, our elite team contains threats in hours, not days. Your business stays operational." },
     ],
     packages: [
       {
         name: "Professional",
-        price: "₹49,999",
-        period: "per month",
+        price: "Contact",
+        priceSuffix: " for Quote",
+        priceNote: "Custom pricing based on needs",
         desc: "Essential corporate security program",
+        icon: FileCheck,
+        color: "from-green-500 to-emerald-500",
         features: [
-          "SOC-as-a-Service (100 endpoints)",
-          "Quarterly Penetration Testing",
-          "DPDP Compliance Dashboard",
-          "Email & Web Security",
+          "Web App Pentesting (2×/year)",
+          "Network Pentesting (2×/year)",
+          "API Security Testing (1×/year)",
+          "Vulnerability Assessment (Quarterly)",
+          "SOC Monitoring (200 endpoints)",
           "Endpoint Detection & Response",
-          "Monthly Security Reports",
-          "Dedicated Security Manager",
-          "CERT-In Reporting Support",
+          "Email Security & Anti-Phishing",
+          "Basic Incident Response",
+          "DPDP Act Gap Assessment",
+          "CERT-In Compliance Support",
+          "Quarterly Compliance Reports",
+          "Priority Support (8hr response)",
+          "Monthly Security Reviews",
+          "Dedicated Security Consultant",
         ],
       },
       {
         name: "Enterprise",
-        price: "₹99,999",
-        period: "per month",
+        price: "Contact",
+        priceSuffix: " for Quote",
+        priceNote: "Custom pricing based on needs",
         highlight: true,
         desc: "Complete security for growing organizations",
+        icon: Building2,
+        color: "from-blue-500 to-indigo-500",
         features: [
-          "SOC-as-a-Service (unlimited endpoints)",
-          "Bi-annual Red Team Exercises",
-          "Full DPDP & RBI Compliance",
-          "Cloud Security Posture Management",
-          "Identity & Access Management",
-          "Annual ISO 27001 Audit Support",
-          "24/7 Incident Response",
-          "Quarterly Security Reviews",
-          "Executive Dashboard",
+          "Full Pentesting (Quarterly)",
+          "Red Team Operations (2×/year)",
+          "Cloud Security Assessment",
+          "Social Engineering Testing",
+          "SOC-as-a-Service (500 endpoints)",
+          "Advanced EDR & XDR",
+          "SIEM Implementation & Tuning",
+          "24/7 Incident Response Team",
+          "Full DPDP Act Implementation",
+          "CERT-In Reporting (6-hr SLA)",
+          "RBI/SEBI Guidelines",
+          "ISO 27001 Gap Assessment",
+          "Cybersecurity Consulting (4 sessions)",
+          "CISO Advisory (Monthly)",
+          "Security Awareness Training (50 users)",
         ],
       },
       {
-        name: "Strategic",
-        price: "Custom",
-        period: "pricing",
-        desc: "Tailored security programs",
+        name: "Corporate Elite",
+        price: "Contact",
+        priceSuffix: " for Quote",
+        priceNote: "Custom enterprise solutions",
+        desc: "Elite security for elite organizations",
+        icon: Award,
+        color: "from-purple-500 to-pink-500",
         features: [
-          "Fully Customized Security Program",
-          "On-site Security Assessments",
-          "Board & Committee Reporting",
-          "Merger & Acquisition Due Diligence",
-          "Vendor Risk Management",
-          "Strategic Security Roadmap",
-          "CISO-as-a-Service",
+          "Continuous Penetration Testing",
+          "Adversary Simulation (Red Team)",
+          "Cloud-Native Security (CSPM)",
+          "AI-Powered Threat Detection",
+          "Dedicated SOC Team",
+          "Advanced SIEM/SOAR",
+          "Custom Threat Intelligence",
+          "24/7 Incident Response (1-hr SLA)",
+          "Full DPDP Implementation",
+          "CERT-In Complete Compliance",
+          "SOC 2 / ISO 27001 Certification",
+          "Executive Dashboard",
+          "Board Security Briefings",
+          "Dedicated vCISO",
         ],
       },
     ],
     compliance: ["DPDP Act", "RBI Cybersecurity Guidelines", "SEBI Cybersecurity Framework", "ISO 27001", "PCI-DSS (if applicable)"],
     testimonials: [
       {
-        name: "Priya Sharma",
-        role: "CISO, FinCorp India",
-        quote: "Cyberlok helped us achieve DPDP compliance within 6 months. Their understanding of RBI guidelines and Indian regulatory landscape is exceptional.",
-        result: "100% compliance audit pass",
+        name: "Vikram Malhotra",
+        role: "Group CISO, Apex Global India",
+        quote: "Cyberlok operates as a true extension of our security team. Their enterprise capabilities and commitment to outcomes transformed our security posture fundamentally.",
+        result: "80% faster incident response",
       },
       {
-        name: "Raj Kumar",
-        role: "CTO, GlobalTrade Ltd",
-        quote: "The level of detail in their assessments is remarkable. Real security, not checkbox compliance. Our board finally understands our security posture.",
-        result: "₹2.5 Crore risk mitigated",
+        name: "Sunita Rao",
+        role: "VP Security, MegaCorp Industries",
+        quote: "Managing security across 50,000 employees seemed impossible. Cyberlok's enterprise platform gave us visibility and control we didn't think was achievable.",
+        result: "Zero major incidents in 2 years",
       },
       {
         name: "Anita Desai",
@@ -448,117 +638,16 @@ const segmentData: Record<string, SegmentData> = {
       },
     ],
   },
-  enterprises: {
-    tagline: "Enterprise-Scale Security Operations",
-    subtitle: "SOC/MDR, SIEM/SOAR, cloud posture management, and zero trust architecture for large organizations with complex security needs.",
-    stats: [
-      { value: "Unlimited", label: "Endpoints" },
-      { value: "₹1.5L", label: "Starting Price/mo" },
-      { value: "6hr", label: "CERT-In Reporting" },
-      { value: "99.99%", label: "SLA Guarantee" },
-    ],
-    color: "cyan",
-    challenges: [
-      { title: "Massive Attack Surface", desc: "Thousands of endpoints, multi-cloud environments, complex networks, and legacy systems create endless vulnerabilities.", icon: Server, stat: "10,000+ endpoints to protect" },
-      { title: "Advanced Persistent Threats", desc: "Nation-state actors, sophisticated ransomware, and supply chain attacks require proactive defense.", icon: Target, stat: "40% increase in APT attacks" },
-      { title: "Compliance Complexity", desc: "Multiple regulations across industries, states, and international frameworks demand integrated compliance.", icon: Award, stat: "15+ regulations to follow" },
-      { title: "Talent Shortage", desc: "Finding and retaining skilled security professionals is challenging. Budget exists but talent doesn&apos;t.", icon: UserCog, stat: "3M+ cybersecurity talent gap globally" },
-    ],
-    services: [
-      { icon: Server, title: "Managed Detection & Response", desc: "24/7 threat monitoring, investigation, and response with guaranteed SLAs. Elite analysts hunt threats in your environment." },
-      { icon: Database, title: "SIEM/SOAR Implementation", desc: "Unified log management, threat correlation, automated playbooks, and compliance reporting at enterprise scale." },
-      { icon: Cloud, title: "Cloud Security Posture", desc: "Continuous monitoring for AWS, Azure, GCP. Misconfiguration detection, compliance scanning, and remediation guidance." },
-      { icon: Target, title: "Red Team Operations", desc: "Adversary simulation with realistic attack scenarios. Test your people, processes, and technology." },
-      { icon: Lock, title: "Zero Trust Architecture", desc: "Implement zero trust with identity verification, micro-segmentation, and least privilege access." },
-      { icon: KeyRound, title: "Privileged Access Management", desc: "Credential vaulting, session recording, just-in-time access, and privileged threat analytics." },
-      { icon: Network, title: "Network Detection & Response", desc: "Deep packet inspection, behavioral analysis, and network threat detection at scale." },
-      { icon: FileSearch, title: "Threat Hunting", desc: "Proactive threat hunting by experienced analysts. Identify threats that evade automated detection." },
-    ],
-    packages: [
-      {
-        name: "Foundation",
-        price: "₹1.5L",
-        period: "per month",
-        desc: "Core enterprise security operations",
-        features: [
-          "SOC-as-a-Service (1000 endpoints)",
-          "SIEM Integration & Tuning",
-          "Basic Threat Hunting",
-          "Cloud Security Posture (1 cloud)",
-          "Monthly Penetration Testing",
-          "Incident Response (24hr SLA)",
-          "Quarterly Security Reviews",
-          "Compliance Reporting",
-        ],
-      },
-      {
-        name: "Advanced",
-        price: "₹3L",
-        period: "per month",
-        highlight: true,
-        desc: "Comprehensive enterprise security",
-        features: [
-          "MDR + SIEM/SOAR",
-          "Unlimited Endpoint Coverage",
-          "Multi-cloud Security Posture",
-          "Quarterly Red Team Exercises",
-          "Advanced Threat Hunting",
-          "Zero Trust Assessment",
-          "Privileged Access Management",
-          "6hr CERT-In Response",
-          "Dedicated Security Engineer",
-        ],
-      },
-      {
-        name: "Fortress",
-        price: "₹5L+",
-        period: "per month",
-        desc: "Full security program management",
-        features: [
-          "Everything in Advanced",
-          "Dedicated SOC Team",
-          "On-site CISO",
-          "Board & Committee Advisory",
-          "Continuous Red Team Operations",
-          "M&A Security Due Diligence",
-          "Real-time Threat Intelligence",
-          "Custom Security Dashboard",
-          "99.99% SLA Guarantee",
-        ],
-      },
-    ],
-    compliance: ["CERT-In 6-hour Reporting", "DPDP Act", "RBI/SEBI Framework", "ISO 27001/27002", "NIST CSF", "SOC 2 (if applicable)"],
-    testimonials: [
-      {
-        name: "Anand Joshi",
-        role: "Group CISO, Tata Digital",
-        quote: "World-class security operations at Indian pricing. The CERT-In response time is outstanding, and their threat intelligence is better than global providers.",
-        result: "6-hour CERT-In compliance achieved",
-      },
-      {
-        name: "Meera Patel",
-        role: "VP Security, Reliance Jio",
-        quote: "Cyberlok&apos;s cloud security expertise helped us secure 10+ enterprise workloads across AWS and Azure. Zero breaches since implementation.",
-        result: "Zero cloud security incidents",
-      },
-      {
-        name: "Sanjay Gupta",
-        role: "CTO, HDFC Life Insurance",
-        quote: "Their SIEM/SOAR implementation transformed our security operations. Automated playbooks reduced response time from hours to minutes.",
-        result: "80% faster incident response",
-      },
-    ],
-  },
   government: {
     tagline: "National Critical Infrastructure Protection",
     subtitle: "Security programs aligned with NCIIPC, MeitY, and government cybersecurity frameworks for ministries, PSUs, and critical infrastructure.",
     stats: [
-      { value: "NCIIPC", label: "Compliant" },
-      { value: "MeitY", label: "Aligned" },
-      { value: "6hr", label: "CERT-In Reporting" },
-      { value: "24/7", label: "NOC Operations" },
+      { value: "24/7", label: "SOC Monitoring" },
+      { value: "100%", label: "CERT-In Compliant" },
+      { value: "6hrs", label: "Incident Reporting" },
+      { value: "SeMT", label: "Framework Ready" },
     ],
-    color: "cyan",
+    color: "gradient-blue",
     challenges: [
       { title: "National Security Requirements", desc: "Critical infrastructure protection under NCIIPC directives. High-value targets for nation-state actors.", icon: Shield, stat: "1000+ attacks daily on critical infra" },
       { title: "Complex Approval Processes", desc: "Multiple stakeholder approvals, budget cycles, and procurement requirements slow security initiatives.", icon: FileCheck, stat: "6-12 months for security procurement" },
@@ -577,111 +666,223 @@ const segmentData: Record<string, SegmentData> = {
     ],
     packages: [
       {
-        name: "Essential",
-        price: "₹2.5L",
-        period: "per month",
-        desc: "Core government security program",
+        name: "State Government Basic",
+        price: "Contact",
+        priceSuffix: " for Quote",
+        priceNote: "Custom pricing based on needs",
+        desc: "Essential protection for government infrastructure",
+        icon: Landmark,
+        color: "from-green-500 to-emerald-500",
         features: [
-          "SOC Operations (24/7)",
-          "NCIIPC Compliance Framework",
-          "Critical Asset Protection",
-          "Quarterly Vulnerability Assessment",
-          "Network Security Monitoring",
-          "CERT-In Reporting",
-          "Basic Security Training",
-          "Monthly Compliance Reports",
+          "Critical infrastructure assessment",
+          "SCADA/ICS security",
+          "Quarterly vulnerability scans",
+          "CERT-In compliance assistance",
+          "SeMT framework alignment",
+          "Monthly security reports",
+          "6-hour incident reporting",
+          "Basic forensics",
+          "Dedicated support contact",
         ],
       },
       {
-        name: "Advanced",
-        price: "₹5L",
-        period: "per month",
+        name: "Central Government",
+        price: "Contact",
+        priceSuffix: " for Quote",
+        priceNote: "Custom pricing based on needs",
         highlight: true,
-        desc: "Comprehensive government security",
+        desc: "Comprehensive security for central government",
+        icon: Shield,
+        color: "from-blue-500 to-indigo-500",
         features: [
-          "Full Security Operations",
-          "MeitY Framework Alignment",
-          "Annual Red Team Exercises",
-          "Cloud Security (GovCloud/NIC)",
-          "SeMT Operational Support",
-          "Incident Response (6hr SLA)",
-          "Quarterly Security Audits",
-          "Critical Infrastructure Protection",
-          "Security Awareness Program",
+          "Red team assessments",
+          "Continuous threat hunting",
+          "APT detection & response",
+          "Full DPDP Act implementation",
+          "ISMS/ISO 27001 support",
+          "MeitY framework alignment",
+          "24/7 government SOC",
+          "Named security officer",
+          "Real-time threat intelligence",
         ],
       },
       {
-        name: "Mission Critical",
-        price: "Custom",
-        period: "pricing",
-        desc: "Full security program management",
+        name: "Critical Infrastructure",
+        price: "Contact",
+        priceSuffix: " for Quote",
+        priceNote: "Custom government solutions",
+        desc: "Maximum security for national assets",
+        icon: Target,
+        color: "from-red-500 to-orange-500",
         features: [
-          "Dedicated Security Team",
-          "On-site Security Operations",
-          "Real-time Threat Intelligence",
-          "Continuous Monitoring",
-          "Board & Committee Reporting",
-          "Policy Development",
-          "Compliance Audit Support",
-          "Disaster Recovery Planning",
-          "Classified Handling Support",
+          "Clearance-capable personnel",
+          "Supply chain security",
+          "Nation-state threat defense",
+          "OT/ICS security",
+          "Air-gapped network testing",
+          "Full incident response team",
+          "Board-ready security briefings",
+          "Custom compliance reporting",
+          "24/7 dedicated team",
         ],
       },
     ],
-    compliance: ["NCIIPC Directives", "MeitY Cybersecurity Guidelines", "CERT-In Reporting", "IT Act 2000/2008", "SeMT Framework", "ISO 27001"],
-    testimonials: [
-      {
-        name: "Dr. Suresh Rao",
-        role: "Director, PowerGrid India",
-        quote: "Cyberlok understands the unique requirements of critical infrastructure protection. Their NCIIPC compliance support was invaluable.",
-        result: "Zero security incidents in 2 years",
-      },
-      {
-        name: "Col. Amit Singh",
-        role: "CISO, State Data Centre",
-        quote: "Their CERT-In compliance support and 6-hour reporting capability is exceptional. The team handles sensitive information with utmost professionalism.",
-        result: "100% audit compliance achieved",
-      },
-      {
-        name: "Dr. Kavita Sharma",
-        role: "Director, National Health Mission",
-        quote: "Cyberlok helped us secure patient data across 100+ district offices. Their understanding of healthcare cybersecurity is impressive.",
-        result: "HIPAA-aligned security achieved",
-      },
-    ],
+    compliance: ["NCIIPC", "CERT-In 6-hour Reporting", "DPDP Act", "MeitY", "ISO 27001"],
   },
 };
 
 const threats = {
   individuals: [
-    { threat: "UPI Fraud", stat: "₹1.75 lakh crore lost to UPI/payment fraud in 2024", icon: CreditCard },
-    { threat: "Identity Theft", stat: "35% increase in Aadhaar misuse cases", icon: Fingerprint },
-    { threat: "Social Engineering", stat: "WhatsApp scams duped 80,000+ Indians in 2024", icon: Smartphone },
-    { threat: "Data Leaks", stat: "Your data sold on dark web for ₹50-500", icon: EyeOff },
+    { 
+      threat: "UPI & Payment Fraud", 
+      stat: "₹1.75 Lakh Crore", 
+      detail: "Lost to payment fraud in 2025",
+      impact: "Scammers use fake customer care calls, screen sharing apps, and fake refund links to drain bank accounts in minutes.",
+      solution: "Real-time transaction monitoring, UPI fraud alerts, and instant account protection.",
+      icon: CreditCard,
+      color: "from-red-500 to-orange-500"
+    },
+    { 
+      threat: "Identity Theft", 
+      stat: "35% Increase", 
+      detail: "In Aadhaar misuse cases",
+      impact: "Your Aadhaar, PAN, and bank details are being traded on dark web markets for ₹50-500 per record.",
+      solution: "Dark web monitoring, Aadhaar leak alerts, and identity restoration support.",
+      icon: Fingerprint,
+      color: "from-purple-500 to-pink-500"
+    },
+    { 
+      threat: "Social Engineering", 
+      stat: "80,000+ Victims", 
+      detail: "Duped by WhatsApp scams in 2025",
+      impact: "Fake job offers, parcel scams, and impersonation calls target everyone—from students to senior citizens.",
+      solution: "Scam detection, fraud awareness training, and suspicious call/SMS filtering.",
+      icon: Smartphone,
+      color: "from-blue-500 to-indigo-500"
+    },
+    { 
+      threat: "Data Leaks", 
+      stat: "₹50-500", 
+      detail: "Worth of your personal data on dark web",
+      impact: "Breached from apps, hospitals, shops collecting KYC. Your data fuels further fraud and identity theft.",
+      solution: "Data breach detection, personal data removal, and leak source identification.",
+      icon: EyeOff,
+      color: "from-cyan-500 to-blue-500"
+    },
   ],
   smes: [
-    { threat: "UPI & Payment Fraud", stat: "₹1.75 lakh crore lost to payment fraud (2024)", icon: CreditCard },
-    { threat: "Business Email Compromise", stat: "₹120+ crore lost to BEC scams targeting Indian companies", icon: Mail },
-    { threat: "Ransomware", stat: "1200+ ransomware attacks on Indian firms in 2024", icon: ShieldAlert },
-    { threat: "Data Breaches", stat: "India ranks #2 globally with 1.9 billion records exposed", icon: Database },
+    { 
+      threat: "UPI & Payment Fraud", 
+      stat: "₹1.75 Lakh Crore", 
+      detail: "Lost to payment fraud (2025)",
+      impact: "Small businesses lose entire account balances to fake payment confirmations and UPI collector scams.",
+      solution: "Payment fraud protection, staff training, and secure transaction protocols.",
+      icon: CreditCard,
+      color: "from-red-500 to-orange-500"
+    },
+    { 
+      threat: "Business Email Compromise", 
+      stat: "₹120+ Crore", 
+      detail: "Lost to BEC scams in India",
+      impact: "Attackers impersonate vendors, CEOs, or banks to trick employees into transferring funds or sharing credentials.",
+      solution: "Email security, domain monitoring, and employee awareness training.",
+      icon: Mail,
+      color: "from-yellow-500 to-orange-500"
+    },
+    { 
+      threat: "Ransomware", 
+      stat: "1200+ Attacks", 
+      detail: "On Indian firms in 2025",
+      impact: "Your data gets encrypted and held hostage. Attackers demand ₹50,000 to ₹50 lakh for decryption keys.",
+      solution: "Endpoint protection, backup solutions, incident response, and ransomware negotiations.",
+      icon: ShieldAlert,
+      color: "from-purple-500 to-pink-500"
+    },
+    { 
+      threat: "Data Breaches", 
+      stat: "#2 Globally", 
+      detail: "India ranks second with 1.9B records exposed",
+      impact: "Customer data, employee records, and business secrets get leaked—leading to legal action and reputation damage.",
+      solution: "Data security assessment, leak detection, and breach response planning.",
+      icon: Database,
+      color: "from-green-500 to-emerald-500"
+    },
   ],
   corporates: [
-    { threat: "Supply Chain Attacks", stat: "67% of breaches involve third-party vendors", icon: Network },
-    { threat: "Phishing & BEC", stat: "₹120+ crore lost to business email compromise in India", icon: Mail },
-    { threat: "Insider Threats", stat: "34% of data breaches involve internal actors", icon: UserCheck },
-    { threat: "Regulatory Penalties", stat: "DPDP violations can cost up to ₹250 crore", icon: FileCheck },
-  ],
-  enterprises: [
-    { threat: "APT & Nation-State", stat: "Increased targeted attacks on Indian enterprises by 40%", icon: Target },
-    { threat: "Ransomware 2.0", stat: "Double extortion ransomware losses exceeded ₹500 crore", icon: ShieldAlert },
-    { threat: "Zero-Day Exploits", stat: "Average time to exploit vulnerabilities: 12 days", icon: Bug },
-    { threat: "Cloud Misconfigurations", stat: "₹12+ crore average cost of cloud data breaches", icon: Cloud },
+    { 
+      threat: "Supply Chain Attacks", 
+      stat: "67%", 
+      detail: "Of breaches involve third-party vendors",
+      impact: "Attackers compromise your vendors, software, or cloud providers to gain access to your systems and data.",
+      solution: "Vendor risk assessment, third-party security reviews, and continuous monitoring.",
+      icon: Network,
+      color: "from-blue-500 to-indigo-500"
+    },
+    { 
+      threat: "Phishing & BEC", 
+      stat: "₹120+ Crore", 
+      detail: "Lost to business email compromise in India",
+      impact: "Fake invoices, vendor impersonation, and executive fraud result in massive financial losses and data exposure.",
+      solution: "Email security, domain protection, fraud detection, and executive awareness training.",
+      icon: Mail,
+      color: "from-orange-500 to-red-500"
+    },
+    { 
+      threat: "Insider Threats", 
+      stat: "34%", 
+      detail: "Of data breaches involve internal actors",
+      impact: "Disgruntled employees, careless staff, or compromised accounts leak sensitive data or sabotage systems.",
+      solution: "User behavior analytics, access controls, and insider threat monitoring.",
+      icon: UserCheck,
+      color: "from-purple-500 to-pink-500"
+    },
+    { 
+      threat: "Regulatory Penalties", 
+      stat: "₹250 Crore", 
+      detail: "Maximum DPDP Act penalty",
+      impact: "Non-compliance with DPDP Act, CERT-In directives, and industry regulations can result in massive fines and legal action.",
+      solution: "Compliance gap assessment, policy development, and continuous regulatory monitoring.",
+      icon: FileCheck,
+      color: "from-green-500 to-emerald-500"
+    },
   ],
   government: [
-    { threat: "Nation-State Actors", stat: "Critical infra faces 1000+ attacks daily", icon: Target },
-    { threat: "Hacktivism", stat: "Government sites face 300+ DDoS attacks monthly", icon: ShieldAlert },
-    { threat: "Insider Threats", stat: "40% of government breaches involve insiders", icon: UserCheck },
-    { threat: "Legacy System Exploits", stat: "Average legacy system has 50+ unpatched vulnerabilities", icon: Bug },
+    { 
+      threat: "Nation-State Actors", 
+      stat: "1000+ Attacks", 
+      detail: "Critical infra faces daily",
+      impact: "Advanced persistent threats target power grids, banks, and government systems with sophisticated attack techniques.",
+      solution: "Threat intelligence, APT detection, critical infrastructure protection, and incident response.",
+      icon: Target,
+      color: "from-red-500 to-orange-500"
+    },
+    { 
+      threat: "Hacktivism", 
+      stat: "300+ DDoS", 
+      detail: "Attacks on government sites monthly",
+      impact: "Political hacktivists target government websites to deface content, disrupt services, and spread propaganda.",
+      solution: "DDoS mitigation, web application firewall, and traffic analysis.",
+      icon: ShieldAlert,
+      color: "from-yellow-500 to-orange-500"
+    },
+    { 
+      threat: "Insider Threats", 
+      stat: "40%", 
+      detail: "Of government breaches involve insiders",
+      impact: "Unintentional data leaks, unauthorized access, and deliberate data exfiltration by insiders pose significant risks.",
+      solution: "Zero trust architecture, user monitoring, and security awareness programs.",
+      icon: UserCheck,
+      color: "from-purple-500 to-pink-500"
+    },
+    { 
+      threat: "Legacy System Exploits", 
+      stat: "50+ Vulnerabilities", 
+      detail: "Average unpatched in legacy systems",
+      impact: "Old systems running obsolete software with known vulnerabilities are easy targets for cybercriminals.",
+      solution: "Vulnerability assessment, patch management, system hardening, and modernization planning.",
+      icon: Bug,
+      color: "from-cyan-500 to-blue-500"
+    },
   ],
 };
 
@@ -695,9 +896,8 @@ export default function SolutionsPage() {
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-60 right-1/4 h-[600px] w-[600px] rounded-full bg-cyan-400/15 blur-3xl" />
-          <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-green-500/10 blur-3xl" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(34,211,238,0.18),transparent_50%),radial-gradient(circle_at_80%_70%,rgba(16,185,129,0.08),transparent_50%)]" />
+          <div className="absolute -top-40 right-1/4 h-[700px] w-[700px] rounded-full bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-3xl" />
         </div>
         <Container>
           <div className="py-10 sm:py-14 md:py-20">
@@ -709,7 +909,7 @@ export default function SolutionsPage() {
               transition={{ duration: 0.5 }}
               className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70"
             >
-              <Shield className="h-4 w-4 text-cyan-300" />
+              <Shield className="h-4 w-4 text-blue-400" />
               Tailored Security Solutions
             </motion.p>
 
@@ -721,7 +921,7 @@ export default function SolutionsPage() {
             >
               <span className="text-white/90">Security for Every</span>
               <br />
-              <span className="text-cyan-300">Indian Organization</span>
+              <span className="text-blue-400">Indian Organization</span>
             </motion.h1>
 
             <motion.p
@@ -740,15 +940,14 @@ export default function SolutionsPage() {
       {/* ENHANCED TAB NAVIGATION */}
       <section className="sticky top-16 z-40 border-b border-white/10 bg-black/90 backdrop-blur-xl">
         <div className="relative">
-          {/* Glow effect behind tabs */}
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <div className="h-20 w-96 rounded-full bg-cyan-500/10 blur-3xl" />
+            <div className="h-20 w-[500px] rounded-full bg-blue-500/10 blur-3xl max-w-[90vw]" />
           </div>
           
           <Container>
-            <div className="flex justify-center py-4">
+            <div className="flex justify-center py-3 sm:py-4">
               <motion.div 
-                className="inline-flex items-center gap-1 rounded-2xl border border-white/10 bg-white/5 p-1.5 backdrop-blur-md"
+                className="inline-flex items-center gap-1 sm:gap-2 rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-1.5 sm:p-2 backdrop-blur-md"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
@@ -757,7 +956,7 @@ export default function SolutionsPage() {
                   <motion.button
                     key={segment.id}
                     onClick={() => setActiveTab(segment.id)}
-                    className={`relative z-10 flex items-center gap-2 rounded-xl px-4 sm:px-6 py-2.5 text-sm font-medium transition-all duration-300 ${
+                    className={`relative z-10 flex items-center gap-1 sm:gap-2 rounded-lg sm:rounded-xl px-2 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base font-semibold transition-all duration-300 ${
                       activeTab === segment.id
                         ? "text-black"
                         : "text-white/70 hover:text-white"
@@ -768,14 +967,18 @@ export default function SolutionsPage() {
                     {activeTab === segment.id && (
                       <motion.div
                         layoutId="activeTabBg"
-                        className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-400 to-cyan-500 shadow-lg shadow-cyan-500/25"
+                        className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-r from-blue-400 to-blue-500 shadow-lg shadow-blue-500/25"
                         transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
                       />
                     )}
-                    <span className="relative z-10 flex items-center gap-2">
-                      <segment.icon className="h-4 w-4" />
-                      <span>{segment.label}</span>
-                    </span>
+                    <motion.span 
+                      className="relative z-10 flex items-center justify-center"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <segment.icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                    </motion.span>
+                    <span className="relative z-10 hidden lg:inline">{segment.label}</span>
                   </motion.button>
                 ))}
               </motion.div>
@@ -799,45 +1002,36 @@ export default function SolutionsPage() {
               {/* OPENING STATEMENT */}
               <section className="border-b border-white/10">
                 <Container>
-                  <div className="py-8 sm:py-12">
-                    {/* Warning Banner */}
+                  <div className="py-8 sm:py-10 md:py-14">
+                    {/* Banner with slide up + fade */}
                     <motion.div
-                      initial={{ opacity: 0, y: 20 }}
+                      initial={{ opacity: 0, y: 40 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                      whileHover={{ scale: 1.01 }}
-                      className="group mb-8 overflow-hidden rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/10 via-cyan-500/5 to-transparent p-5 sm:p-6 backdrop-blur-sm transition-all hover:border-cyan-400/50 hover:shadow-xl hover:shadow-cyan-500/10"
+                      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                      className="mb-6 sm:mb-8 md:mb-10 rounded-xl sm:rounded-2xl border border-blue-500/20 bg-blue-500/5 p-4 sm:p-6 md:p-8"
                     >
-                      <div className="flex items-start gap-4">
-                        {/* Animated Icon */}
+                      <div className="flex items-start gap-3 sm:gap-4">
                         <motion.div 
-                          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-cyan-500/30 bg-cyan-500/20 shadow-lg"
-                          animate={{ 
-                            boxShadow: [
-                              "0 0 20px rgba(34, 211, 238, 0.2)",
-                              "0 0 40px rgba(34, 211, 238, 0.4)",
-                              "0 0 20px rgba(34, 211, 238, 0.2)"
-                            ]
-                          }}
-                          transition={{ duration: 2, repeat: Infinity }}
+                          whileHover={{ rotate: 360, scale: 1.1 }}
+                          transition={{ duration: 0.6 }}
+                          className={`inline-flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-500 shadow-lg`}
                         >
-                          <AlertTriangle className="h-7 w-7 text-cyan-300" />
+                          <AlertTriangle className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                         </motion.div>
-                        
-                        <div>
+                        <div className="flex-1">
                           <motion.p 
-                            className="text-lg font-semibold text-cyan-100"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.3 }}
+                            className="text-base sm:text-lg md:text-xl font-semibold text-blue-100"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.2 }}
                           >
                             {data.tagline}
                           </motion.p>
                           <motion.p 
-                            className="mt-2 text-sm text-white/70 leading-relaxed"
+                            className="mt-1 sm:mt-2 text-sm sm:text-base text-white/70"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ delay: 0.4 }}
+                            transition={{ delay: 0.3 }}
                           >
                             {data.subtitle}
                           </motion.p>
@@ -845,98 +1039,56 @@ export default function SolutionsPage() {
                       </div>
                     </motion.div>
 
-                    {/* CTA */}
+                    {/* CTA with scale bounce */}
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.4, delay: 0.2 }}
+                    >
+                      <Link
+                        href="/contact#send-message"
+                        className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-400 px-5 sm:px-6 md:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-black transition hover:shadow-lg hover:shadow-blue-500/30"
+                      >
+                        <Smartphone className="h-4 w-4 sm:h-5 sm:w-5" />
+                        {data.heroCta || 'Get Your Free Device Check'}
+                      </Link>
+                    </motion.div>
+
+                    {/* Opening Statement with gradient border */}
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.2 }}
-                      className="flex flex-col gap-4 sm:flex-row sm:items-center"
+                      transition={{ duration: 0.5, delay: 0.3 }}
+                      className="mt-6 sm:mt-8 md:mt-10 rounded-xl sm:rounded-2xl border border-blue-500/20 bg-white/5 p-4 sm:p-6"
                     >
-                      <motion.div 
-                        whileHover={{ scale: 1.05 }} 
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <Link
-                          href="/contact"
-                          className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 px-8 py-4 text-base font-semibold text-black shadow-xl shadow-cyan-500/30 transition-all hover:shadow-cyan-500/50"
-                        >
-                          <motion.div
-                            className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-cyan-300 opacity-0 transition-opacity group-hover:opacity-100"
-                          />
-                          <Smartphone className="relative h-5 w-5" />
-                          <span className="relative">{data.heroCta || 'Get Your Free Device Check'}</span>
-                        </Link>
-                      </motion.div>
+                      <p className="text-sm sm:text-base font-semibold text-blue-400">{data.openingStatement}</p>
+                      <p className="mt-2 sm:mt-3 text-sm text-white/70">{data.openingDesc}</p>
                     </motion.div>
 
-                    {/* Opening Statement */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                      whileHover={{ scale: 1.01 }}
-                      className="group relative mt-10 overflow-hidden rounded-2xl border border-cyan-500/20 bg-white/5 p-6 sm:p-8 backdrop-blur-sm transition-all hover:border-cyan-400/40 hover:shadow-xl hover:shadow-cyan-500/5"
-                    >
-                      {/* Glow effect */}
-                      <motion.div
-                        className="absolute -top-20 -right-20 h-48 w-48 rounded-full bg-cyan-400/10 blur-3xl"
-                        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-                        transition={{ duration: 4, repeat: Infinity }}
-                      />
-                      
-                      <motion.p 
-                        className="relative text-lg font-semibold text-cyan-300"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.4 }}
-                      >
-                        {data.openingStatement}
-                      </motion.p>
-                      <motion.p 
-                        className="relative mt-4 text-base text-white/70 leading-relaxed"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.5 }}
-                      >
-                        {data.openingDesc}
-                      </motion.p>
-                    </motion.div>
-
-                    {/* Stats */}
-                    <motion.div 
-                      className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.5, delay: 0.4 }}
-                    >
+                    {/* Stats with staggered fade-in from bottom */}
+                    <div className="mt-6 sm:mt-8 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
                       {data.stats.map((stat, i) => (
                         <motion.div
                           key={stat.label}
-                          initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 0.5 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                          whileHover={{ y: -6, scale: 1.05 }}
-                          className="group relative overflow-hidden rounded-2xl border border-cyan-500/20 bg-white/5 p-4 sm:p-6 text-center backdrop-blur-sm transition-all hover:border-cyan-400/50 hover:bg-white/[0.08] hover:shadow-xl hover:shadow-cyan-500/10"
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.4, delay: 0.3 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                          whileHover={{ y: -4, scale: 1.02 }}
+                          className="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5 md:p-6 text-center transition-colors hover:border-blue-400/30"
                         >
-                          {/* Animated glow */}
-                          <motion.div
-                            className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-cyan-400/15 blur-3xl"
-                            animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
-                            transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
-                          />
-                          
+                          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                           <motion.p 
-                            className="relative text-2xl sm:text-3xl font-bold text-cyan-300"
+                            className="relative text-xl sm:text-2xl md:text-3xl font-bold text-blue-400"
                             initial={{ scale: 0.5 }}
                             animate={{ scale: 1 }}
-                            transition={{ duration: 0.4, delay: 0.6 + i * 0.1 }}
+                            transition={{ delay: 0.4 + i * 0.1, type: "spring" }}
                           >
                             {stat.value}
                           </motion.p>
-                          <p className="relative mt-1 text-xs sm:text-sm text-white/60">{stat.label}</p>
+                          <p className="relative mt-1 sm:mt-2 text-xs sm:text-sm text-white/60">{stat.label}</p>
                         </motion.div>
                       ))}
-                    </motion.div>
+                    </div>
                   </div>
                 </Container>
               </section>
@@ -944,138 +1096,54 @@ export default function SolutionsPage() {
               {/* THE REAL PROBLEMS */}
               <section className="border-b border-white/10">
                 <Container>
-                  <div className="py-8 sm:py-12">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
+                  <div className="py-8 sm:py-10 md:py-14">
+                    <motion.h3
+                      initial={{ opacity: 0, x: -30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
                       transition={{ duration: 0.5 }}
-                      className="mb-6 sm:mb-8"
+                      className="mb-5 sm:mb-6 md:mb-8 text-lg sm:text-xl md:text-2xl font-semibold"
                     >
-                      <h3 className="text-xl sm:text-2xl font-semibold tracking-tight">
-                        <span className="text-cyan-300">The Real Problems</span>
-                        <span className="text-white/90"> Individuals Face</span>
-                      </h3>
-                      <p className="mt-2 text-sm text-white/60">
-                        These are the threats we encounter every day in our lab
-                      </p>
-                    </motion.div>
+                      <span className="text-blue-400">The Real Problems</span>
+                      <span className="text-white/90"> Individuals Face</span>
+                    </motion.h3>
 
-                    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
                       {data.challenges.map((item, i) => (
                         <motion.div
                           key={item.title}
-                          initial={{ opacity: 0, y: 40, scale: 0.9 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          transition={{ duration: 0.6, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                          whileHover={{ y: -8, scale: 1.02 }}
-                          className="group"
+                          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: i * 0.08 }}
+                          whileHover={{ scale: 1.02, y: -4 }}
+                          className="group relative rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5 md:p-6 transition-all hover:border-blue-400/30"
                         >
-                          <Card className="relative h-full overflow-hidden border border-cyan-500/20 bg-gradient-to-br from-cyan-500/10 via-white/5 to-transparent backdrop-blur-sm transition-all duration-500 hover:border-cyan-400/50 hover:shadow-2xl hover:shadow-cyan-500/20">
-                            <CardContent className="relative flex h-full flex-col p-5 sm:p-6">
-                              {/* Always visible ambient glow */}
-                              <motion.div
-                                className="absolute -top-16 -right-16 h-44 w-44 rounded-full bg-cyan-400/15 blur-3xl"
-                                animate={{ 
-                                  scale: [1, 1.15, 1],
-                                  opacity: [0.6, 0.9, 0.6],
-                                }}
-                                transition={{ 
-                                  duration: 4 + i * 0.5, 
-                                  repeat: Infinity,
-                                  ease: "easeInOut" 
-                                }}
-                              />
-                              
-                              {/* Secondary subtle glow */}
-                              <motion.div
-                                className="absolute -bottom-16 -left-16 h-36 w-36 rounded-full bg-cyan-500/10 blur-3xl"
-                                animate={{ 
-                                  scale: [1, 1.1, 1],
-                                  opacity: [0.4, 0.7, 0.4],
-                                }}
-                                transition={{ 
-                                  duration: 5 + i * 0.3, 
-                                  repeat: Infinity,
-                                  ease: "easeInOut",
-                                  delay: 1
-                                }}
-                              />
-
-                              {/* Icon with floating animation */}
-                              <motion.div
-                                className="relative z-10 mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-cyan-500/40 bg-cyan-500/20 shadow-lg shadow-cyan-500/20"
-                                animate={{ 
-                                  y: [0, -4, 0],
-                                  boxShadow: [
-                                    "0 0 20px rgba(34, 211, 238, 0.2)",
-                                    "0 0 30px rgba(34, 211, 238, 0.4)",
-                                    "0 0 20px rgba(34, 211, 238, 0.2)"
-                                  ]
-                                }}
-                                transition={{ 
-                                  duration: 3, 
-                                  repeat: Infinity,
-                                  ease: "easeInOut",
-                                  delay: i * 0.2
-                                }}
-                                whileHover={{ 
-                                  scale: 1.1, 
-                                  rotate: [0, -5, 5, 0],
-                                  transition: { duration: 0.5 }
-                                }}
+                          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                          <div className="relative">
+                            <div className="flex items-start gap-3 sm:gap-4 mb-2 sm:mb-3">
+                              <motion.div 
+                                whileHover={{ rotate: 360, scale: 1.1 }}
+                                transition={{ duration: 0.6 }}
+                                className={`inline-flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-br ${item.color || 'from-blue-500 to-indigo-500'} shadow-lg`}
                               >
-                                <item.icon className="h-7 w-7 text-cyan-300" />
+                                <item.icon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                               </motion.div>
-
-                              {/* Title */}
-                              <motion.h4 
-                                className="relative z-10 text-lg font-semibold leading-tight text-white transition-colors group-hover:text-cyan-100"
-                                whileHover={{ x: 6 }}
-                                transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                              >
-                                {item.title}
-                              </motion.h4>
-
-                              {/* Description */}
-                              <p className="relative z-10 mt-3 flex-1 text-sm text-white/60 leading-relaxed transition-colors group-hover:text-white/80">
-                                {item.desc}
-                              </p>
-
-                              {/* Stat Badge with pulse */}
-                              {item.stat && (
-                                <motion.div
-                                  initial={{ opacity: 0, y: 20 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{ delay: 0.3 + i * 0.1 }}
-                                  className="relative z-10 mt-4"
-                                >
-                                  <motion.div
-                                    animate={{ 
-                                      boxShadow: [
-                                        "0 0 0 0 rgba(34, 211, 238, 0.4)",
-                                        "0 0 0 8px rgba(34, 211, 238, 0)",
-                                      ]
-                                    }}
-                                    transition={{ duration: 2, repeat: Infinity }}
-                                    className="inline-block"
-                                  >
-                                    <Badge 
-                                      variant="outline" 
-                                      className="border border-cyan-500/40 bg-cyan-500/15 text-cyan-300 backdrop-blur-sm"
-                                    >
-                                      <motion.div
-                                        animate={{ opacity: [1, 0.5, 1] }}
-                                        transition={{ duration: 1.5, repeat: Infinity }}
-                                      >
-                                        <AlertTriangle className="mr-1.5 h-3 w-3" />
-                                      </motion.div>
-                                      {item.stat}
-                                    </Badge>
-                                  </motion.div>
-                                </motion.div>
-                              )}
-                            </CardContent>
-                          </Card>
+                              <h4 className="text-base sm:text-lg font-semibold text-white text-left leading-snug pt-1 sm:pt-2">{item.title}</h4>
+                            </div>
+                            <p className="text-xs sm:text-sm text-white/60 text-justify leading-relaxed">{item.desc}</p>
+                          </div>
+                          {item.stat && (
+                            <motion.p 
+                              className="relative mt-3 sm:mt-4 pt-2 sm:pt-3 border-t border-white/10 text-xs sm:text-sm text-blue-400 text-left"
+                              initial={{ opacity: 0 }}
+                              whileInView={{ opacity: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: i * 0.1 + 0.3 }}
+                            >
+                              {item.stat}
+                            </motion.p>
+                          )}
                         </motion.div>
                       ))}
                     </div>
@@ -1086,70 +1154,58 @@ export default function SolutionsPage() {
               {/* WHAT WE DO */}
               <section className="border-b border-white/10">
                 <Container>
-                  <div className="py-8 sm:py-12">
+                  <div className="py-8 sm:py-10 md:py-14">
                     <motion.h3
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
+                      initial={{ opacity: 0, x: 30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
                       transition={{ duration: 0.5 }}
-                      className="mb-6 sm:mb-8 text-xl sm:text-2xl font-semibold tracking-tight"
+                      className="mb-5 sm:mb-6 md:mb-8 text-lg sm:text-xl md:text-2xl font-semibold"
                     >
-                      What We <span className="text-cyan-300">Actually Do</span>
+                      What We <span className="text-blue-400">Actually Do</span>
                     </motion.h3>
 
-                    <div className="grid gap-5 sm:grid-cols-2">
+                    <div className="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-4">
                       {data.services.map((service, i) => (
                         <motion.div
                           key={service.title}
-                          initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 0.1 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                          whileHover={{ y: -6, scale: 1.02 }}
-                          className="group relative overflow-hidden rounded-2xl border border-cyan-500/20 bg-white/5 backdrop-blur-sm p-5 sm:p-6 transition-all duration-300 hover:border-cyan-400/40 hover:bg-white/[0.08] hover:shadow-xl hover:shadow-cyan-500/10"
+                          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: i * 0.06 }}
+                          whileHover={{ scale: 1.02, y: -4 }}
+                          className="group relative rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5 md:p-6 transition-all hover:border-blue-400/30"
                         >
-                          {/* Animated glow on hover */}
-                          <motion.div
-                            className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-cyan-400/15 blur-3xl"
-                            initial={{ opacity: 0 }}
-                            whileHover={{ opacity: 1 }}
-                            transition={{ duration: 0.5 }}
-                          />
-                          
+                          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                           <div className="relative">
-                            {/* Animated icon */}
-                            <motion.div
-                              className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-cyan-500/30 bg-cyan-500/10 shadow-lg shadow-cyan-500/10"
+                            <motion.div 
                               whileHover={{ rotate: 360, scale: 1.1 }}
                               transition={{ duration: 0.6 }}
+                              className={`inline-flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-br ${
+                                i % 4 === 0 ? 'from-blue-500 to-indigo-500' :
+                                i % 4 === 1 ? 'from-purple-500 to-pink-500' :
+                                i % 4 === 2 ? 'from-cyan-500 to-blue-500' :
+                                'from-green-500 to-emerald-500'
+                              } shadow-lg`}
                             >
-                              <service.icon className="h-7 w-7 text-cyan-300" />
+                              <service.icon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                             </motion.div>
-
-                            <motion.h4 
-                              className="text-lg font-semibold transition-colors group-hover:text-cyan-100"
-                              whileHover={{ x: 4 }}
-                            >
-                              {service.title}
-                            </motion.h4>
-                            
-                            <p className="mt-2 text-sm text-white/60 leading-relaxed transition-colors group-hover:text-white/70">
-                              {service.desc}
-                            </p>
-                            
-                            {service.price && (
-                              <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 + i * 0.08 }}
-                              >
-                                <Badge 
-                                  variant="outline" 
-                                  className="mt-4 border-cyan-500/30 bg-cyan-500/10 text-cyan-300 transition-all duration-300 hover:border-cyan-400/50 hover:bg-cyan-500/20"
-                                >
-                                  Starting at {service.price}
-                                </Badge>
-                              </motion.div>
-                            )}
+                            <div className="mt-3 sm:mt-4 md:mt-5">
+                              <h4 className="text-base sm:text-lg font-semibold">{service.title}</h4>
+                              <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-white/60">{service.desc}</p>
+                            </div>
                           </div>
+                          {service.price && (
+                            <motion.p 
+                              className="relative mt-3 sm:mt-4 text-xs sm:text-sm font-semibold text-blue-400"
+                              initial={{ opacity: 0 }}
+                              whileInView={{ opacity: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: i * 0.1 + 0.3 }}
+                            >
+                              {service.price}
+                            </motion.p>
+                          )}
                         </motion.div>
                       ))}
                     </div>
@@ -1159,98 +1215,78 @@ export default function SolutionsPage() {
             </>
           )}
 
-          {/* OTHER SEGMENTS - ORIGINAL LAYOUT */}
+          {/* ALL SEGMENTS - SME, CORPORATES, GOVERNMENT */}
           {activeTab !== 'individuals' && (
             <>
-              {/* STATS & TAGLINE */}
+              {/* TAGLINE & SUBTITLE WITH CTA */}
               <section className="border-b border-white/10">
                 <Container>
-                  <div className="py-8 sm:py-12">
+                  <div className="py-8 sm:py-10 md:py-14">
+                    {/* Banner with scale + fade */}
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5 }}
+                      className="mb-6 sm:mb-8 md:mb-10 rounded-xl sm:rounded-2xl border border-blue-500/20 bg-blue-500/5 p-4 sm:p-6 md:p-8"
+                    >
+                      <div className="flex items-start gap-3 sm:gap-4">
+                        <motion.div 
+                          whileHover={{ rotate: 360, scale: 1.1 }}
+                          transition={{ duration: 0.6 }}
+                          className={`inline-flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-500 shadow-lg`}
+                        >
+                          <Shield className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
+                        </motion.div>
+                        <div className="flex-1">
+                          <motion.p 
+                            className="text-base sm:text-lg md:text-xl font-semibold text-blue-100"
+                            initial={{ opacity: 0, x: 10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.2 }}
+                          >
+                            {data.tagline}
+                          </motion.p>
+                          <motion.p 
+                            className="mt-1 sm:mt-2 text-sm sm:text-base text-white/70"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.3 }}
+                          >
+                            {data.subtitle}
+                          </motion.p>
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    {/* CTA with spring bounce */}
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.1 }}
-                      className="mb-6 sm:mb-8"
+                      transition={{ duration: 0.4, delay: 0.2, type: "spring" }}
                     >
-                      <motion.h2 
-                        className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: 0.15 }}
+                      <Link
+                        href="/contact#send-message"
+                        className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-400 px-5 sm:px-6 md:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-black transition hover:shadow-lg hover:shadow-blue-500/30"
                       >
-                        {data.tagline}
-                      </motion.h2>
-                      <motion.p 
-                        className="mt-2 text-sm sm:text-base text-white/60"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                      >
-                        {data.subtitle}
-                      </motion.p>
+                        Get Started
+                        <Rocket className="h-4 w-4" />
+                      </Link>
                     </motion.div>
 
-                    <motion.div 
-                      className="grid grid-cols-2 gap-4 sm:grid-cols-4"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.5, delay: 0.25 }}
-                    >
+                    {/* Stats with pop-in animation */}
+                    <div className="mt-6 sm:mt-8 md:mt-10 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
                       {data.stats.map((stat, i) => (
                         <motion.div
                           key={stat.label}
-                          initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}
-                          whileHover={{ y: -4, scale: 1.02 }}
-                          className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-6 text-center transition-all hover:border-cyan-400/30"
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.4, delay: 0.25 + i * 0.08, type: "spring" }}
+                          whileHover={{ scale: 1.05, y: -3 }}
+                          className="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5 md:p-6 text-center transition-colors hover:border-blue-400/30"
                         >
-                          <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-cyan-400/10 blur-3xl opacity-0 transition group-hover:opacity-100" />
-                          <motion.p 
-                            className="text-2xl sm:text-3xl font-bold text-cyan-300"
-                            initial={{ scale: 0.5 }}
-                            animate={{ scale: 1 }}
-                            transition={{ duration: 0.4, delay: 0.4 + i * 0.08 }}
-                          >
-                            {stat.value}
-                          </motion.p>
-                          <p className="mt-1 text-xs sm:text-sm text-white/60">{stat.label}</p>
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  </div>
-                </Container>
-              </section>
-
-              {/* CHALLENGES */}
-              <section className="border-b border-white/10">
-                <Container>
-                  <div className="py-8 sm:py-12">
-                    <motion.h3
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5 }}
-                      className="mb-6 sm:mb-8 text-lg sm:text-xl font-semibold tracking-tight"
-                    >
-                      Challenges We Solve
-                    </motion.h3>
-
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      {data.challenges.map((item, i) => (
-                        <motion.div
-                          key={item.title}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.4, delay: 0.1 + i * 0.08 }}
-                          whileHover={{ scale: 1.02 }}
-                          className="group rounded-2xl border border-cyan-500/20 bg-white/5 p-5 transition-all hover:bg-white/[0.07] hover:border-cyan-400/40"
-                        >
-                          <h4 className="text-base font-semibold text-cyan-300">
-                            {item.title}
-                          </h4>
-                          <p className="mt-2 text-sm text-white/60 leading-relaxed">
-                            {item.desc}
-                          </p>
+                          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                          <p className="relative text-2xl sm:text-3xl md:text-4xl font-bold text-blue-400">{stat.value}</p>
+                          <p className="relative mt-1 sm:mt-2 text-xs sm:text-sm text-white/60">{stat.label}</p>
                         </motion.div>
                       ))}
                     </div>
@@ -1258,34 +1294,106 @@ export default function SolutionsPage() {
                 </Container>
               </section>
 
-              {/* SERVICES */}
+              {/* CHALLENGES - Slide from sides */}
               <section className="border-b border-white/10">
                 <Container>
-                  <div className="py-8 sm:py-12">
+                  <div className="py-8 sm:py-10 md:py-14">
                     <motion.h3
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
+                      initial={{ opacity: 0, x: -40 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
                       transition={{ duration: 0.5 }}
-                      className="mb-6 sm:mb-8 text-lg sm:text-xl font-semibold tracking-tight"
+                      className="mb-5 sm:mb-6 md:mb-8 text-lg sm:text-xl md:text-2xl font-semibold"
                     >
-                      Our Security Services
+                      <span className="text-blue-400">Challenges</span>
+                      <span className="text-white/90"> We Solve</span>
                     </motion.h3>
 
-                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="grid gap-4 sm:gap-5">
+                      {data.challenges.map((item, i) => (
+                        <motion.div
+                          key={item.title}
+                          initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: i * 0.08 }}
+                          whileHover={{ scale: 1.01, y: -4 }}
+                          className="group relative rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5 md:p-6 transition-all hover:border-blue-400/30"
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                          <div className="relative">
+                            <div className="flex items-start gap-3 sm:gap-4 mb-2 sm:mb-3">
+                              <motion.div 
+                                whileHover={{ rotate: 360, scale: 1.1 }}
+                                transition={{ duration: 0.6 }}
+                                className={`inline-flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-br ${item.color || 'from-blue-500 to-indigo-500'} shadow-lg`}
+                              >
+                                <item.icon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
+                              </motion.div>
+                              <h4 className="text-base sm:text-lg font-semibold text-white text-left leading-snug pt-1 sm:pt-2">{item.title}</h4>
+                            </div>
+                            <p className="text-xs sm:text-sm text-white/60 text-justify leading-relaxed">{item.desc}</p>
+                          </div>
+                          {item.stat && (
+                            <motion.p 
+                              className="relative mt-3 sm:mt-4 pt-2 sm:pt-3 border-t border-white/10 text-xs sm:text-sm text-blue-400 text-left"
+                              initial={{ opacity: 0 }}
+                              whileInView={{ opacity: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: i * 0.1 + 0.3 }}
+                            >
+                              {item.stat}
+                            </motion.p>
+                          )}
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </Container>
+              </section>
+
+              {/* SERVICES - Staggered fade up */}
+              <section className="border-b border-white/10">
+                <Container>
+                  <div className="py-8 sm:py-10 md:py-14">
+                    <motion.h3
+                      initial={{ opacity: 0, x: 40 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5 }}
+                      className="mb-5 sm:mb-6 md:mb-8 text-lg sm:text-xl md:text-2xl font-semibold"
+                    >
+                      Our <span className="text-blue-400">Services</span>
+                    </motion.h3>
+
+                    <div className="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-4">
                       {data.services.map((service, i) => (
                         <motion.div
                           key={service.title}
-                          initial={{ opacity: 0, y: 30 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: 0.1 + i * 0.06 }}
-                          whileHover={{ y: -8 }}
-                          className="group rounded-2xl border border-white/10 bg-white/5 p-5 transition-all hover:border-cyan-400/30 hover:bg-white/[0.08]"
+                          initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                          whileHover={{ y: -4, scale: 1.02 }}
+                          className="group relative rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5 md:p-6 transition-all hover:border-blue-400/30"
                         >
-                          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-500/10 border border-cyan-400/20">
-                            <service.icon className="h-6 w-6 text-cyan-300" />
+                          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                          <div className="relative">
+                            <motion.div 
+                              whileHover={{ rotate: 360, scale: 1.1 }}
+                              transition={{ duration: 0.6 }}
+                              className={`inline-flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-br ${
+                                i % 4 === 0 ? 'from-blue-500 to-indigo-500' :
+                                i % 4 === 1 ? 'from-purple-500 to-pink-500' :
+                                i % 4 === 2 ? 'from-cyan-500 to-blue-500' :
+                                'from-green-500 to-emerald-500'
+                              } shadow-lg`}
+                            >
+                              <service.icon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
+                            </motion.div>
+                            <h4 className="mt-3 sm:mt-4 md:mt-5 text-base sm:text-lg font-semibold">{service.title}</h4>
+                            <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-white/60">{service.desc}</p>
                           </div>
-                          <h4 className="mt-4 text-base font-semibold">{service.title}</h4>
-                          <p className="mt-2 text-sm text-white/60 leading-relaxed">{service.desc}</p>
                         </motion.div>
                       ))}
                     </div>
@@ -1296,58 +1404,118 @@ export default function SolutionsPage() {
           )}
 
           {/* THREATS */}
-          <section className="border-b border-white/10 bg-gradient-to-b from-cyan-950/20 to-transparent">
+          <section className="border-b border-white/10 bg-gradient-to-b from-blue-950/20 to-transparent">
             <Container>
-              <div className="py-8 sm:py-12">
-                <motion.h3
+              <div className="py-10 sm:py-14 md:py-16">
+                <motion.div
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
-                  className="mb-6 sm:mb-8 flex items-center gap-2 text-lg sm:text-xl font-semibold tracking-tight"
+                  className="mb-8 text-center"
                 >
-                  <motion.div
-                    animate={{ rotate: [0, 10, -10, 0] }}
-                    transition={{ duration: 1, repeat: Infinity, repeatDelay: 3 }}
+                  <motion.div 
+                    whileHover={{ rotate: [0, 10, -10, 0], scale: 1.1 }}
+                    transition={{ duration: 0.3 }}
+                    className="inline-flex"
                   >
-                    <AlertTriangle className="h-5 w-5 text-cyan-400" />
+                    <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 shadow-lg">
+                      <AlertTriangle className="h-7 w-7 text-white" />
+                    </div>
                   </motion.div>
-                  Threats Targeting Your Sector
-                </motion.h3>
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight">
+                    Threats Targeting <span className="text-blue-400">Your Sector</span>
+                  </h3>
+                  <p className="mt-3 text-base text-white/60 max-w-2xl mx-auto">
+                    Understand the real threats facing your organization and how Cyberlok helps mitigate them
+                  </p>
+                </motion.div>
 
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-6 sm:grid-cols-2">
                   {currentThreats.map((threat, i) => (
                     <motion.div
                       key={threat.threat}
-                      initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: 0.1 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                      whileHover={{ scale: 1.02, x: 0 }}
-                      className="group relative overflow-hidden rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-5 transition-all hover:border-cyan-500/40 hover:bg-cyan-500/10"
+                      initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      viewport={{ once: true, amount: 0.2 }}
+                      transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                      whileHover={{ y: -8, scale: 1.02 }}
+                      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-6 transition-all hover:border-blue-400/30"
                     >
-                      {/* Pulse animation */}
-                      <motion.div
-                        className="absolute inset-0 bg-cyan-500/10"
-                        animate={{ scale: [1, 1.1, 1], opacity: [0, 0.3, 0] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      />
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                      <div className="absolute -top-8 -right-8 h-32 w-32 rounded-full bg-gradient-to-br from-blue-500/10 to-transparent blur-3xl opacity-0 transition-opacity group-hover:opacity-100" />
                       
-                      <div className="relative flex items-center gap-3">
-                        <motion.div
-                          animate={{ scale: [1, 1.1, 1] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
-                        >
-                          <threat.icon className="h-6 w-6 text-cyan-400" />
-                        </motion.div>
-                        <h4 className="text-base font-semibold text-cyan-200">
-                          {threat.threat}
-                        </h4>
+                      <div className="relative">
+                        <div className="flex items-start gap-4 mb-4">
+                          <motion.div
+                            whileHover={{ rotate: 360, scale: 1.15 }}
+                            transition={{ duration: 0.6 }}
+                            className={`inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${threat.color} shadow-lg`}
+                          >
+                            <threat.icon className="h-7 w-7 text-white" />
+                          </motion.div>
+                          <div className="flex-1">
+                            <h4 className="text-lg font-semibold text-white text-left leading-snug">
+                              {threat.threat}
+                            </h4>
+                            <motion.div 
+                              initial={{ scaleX: 0 }}
+                              whileInView={{ scaleX: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 0.4, delay: i * 0.1 + 0.2 }}
+                              className="mt-2 h-1 w-12 bg-gradient-to-r from-blue-500 to-blue-400 rounded-full"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="mb-4 rounded-xl border border-white/10 bg-black/20 p-4">
+                          <div className="flex items-baseline gap-2">
+                            <span className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-300">
+                              {threat.stat}
+                            </span>
+                          </div>
+                          <p className="mt-1 text-sm text-white/50">{threat.detail}</p>
+                        </div>
+
+                        <div className="space-y-3">
+                          <div>
+                            <div className="flex items-center gap-2 mb-1">
+                              <AlertTriangle className="h-4 w-4 text-red-400" />
+                              <span className="text-xs font-semibold text-red-400">IMPACT</span>
+                            </div>
+                            <p className="text-sm text-white/60 leading-relaxed">{threat.impact}</p>
+                          </div>
+                          
+                          <div>
+                            <div className="flex items-center gap-2 mb-1">
+                              <Shield className="h-4 w-4 text-green-400" />
+                              <span className="text-xs font-semibold text-green-400">HOW WE PROTECT</span>
+                            </div>
+                            <p className="text-sm text-white/60 leading-relaxed">{threat.solution}</p>
+                          </div>
+                        </div>
                       </div>
-                      <p className="mt-2 text-sm text-cyan-300/80 group-hover:text-cyan-200/90 transition-colors">
-                        {threat.stat}
-                      </p>
                     </motion.div>
                   ))}
                 </div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="mt-10 text-center"
+                >
+                  <Link
+                    href="/contact#send-message"
+                    className="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-400 px-8 py-4 text-base font-semibold text-black shadow-lg shadow-blue-500/30 transition-all hover:shadow-blue-500/50"
+                  >
+                    <span className="absolute inset-0 rounded-full bg-white/20 opacity-0 blur-lg transition group-hover:opacity-100" />
+                    <Shield className="h-5 w-5 relative" />
+                    <span className="relative">Get Protected Today</span>
+                    <ArrowRight className="h-5 w-5 relative transition group-hover:translate-x-1" />
+                  </Link>
+                </motion.div>
               </div>
             </Container>
           </section>
@@ -1359,211 +1527,111 @@ export default function SolutionsPage() {
                 <div className="py-8 sm:py-12">
                   <motion.h3
                     initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    className="mb-8 text-xl sm:text-2xl font-semibold tracking-tight text-center"
+                    className="mb-8 text-center text-xl sm:text-2xl font-semibold"
                   >
-                    Pricing — Simple and Clear
+                    Security Packages — <span className="text-blue-400">Choose Your Protection</span>
                   </motion.h3>
 
-                  {/* ANDROID PACKAGES */}
-                  <div className="mb-10">
-                    <div className="mb-6 flex items-center gap-3">
-                      <Smartphone className="h-6 w-6 text-cyan-400" />
-                      <h4 className="text-lg font-semibold text-white">Android Devices</h4>
-                    </div>
-                    
-                    <div className="grid gap-5 md:grid-cols-3">
-                      {/* Basic */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        whileHover={{ y: -4 }}
-                        className="group relative rounded-2xl border border-cyan-500/20 bg-white/5 p-5 sm:p-6 transition-all hover:border-cyan-400/40 hover:shadow-lg hover:shadow-cyan-500/10"
-                      >
-                        <div className="text-center">
-                          <h4 className="text-xl font-semibold">Basic Audit</h4>
-                          <p className="mt-1 text-sm text-white/60">Essential security check</p>
-                          <motion.p 
-                            className="mt-4 text-4xl font-bold text-cyan-400"
-                            initial={{ scale: 0.8 }}
-                            animate={{ scale: 1 }}
-                          >
-                            ₹249
-                          </motion.p>
-                        </div>
-                        <ul className="mt-6 space-y-2.5">
-                          {["Malware & spyware detection", "App permission review", "Network vulnerability scan", "Data leak check", "Plain-language report", "Fix recommendations"].map((f) => (
-                            <li key={f} className="flex items-start gap-2 text-sm text-white/70">
-                              <CheckCircle2 className="h-4 w-4 text-cyan-400 mt-0.5 shrink-0" />
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
-                        <Link href="/contact" className="mt-6 block w-full rounded-full border border-cyan-500/30 bg-white/5 py-3 text-center text-sm font-semibold text-cyan-300 hover:bg-cyan-500/20 transition">
-                          Get Started
-                        </Link>
-                      </motion.div>
-
-                      {/* Deep - Most Popular */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        whileHover={{ y: -4 }}
-                        className="group relative rounded-2xl border-2 border-cyan-500/50 bg-gradient-to-b from-cyan-500/15 via-white/5 to-transparent p-5 sm:p-6 shadow-lg shadow-cyan-500/10 transition-all"
-                      >
+                  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {data.packages.map((pkg, i) => {
+                      const IconComponent = pkg.icon || Shield;
+                      const gradientColor = pkg.color || "from-blue-500 to-indigo-500";
+                      
+                      return (
                         <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ type: "spring", bounce: 0.5 }}
-                          className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 px-4 py-1 text-xs font-semibold text-black shadow-lg"
+                          key={pkg.name}
+                          initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                          whileHover={{ y: -8, scale: 1.02 }}
+                          className={`group relative overflow-hidden rounded-2xl border transition-all ${
+                            pkg.highlight
+                              ? "border-2 border-blue-400/50 bg-gradient-to-b from-blue-500/15 via-white/5 to-transparent shadow-lg shadow-blue-500/10"
+                              : "border-white/10 bg-white/5 hover:border-blue-400/30"
+                          }`}
                         >
-                          Most Popular
+                          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                          {pkg.highlight && (
+                            <>
+                              <div className="absolute -top-8 -right-8 h-32 w-32 rounded-full bg-blue-500/20 blur-3xl" />
+                              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 to-blue-500" />
+                            </>
+                          )}
+                          
+                          <div className="relative p-6">
+                            {pkg.highlight && (
+                              <div className="rounded-full bg-gradient-to-r from-blue-400 to-blue-500 px-4 py-1 text-xs font-semibold text-black w-fit mx-auto mb-4">
+                                Most Popular
+                              </div>
+                            )}
+                            
+                            <div className="text-center mb-4">
+                              <motion.div
+                                whileHover={{ rotate: 360, scale: 1.1 }}
+                                transition={{ duration: 0.6 }}
+                                className={`inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${gradientColor} shadow-lg mx-auto mb-4`}
+                              >
+                                <IconComponent className="h-8 w-8 text-white" />
+                              </motion.div>
+                              <h4 className="text-xl font-semibold text-white">{pkg.name}</h4>
+                              <p className="mt-1 text-sm text-white/60">{pkg.desc}</p>
+                            </div>
+                            
+                            <div className="text-center mb-4">
+                              <span className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-300">
+                                {pkg.price}
+                              </span>
+                              {pkg.period && (
+                                <span className="ml-1 text-sm text-white/50">/ {pkg.period}</span>
+                              )}
+                            </div>
+                            
+                            <ul className="space-y-2">
+                              {pkg.features.map((feature) => (
+                                <li key={feature} className="flex items-start gap-2 text-sm text-white/70">
+                                  <CheckCircle2 className="h-4 w-4 text-blue-400 mt-0.5 shrink-0" />
+                                  {feature}
+                                </li>
+                              ))}
+                            </ul>
+                            
+                            <Link 
+                              href="/contact#send-message" 
+                              className={`mt-6 block w-full rounded-full py-3 text-center text-sm font-semibold transition-all ${
+                                pkg.highlight
+                                  ? "bg-gradient-to-r from-blue-500 to-blue-400 text-black shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
+                                  : "border border-white/20 bg-white/5 text-white hover:bg-white/10"
+                              }`}
+                            >
+                              Get Started
+                            </Link>
+                          </div>
                         </motion.div>
-                        
-                        <div className="text-center">
-                          <h4 className="text-xl font-semibold">Deep Audit</h4>
-                          <p className="mt-1 text-sm text-white/60">Comprehensive assessment</p>
-                          <motion.p 
-                            className="mt-4 text-4xl font-bold text-cyan-400"
-                            initial={{ scale: 0.8 }}
-                            animate={{ scale: 1 }}
-                          >
-                            ₹399
-                          </motion.p>
-                        </div>
-                        <ul className="mt-6 space-y-2.5">
-                          {["Everything in Basic Audit", "Advanced root detection", "APK analysis for sideloaded apps", "SMS & call log review", "Network traffic analysis", "1-hour consultation"].map((f) => (
-                            <li key={f} className="flex items-start gap-2 text-sm text-white/70">
-                              <CheckCircle2 className="h-4 w-4 text-cyan-400 mt-0.5 shrink-0" />
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
-                        <Link href="/contact" className="mt-6 block w-full rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 py-3 text-center text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30 transition">
-                          Get Started
-                        </Link>
-                      </motion.div>
-
-                      {/* Professional */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
-                        whileHover={{ y: -4 }}
-                        className="group relative rounded-2xl border border-cyan-500/20 bg-white/5 p-5 sm:p-6 transition-all hover:border-cyan-400/40 hover:shadow-lg hover:shadow-cyan-500/10"
-                      >
-                        <div className="text-center">
-                          <h4 className="text-xl font-semibold">Professional Audit</h4>
-                          <p className="mt-1 text-sm text-white/60">Complete with expert analysis</p>
-                          <motion.p 
-                            className="mt-4 text-4xl font-bold text-cyan-400"
-                            initial={{ scale: 0.8 }}
-                            animate={{ scale: 1 }}
-                          >
-                            ₹599
-                          </motion.p>
-                        </div>
-                        <ul className="mt-6 space-y-2.5">
-                          {["Everything in Deep Audit", "Forensic analysis of device", "Social media account audit", "Banking app security check", "2-hour expert consultation", "Priority support (30 days)"].map((f) => (
-                            <li key={f} className="flex items-start gap-2 text-sm text-white/70">
-                              <CheckCircle2 className="h-4 w-4 text-cyan-400 mt-0.5 shrink-0" />
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
-                        <Link href="/contact" className="mt-6 block w-full rounded-full border border-cyan-500/30 bg-white/5 py-3 text-center text-sm font-semibold text-cyan-300 hover:bg-cyan-500/20 transition">
-                          Get Started
-                        </Link>
-                      </motion.div>
-                    </div>
-                  </div>
-
-                  {/* iOS PACKAGES */}
-                  <div>
-                    <div className="mb-6 flex items-center gap-3">
-                      <Smartphone className="h-6 w-6 text-white" />
-                      <h4 className="text-lg font-semibold text-white">iOS Devices (iPhone / iPad)</h4>
-                    </div>
-                    
-                    <div className="grid gap-5 md:grid-cols-2 md:max-w-2xl">
-                      {/* Deep iOS */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        whileHover={{ y: -4 }}
-                        className="group relative rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-6 transition-all hover:border-cyan-500/30"
-                      >
-                        <div className="text-center">
-                          <h4 className="text-xl font-semibold">Deep Audit</h4>
-                          <p className="mt-1 text-sm text-white/60">Comprehensive iOS security check</p>
-                          <motion.p 
-                            className="mt-4 text-4xl font-bold text-cyan-400"
-                            initial={{ scale: 0.8 }}
-                            animate={{ scale: 1 }}
-                          >
-                            ₹499
-                          </motion.p>
-                        </div>
-                        <ul className="mt-6 space-y-2.5">
-                          {["Jailbreak detection", "App permission audit", "iCloud security check", "Data leak verification", "Face ID & passcode review", "Actionable report"].map((f) => (
-                            <li key={f} className="flex items-start gap-2 text-sm text-white/70">
-                              <CheckCircle2 className="h-4 w-4 text-cyan-400 mt-0.5 shrink-0" />
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
-                        <Link href="/contact" className="mt-6 block w-full rounded-full border border-white/15 bg-white/5 py-3 text-center text-sm font-semibold text-white hover:bg-white/10 transition">
-                          Get Started
-                        </Link>
-                      </motion.div>
-
-                      {/* Professional iOS */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        whileHover={{ y: -4 }}
-                        className="group relative rounded-2xl border border-cyan-500/30 bg-gradient-to-b from-cyan-500/10 to-transparent p-5 sm:p-6 transition-all hover:border-cyan-500/50"
-                      >
-                        <div className="text-center">
-                          <h4 className="text-xl font-semibold">Professional Audit</h4>
-                          <p className="mt-1 text-sm text-white/60">Complete with expert analysis</p>
-                          <motion.p 
-                            className="mt-4 text-4xl font-bold text-cyan-400"
-                            initial={{ scale: 0.8 }}
-                            animate={{ scale: 1 }}
-                          >
-                            ₹599
-                          </motion.p>
-                        </div>
-                        <ul className="mt-6 space-y-2.5">
-                          {["Everything in Deep Audit", "Forensic analysis of device", "Social media account audit", "Banking app security check", "2-hour expert consultation", "Priority support (30 days)"].map((f) => (
-                            <li key={f} className="flex items-start gap-2 text-sm text-white/70">
-                              <CheckCircle2 className="h-4 w-4 text-cyan-400 mt-0.5 shrink-0" />
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
-                        <Link href="/contact" className="mt-6 block w-full rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 py-3 text-center text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30 transition">
-                          Get Started
-                        </Link>
-                      </motion.div>
-                    </div>
+                      );
+                    })}
                   </div>
 
                   {/* No Subscription Banner */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="mt-8 rounded-2xl border border-cyan-400/20 bg-cyan-500/10 p-5 text-center"
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    className="mt-10 rounded-2xl border border-blue-400/30 bg-gradient-to-r from-blue-500/10 to-blue-500/5 p-6 text-center"
                   >
-                    <p className="text-cyan-300">
-                      <span className="font-semibold">No subscription.</span> <span className="text-white/70">No hidden renewal.</span> <span className="font-semibold">Pay once, get your report.</span>
+                    <motion.div 
+                      whileHover={{ rotate: 360, scale: 1.1 }}
+                      transition={{ duration: 0.6 }}
+                      className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-red-500 shadow-lg mb-4"
+                    >
+                      <Shield className="h-6 w-6 text-white" />
+                    </motion.div>
+                    <p className="text-base text-white/70">
+                      <span className="font-semibold text-blue-400">No subscription.</span> No hidden renewal. <span className="font-semibold text-blue-400">Pay once, get protected.</span>
                     </p>
                   </motion.div>
                 </div>
@@ -1578,11 +1646,12 @@ export default function SolutionsPage() {
                 <div className="py-8 sm:py-12">
                   <motion.h3
                     initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    className="mb-6 sm:mb-8 text-lg sm:text-xl font-semibold tracking-tight"
+                    className="mb-8 text-center text-xl sm:text-2xl font-semibold tracking-tight"
                   >
-                    Security Packages
+                    Security Packages — <span className="text-blue-400">Choose Your Protection</span>
                   </motion.h3>
 
                   <div className="grid gap-5 lg:grid-cols-3">
@@ -1590,33 +1659,44 @@ export default function SolutionsPage() {
                       <motion.div
                         key={pkg.name}
                         initial={{ opacity: 0, y: 40, rotateY: 15 }}
-                        animate={{ opacity: 1, y: 0, rotateY: 0 }}
+                        whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.6, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
                         whileHover={{ y: -8, scale: 1.02 }}
                         className={`group relative rounded-2xl border p-5 sm:p-6 transition-all ${
                           pkg.highlight
-                            ? "border-cyan-400/50 bg-gradient-to-b from-cyan-500/15 via-white/5 to-transparent shadow-lg shadow-cyan-500/10"
-                            : "border-white/10 bg-white/5 hover:border-cyan-400/20"
+                            ? "border-blue-400/50 bg-gradient-to-b from-blue-500/15 via-white/5 to-transparent shadow-lg shadow-blue-500/10"
+                            : "border-white/10 bg-white/5 hover:border-blue-400/20"
                         }`}
                       >
                         {pkg.highlight && (
                           <motion.div
                             initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
+                            whileInView={{ scale: 1 }}
+                            viewport={{ once: true }}
                             transition={{ type: "spring", bounce: 0.5, delay: 0.3 }}
-                            className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 px-4 py-1 text-xs font-semibold text-black shadow-lg shadow-cyan-500/30"
+                            className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-400 to-blue-500 px-4 py-1 text-xs font-semibold text-black shadow-lg shadow-blue-500/30"
                           >
                             Most Popular
                           </motion.div>
                         )}
 
                         <div className="text-center">
+                          {pkg.icon && pkg.color && (
+                            <motion.div
+                              whileHover={{ rotate: 360, scale: 1.1 }}
+                              transition={{ duration: 0.6 }}
+                              className={`inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${pkg.color} shadow-lg mb-4`}
+                            >
+                              <pkg.icon className="h-7 w-7 text-white" />
+                            </motion.div>
+                          )}
                           <h4 className="text-xl font-semibold">{pkg.name}</h4>
                           <p className="mt-1 text-sm text-white/60">{pkg.desc}</p>
                           {activeTab === 'individuals' || activeTab === 'smes' ? (
                             <>
                               <motion.p 
-                                className="mt-4 text-3xl font-bold bg-gradient-to-r from-cyan-300 to-cyan-400 bg-clip-text text-transparent"
+                                className="mt-4 text-3xl font-bold bg-gradient-to-r from-blue-300 to-blue-400 bg-clip-text text-transparent"
                                 initial={{ scale: 0.8 }}
                                 animate={{ scale: 1 }}
                                 transition={{ delay: 0.4 + i * 0.1 }}
@@ -1627,7 +1707,7 @@ export default function SolutionsPage() {
                             </>
                           ) : (
                             <motion.p 
-                              className="mt-4 text-2xl font-bold text-cyan-300"
+                              className="mt-4 text-2xl font-bold text-blue-400"
                               initial={{ scale: 0.8 }}
                               animate={{ scale: 1 }}
                               transition={{ delay: 0.4 + i * 0.1 }}
@@ -1655,7 +1735,7 @@ export default function SolutionsPage() {
                                 show: { opacity: 1, x: 0 }
                               }}
                             >
-                              <CheckCircle2 className="h-4 w-4 text-cyan-400 mt-0.5 shrink-0" />
+                              <CheckCircle2 className="h-4 w-4 text-blue-400 mt-0.5 shrink-0" />
                               {feature}
                             </motion.li>
                           ))}
@@ -1669,7 +1749,7 @@ export default function SolutionsPage() {
                             href="/contact"
                             className={`mt-6 block w-full rounded-full py-3 text-center text-sm font-semibold transition-all ${
                               pkg.highlight
-                                ? "bg-gradient-to-r from-cyan-500 to-cyan-400 text-black hover:shadow-lg hover:shadow-cyan-500/30"
+                                ? "bg-gradient-to-r from-blue-500 to-blue-400 text-black hover:shadow-lg hover:shadow-blue-500/30"
                                 : "border border-white/15 bg-white/5 text-white hover:bg-white/10"
                             }`}
                           >
@@ -1694,7 +1774,7 @@ export default function SolutionsPage() {
                   transition={{ duration: 0.5 }}
                   className="mb-6 flex items-center gap-2 text-lg sm:text-xl font-semibold tracking-tight"
                 >
-                  <FileCheck className="h-5 w-5 text-cyan-400" />
+                  <FileCheck className="h-5 w-5 text-blue-400" />
                   Compliance Frameworks
                 </motion.h3>
 
@@ -1702,11 +1782,12 @@ export default function SolutionsPage() {
                   {data.compliance.map((comp, i) => (
                     <motion.span
                       key={comp}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
+                      initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.5 }}
                       transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
                       whileHover={{ scale: 1.05, y: -2 }}
-                      className="rounded-full border border-cyan-400/20 bg-gradient-to-r from-cyan-500/10 to-cyan-400/5 px-4 py-2 text-sm text-cyan-300 transition-all hover:border-cyan-400/40 hover:bg-cyan-500/20"
+                      className="rounded-full border border-blue-400/20 bg-gradient-to-r from-blue-500/10 to-blue-400/5 px-4 py-2 text-sm text-blue-400 transition-all hover:border-blue-400/40 hover:bg-blue-500/20"
                     >
                       {comp}
                     </motion.span>
@@ -1717,77 +1798,138 @@ export default function SolutionsPage() {
           </section>
 
           {/* TESTIMONIALS */}
-          <section className="border-b border-white/10">
-            <Container>
-              <div className="py-8 sm:py-12">
-                <motion.h3
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="mb-6 sm:mb-8 flex items-center gap-2 text-lg sm:text-xl font-semibold tracking-tight"
-                >
-                  <Star className="h-5 w-5 text-cyan-400" />
-                  Client Success Stories
-                </motion.h3>
+          {data.testimonials && data.testimonials.length > 0 && (
+            <section className="border-b border-white/10">
+              <Container>
+                <div className="py-8 sm:py-12">
+                  <motion.h3
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="mb-6 sm:mb-8 flex items-center gap-2 text-lg sm:text-xl font-semibold tracking-tight"
+                  >
+                    <Star className="h-5 w-5 text-blue-400" />
+                    Client Success Stories
+                  </motion.h3>
 
-                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                  {data.testimonials.map((t, i) => (
+                  <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    {data.testimonials.map((t, i) => (
                     <motion.div
                       key={t.name}
                       initial={{ opacity: 0, y: 30, rotateX: 10 }}
                       animate={{ opacity: 1, y: 0, rotateX: 0 }}
                       transition={{ duration: 0.5, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
                       whileHover={{ y: -4, scale: 1.01 }}
-                      className="group rounded-2xl border border-white/10 bg-white/5 p-5 transition-all hover:border-cyan-400/20 hover:bg-white/[0.07]"
+                      className="group relative rounded-2xl border border-white/10 bg-white/5 p-5 transition-all hover:border-blue-400/20 hover:bg-white/[0.07]"
                     >
-                      <div className="flex gap-1">
-                        {Array.from({ length: 5 }).map((_, j) => (
-                          <motion.div
-                            key={j}
-                            initial={{ opacity: 0, scale: 0 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.2 + i * 0.1 + j * 0.03 }}
-                          >
-                            <Star className="h-3 w-3 fill-cyan-400 text-cyan-400" />
-                          </motion.div>
-                        ))}
-                      </div>
-                      <motion.p 
-                        className="mt-4 text-sm leading-relaxed text-white/80"
+                      {/* Animated gradient border on hover */}
+                      <motion.div
+                        className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-blue-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                         initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.3 + i * 0.1 }}
-                      >
-                        &ldquo;{t.quote}&rdquo;
-                      </motion.p>
-                      <motion.div 
-                        className="mt-3 rounded-lg bg-gradient-to-r from-cyan-500/10 to-cyan-400/5 px-3 py-2 text-xs text-cyan-300 border border-cyan-400/20"
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.4 + i * 0.1 }}
-                      >
-                        Result: {t.result}
-                      </motion.div>
-                      <motion.div 
-                        className="mt-4 flex items-center gap-3"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 + i * 0.1 }}
-                      >
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500/30 to-cyan-400/20 text-sm font-semibold text-cyan-300 border border-cyan-400/20">
-                          {t.name.charAt(0)}
+                        whileHover={{ opacity: 1 }}
+                      />
+                      
+                      <div className="relative">
+                        <div className="flex gap-1">
+                          {Array.from({ length: 5 }).map((_, j) => (
+                            <motion.div
+                              key={j}
+                              initial={{ opacity: 0, scale: 0 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 0.2 + i * 0.1 + j * 0.03 }}
+                            >
+                              <Star className="h-3 w-3 fill-blue-400 text-blue-400" />
+                            </motion.div>
+                          ))}
                         </div>
-                        <div>
-                          <p className="text-sm font-semibold group-hover:text-cyan-100 transition-colors">{t.name}</p>
-                          <p className="text-xs text-white/50">{t.role}</p>
-                        </div>
-                      </motion.div>
+                        <motion.p 
+                          className="mt-4 text-sm leading-relaxed text-white/80"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.3 + i * 0.1 }}
+                        >
+                          &ldquo;{t.quote}&rdquo;
+                        </motion.p>
+                        {t.result && (
+                          <motion.div 
+                            className="mt-3 rounded-lg bg-gradient-to-r from-blue-500/10 to-blue-400/5 px-3 py-2 text-xs text-blue-400 border border-blue-400/20"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.4 + i * 0.1 }}
+                          >
+                            Result: {t.result}
+                          </motion.div>
+                        )}
+                        <motion.div 
+                          className="mt-4 flex items-center gap-3"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.5 + i * 0.1 }}
+                        >
+                          <motion.div 
+                            className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500/30 to-blue-400/20 text-sm font-semibold text-blue-400 border border-blue-400/20"
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                          >
+                            {t.name.charAt(0)}
+                          </motion.div>
+                          <div>
+                            <p className="text-sm font-semibold group-hover:text-blue-100 transition-colors">{t.name}</p>
+                            <p className="text-xs text-white/50">{t.role}</p>
+                          </div>
+                        </motion.div>
+                      </div>
                     </motion.div>
                   ))}
                 </div>
               </div>
             </Container>
           </section>
+          )}
+
+          {/* FAQ */}
+          {data.faqs && data.faqs.length > 0 && (
+            <section className="border-b border-white/10">
+              <Container>
+                <div className="py-8 sm:py-12">
+                  <motion.h3
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="mb-6 sm:mb-8 flex items-center gap-2 text-lg sm:text-xl font-semibold tracking-tight"
+                  >
+                    <HelpCircle className="h-5 w-5 text-blue-400" />
+                    Frequently Asked Questions
+                  </motion.h3>
+
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  >
+                    <Accordion type="single" collapsible className="w-full">
+                      {data.faqs.map((faq, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.4, delay: 0.1 + i * 0.08 }}
+                        >
+                          <AccordionItem value={`item-${i}`} className="border-white/10">
+                            <AccordionTrigger className="text-left text-white/90 hover:text-blue-400 transition-colors">
+                              <span className="text-sm font-medium">{faq.q}</span>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-sm text-white/60 leading-relaxed">
+                              {faq.a}
+                            </AccordionContent>
+                          </AccordionItem>
+                        </motion.div>
+                      ))}
+                    </Accordion>
+                  </motion.div>
+                </div>
+              </Container>
+            </section>
+          )}
 
           {/* CTA */}
           <section className="relative overflow-hidden">
@@ -1796,12 +1938,12 @@ export default function SolutionsPage() {
             {/* Animated background elements */}
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
               <motion.div
-                className="absolute -top-20 -left-20 h-60 w-60 rounded-full bg-cyan-500/10 blur-3xl"
+                className="absolute -top-20 -left-20 h-60 w-60 rounded-full bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent blur-3xl"
                 animate={{ x: [0, 30, 0], y: [0, 30, 0], scale: [1, 1.2, 1] }}
                 transition={{ duration: 8, repeat: Infinity }}
               />
               <motion.div
-                className="absolute -bottom-20 -right-20 h-60 w-60 rounded-full bg-cyan-400/10 blur-3xl"
+                className="absolute -bottom-20 -right-20 h-60 w-60 rounded-full bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent blur-3xl"
                 animate={{ x: [0, -30, 0], y: [0, -30, 0], scale: [1, 1.2, 1] }}
                 transition={{ duration: 8, repeat: Infinity, delay: 4 }}
               />
@@ -1813,11 +1955,11 @@ export default function SolutionsPage() {
                   initial={{ opacity: 0, scale: 0.95, y: 20 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="relative overflow-hidden rounded-3xl border border-cyan-400/20 bg-gradient-to-br from-cyan-500/10 via-white/5 to-transparent p-6 sm:p-10 shadow-2xl shadow-cyan-500/5"
+                  className="relative overflow-hidden rounded-3xl border border-blue-400/20 bg-gradient-to-br from-blue-500/10 via-white/5 to-transparent p-6 sm:p-10 shadow-2xl shadow-blue-500/5"
                 >
                   {/* Animated border glow */}
                   <motion.div
-                    className="absolute inset-0 rounded-3xl border border-cyan-400/30"
+                    className="absolute inset-0 rounded-3xl border border-blue-400/30"
                     animate={{ opacity: [0.3, 0.6, 0.3] }}
                     transition={{ duration: 3, repeat: Infinity }}
                   />
@@ -1833,10 +1975,10 @@ export default function SolutionsPage() {
                         animate={{ rotate: [0, 10, -10, 0] }}
                         transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
                       >
-                        <Zap className="h-10 w-10 text-cyan-300" />
+                        <Zap className="h-10 w-10 text-blue-400" />
                       </motion.div>
                       <h3 className="mt-5 text-xl sm:text-2xl font-semibold tracking-tight">
-                        Ready to secure your {activeTab === 'individuals' ? 'family' : activeTab === 'smes' ? 'business' : activeTab === 'corporates' ? 'organization' : activeTab === 'enterprises' ? 'enterprise' : 'sector'}?
+                        Ready to secure your {activeTab === 'individuals' ? 'family' : activeTab === 'smes' ? 'business' : activeTab === 'corporates' ? 'organization' : 'sector'}?
                       </h3>
                       <p className="mt-3 text-sm sm:text-base text-white/65">
                         Get a free security assessment tailored to your needs.
@@ -1856,7 +1998,7 @@ export default function SolutionsPage() {
                       >
                         <Link
                           href="/contact"
-                          className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 px-7 py-3 text-sm font-semibold text-black shadow-lg shadow-cyan-500/30 transition-all hover:shadow-cyan-500/50 hover:from-cyan-400 hover:to-cyan-300"
+                          className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-400 px-7 py-3 text-sm font-semibold text-black shadow-lg shadow-blue-500/30 transition-all hover:shadow-blue-500/50 hover:from-blue-400 hover:to-blue-300"
                         >
                           Get Free Assessment <ArrowRight className="h-4 w-4" />
                         </Link>

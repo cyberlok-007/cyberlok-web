@@ -165,7 +165,7 @@ export default function ServicesPage() {
             </p>
             <h1 className="mt-4 sm:mt-6 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-tight">
               Full-Spectrum Security Services to{" "}
-              <span className="text-cyan-300">Protect, Detect & Respond</span>
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Protect, Detect & Respond</span>
             </h1>
             <p className="mt-3 sm:mt-5 max-w-3xl text-base sm:text-lg leading-relaxed text-white/70">
               Cyberlok provides cybersecurity services, solutions, awareness programs and training
@@ -176,7 +176,7 @@ export default function ServicesPage() {
             <div className="mt-6 sm:mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 sm:px-6 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-5 sm:px-6 py-3 text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30 transition"
               >
                 Request Security Assessment <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
               </Link>
@@ -222,7 +222,7 @@ export default function ServicesPage() {
                 >
                   <div className="flex items-center justify-between">
                     <span className="inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl sm:rounded-2xl border border-cyan-400/20 bg-cyan-500/10">
-                      <cat.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
+                      <cat.icon className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                     </span>
                     <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-white/40 group-hover:text-white/80 transition" />
                   </div>
@@ -267,7 +267,7 @@ export default function ServicesPage() {
                   className="group rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6 hover:bg-white/8 transition"
                 >
                   <div className="flex items-center justify-between gap-4">
-                    <p className="text-xs font-semibold tracking-wide text-cyan-300">
+                    <p className="text-xs font-semibold tracking-wide bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                       {s.tag}
                     </p>
                     <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-white/40 group-hover:text-white/80 transition" />
@@ -281,7 +281,7 @@ export default function ServicesPage() {
             <div className="mt-6 sm:mt-10 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-cyan-500 px-5 sm:px-6 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition"
+                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-5 sm:px-6 py-3 text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30 transition"
               >
                 Request Quote
               </Link>
@@ -329,7 +329,7 @@ export default function ServicesPage() {
                   >
                     <div className="flex items-center gap-3">
                       <span className="inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl sm:rounded-2xl border border-cyan-400/20 bg-cyan-500/10">
-                        <step.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
+                        <step.icon className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                       </span>
                       <div>
                         <p className="font-semibold text-sm sm:text-base">{step.title}</p>
@@ -362,7 +362,7 @@ export default function ServicesPage() {
                 </div>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 sm:px-7 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition w-full sm:w-auto mt-4 md:mt-0"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-5 sm:px-7 py-3 text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30 transition w-full sm:w-auto mt-4 md:mt-0"
                 >
                   Speak to Cyberlok <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Link>
@@ -378,7 +378,7 @@ export default function ServicesPage() {
                     key={item.title}
                     className="rounded-2xl sm:rounded-3xl border border-white/10 bg-black/30 p-4 sm:p-6"
                   >
-                    <item.icon className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-300" />
+                    <item.icon className="h-5 w-5 sm:h-6 sm:w-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                     <p className="mt-3 sm:mt-4 font-semibold text-sm sm:text-base">{item.title}</p>
                     <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-white/60">{item.desc}</p>
                   </div>

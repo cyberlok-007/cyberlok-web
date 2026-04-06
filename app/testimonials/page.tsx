@@ -143,9 +143,8 @@ export default function TestimonialsPage() {
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-40 left-1/4 h-[500px] w-[500px] rounded-full bg-cyan-400/10 blur-3xl" />
-          <div className="absolute -bottom-40 right-1/4 h-[400px] w-[400px] rounded-full bg-cyan-400/5 blur-3xl" />
-          <div className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(rgba(255,255,255,0.15)_1px,transparent_1px)] [background-size:32px_32px]" />
+          <div className="absolute -top-40 right-1/4 h-[700px] w-[700px] rounded-full bg-gradient-to-br from-cyan-400/20 via-blue-500/10 to-transparent blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-3xl" />
         </div>
         <Container>
           <div className="px-2 py-8 sm:py-10">
@@ -154,7 +153,7 @@ export default function TestimonialsPage() {
           <div className="px-2 pb-12 sm:pb-16 md:pb-20">
             <motion.div initial="hidden" animate="show" className="mx-auto max-w-3xl text-center">
               <motion.div custom={0} variants={fadeUp}>
-                <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-2 text-sm text-cyan-300">
+                <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-2 text-sm text-blue-400">
                   <Star className="h-4 w-4" />
                   Client Testimonials
                 </span>
@@ -182,7 +181,7 @@ export default function TestimonialsPage() {
               {stats.map((stat, i) => (
                 <AnimatedContent key={stat.label} distance={20} direction="vertical" duration={0.5} delay={i * 0.1}>
                   <div className="rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-6 text-center">
-                    <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-300">{stat.value}</p>
+                    <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-400">{stat.value}</p>
                     <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-white/60">{stat.label}</p>
                   </div>
                 </AnimatedContent>
@@ -203,13 +202,13 @@ export default function TestimonialsPage() {
                     whileHover={{ y: -4 }}
                     className="group relative h-full rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-6 transition-all hover:border-cyan-400/30 hover:bg-white/10"
                   >
-                    <Quote className="absolute top-5 right-5 h-8 w-8 text-cyan-400/10 group-hover:text-cyan-400/20 transition-colors" />
+                    <Quote className="absolute top-5 right-5 h-8 w-8 text-blue-400 group-hover:text-blue-400/20 transition-colors" />
                     
                     <div className="relative">
                       {/* Rating */}
                       <div className="flex items-center gap-1 mb-4">
                         {Array.from({ length: testimonial.rating }).map((_, i) => (
-                          <Star key={i} className="h-4 w-4 fill-cyan-400 text-cyan-400" />
+                          <Star key={i} className="h-4 w-4 text-blue-400" />
                         ))}
                       </div>
 
@@ -227,7 +226,7 @@ export default function TestimonialsPage() {
                       {/* Author */}
                       <div className="mt-5 flex items-center gap-3 pt-4 border-t border-white/10">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/20 bg-cyan-500/10">
-                          <testimonial.industryIcon className="h-5 w-5 text-cyan-300" />
+                          <testimonial.industryIcon className="h-5 w-5 text-blue-400" />
                         </div>
                         <div>
                           <p className="text-sm font-semibold text-white">{testimonial.author}</p>
@@ -263,7 +262,7 @@ export default function TestimonialsPage() {
                 <AnimatedContent key={industry.name} distance={20} direction="vertical" duration={0.5} delay={i * 0.05}>
                   <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:border-cyan-400/30 hover:bg-white/10">
                     <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-cyan-400/20 bg-cyan-500/10">
-                      <industry.icon className="h-4 w-4 text-cyan-300" />
+                      <industry.icon className="h-4 w-4 text-blue-400" />
                     </span>
                     <span className="text-xs sm:text-sm font-medium text-white">{industry.name}</span>
                   </div>
@@ -277,7 +276,8 @@ export default function TestimonialsPage() {
       {/* CTA */}
       <section className="relative overflow-hidden py-12 sm:py-16 md:py-20">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
+          <div className="absolute -top-40 right-1/4 h-[700px] w-[700px] rounded-full bg-gradient-to-br from-cyan-400/20 via-blue-500/10 to-transparent blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-3xl" />
         </div>
         <Container>
           <AnimatedContent distance={30} direction="vertical" duration={0.7}>
@@ -293,17 +293,17 @@ export default function TestimonialsPage() {
                 Your success story could be next.
               </p>
               <div className="mt-6 sm:mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
-                <ClickSpark sparkColor="#22d3ee" sparkSize={6} sparkRadius={14} sparkCount={6}>
+                <ClickSpark sparkColor="#3b82f6" sparkSize={6} sparkRadius={14} sparkCount={6}>
                   <Link
                     href="/contact"
-                    className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-black transition-all hover:bg-cyan-400 w-full sm:w-auto"
+                    className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-black transition-all hover:shadow-lg hover:shadow-cyan-500/30 w-full sm:w-auto"
                   >
                     <span className="absolute inset-0 rounded-full bg-white/20 opacity-0 blur-lg transition group-hover:opacity-100" />
                     <span className="relative">Start Your Journey</span>
                     <ArrowRight className="relative h-4 w-4 sm:h-5 sm:w-5 transition group-hover:translate-x-1" />
                   </Link>
                 </ClickSpark>
-                <ClickSpark sparkColor="#22d3ee" sparkSize={5} sparkRadius={12} sparkCount={5}>
+                <ClickSpark sparkColor="#3b82f6" sparkSize={5} sparkRadius={12} sparkCount={5}>
                   <Link
                     href="/case-studies"
                     className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold text-white transition-all hover:bg-white/10 w-full sm:w-auto"

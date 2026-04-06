@@ -141,7 +141,7 @@ function NavItem({
 }) {
   return (
     <ClickSpark
-      sparkColor="#22d3ee"
+      sparkColor="#3b82f6"
       sparkSize={4}
       sparkRadius={12}
       sparkCount={6}
@@ -157,7 +157,7 @@ function NavItem({
 
         <span
           className={`pointer-events-none absolute left-0 -bottom-2 h-[2px] w-full
-          bg-gradient-to-r from-transparent via-cyan-400 to-transparent blur-[0.6px]
+          bg-gradient-to-r from-transparent via-blue-400 to-transparent blur-[0.6px]
           transition-all duration-300
           ${
             active
@@ -192,7 +192,7 @@ const ServiceCategory = memo(function ServiceCategory({
       `}
     >
       <div className="flex items-center gap-2">
-        <cat.icon className="h-5 w-5 text-cyan-300" />
+        <cat.icon className="h-5 w-5 text-blue-400" />
         <p className="text-base font-semibold text-white">{cat.category}</p>
       </div>
 
@@ -208,7 +208,7 @@ const ServiceCategory = memo(function ServiceCategory({
               className="relative flex items-center gap-2.5 px-1 py-1 text-sm text-white/70 transition-colors hover:text-white"
             >
               {item.icon && (
-                <item.icon className="h-3.5 w-3.5 text-cyan-400/70 shrink-0" />
+                <item.icon className="h-3.5 w-3.5 text-blue-400/70 shrink-0" />
               )}
               <span className="flex-1">{item.name}</span>
               <span
@@ -269,7 +269,7 @@ export default function Navbar() {
             </div>
 
             <div className="flex flex-col leading-none">
-              <div className="text-lg font-semibold tracking-tight text-white transition-colors duration-300 group-hover:text-cyan-300">
+              <div className="text-lg font-semibold tracking-tight text-white transition-colors duration-300 group-hover:text-blue-400">
                 CyberLok
               </div>
               <div className="mt-1 text-xs uppercase tracking-[0.28em] text-white/50">
@@ -335,7 +335,7 @@ export default function Navbar() {
                         href="/testimonials"
                         className="flex items-start gap-3 rounded-xl px-3 py-2 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-white"
                       >
-                        <MessageSquareQuote className="h-4 w-4 mt-0.5 text-cyan-400" />
+                        <MessageSquareQuote className="h-4 w-4 mt-0.5 text-blue-400" />
                         <div>
                           <span className="block font-medium">Testimonials</span>
                           <span className="text-xs text-white/50">What our clients say about us</span>
@@ -345,7 +345,7 @@ export default function Navbar() {
                         href="/case-studies"
                         className="flex items-start gap-3 rounded-xl px-3 py-2 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-white"
                       >
-                        <BookOpen className="h-4 w-4 mt-0.5 text-cyan-400" />
+                        <BookOpen className="h-4 w-4 mt-0.5 text-blue-400" />
                         <div>
                           <span className="block font-medium">Case Studies</span>
                           <span className="text-xs text-white/50">Detailed security success stories</span>
@@ -382,7 +382,7 @@ export default function Navbar() {
                         href="/blog"
                         className="flex items-start gap-3 rounded-xl px-3 py-2 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-white"
                       >
-                        <Newspaper className="h-4 w-4 mt-0.5 text-cyan-400" />
+                        <Newspaper className="h-4 w-4 mt-0.5 text-blue-400" />
                         <div>
                           <span className="block font-medium">Blog</span>
                           <span className="text-xs text-white/50">Security insights and updates</span>
@@ -392,7 +392,7 @@ export default function Navbar() {
                         href="/resources"
                         className="flex items-start gap-3 rounded-xl px-3 py-2 text-sm text-white/70 transition-colors hover:bg-white/5 hover:text-white"
                       >
-                        <Download className="h-4 w-4 mt-0.5 text-cyan-400" />
+                        <Download className="h-4 w-4 mt-0.5 text-blue-400" />
                         <div>
                           <span className="block font-medium">Resources</span>
                           <span className="text-xs text-white/50">Whitepapers & threat reports</span>
@@ -410,13 +410,13 @@ export default function Navbar() {
           {/* CTA */}
           <div className="hidden md:flex ml-auto">
             <StarBorder as="div" color="cyan" speed="2.5s" thickness={3} className="rounded-full">
-              <ClickSpark sparkColor="#22d3ee" sparkSize={6} sparkRadius={16} sparkCount={8} duration={380}>
+              <ClickSpark sparkColor="#3b82f6" sparkSize={6} sparkRadius={16} sparkCount={8} duration={380}>
                 <Link href="/incident-response" className="group relative inline-flex items-center">
                   <span className="pointer-events-none absolute inset-0 rounded-full bg-cyan-400/20 blur-lg opacity-0 transition group-hover:opacity-100" />
                   <ShinyText
                     text="Cyber Incident? Get Immediate Support"
                     speed={4}
-                    color="#67e8f9"
+                    color="#60a5fa"
                     shineColor="#ffffff"
                     spread={120}
                     direction="left"
@@ -547,7 +547,7 @@ export default function Navbar() {
                       {servicesMega.map((cat) => (
                         <div key={cat.category}>
                           <div className="mb-2 flex items-center gap-2">
-                            <cat.icon className="h-4 w-4 text-cyan-300" />
+                            <cat.icon className="h-4 w-4 text-blue-400" />
                             <p className="text-sm font-semibold text-white">{cat.category}</p>
                           </div>
 
@@ -571,7 +571,7 @@ export default function Navbar() {
 
               <Link
                 href="/incident-response"
-                className="block rounded-xl border border-cyan-400/30 bg-cyan-400/10 px-4 py-3 text-center text-sm font-semibold text-cyan-300 hover:bg-cyan-400/20"
+                className="block rounded-xl border border-cyan-400/30 bg-cyan-400/10 px-4 py-3 text-center text-sm font-semibold text-blue-400 hover:bg-cyan-400/20"
               >
                 Cyber Incident? Get Immediate Support
               </Link>

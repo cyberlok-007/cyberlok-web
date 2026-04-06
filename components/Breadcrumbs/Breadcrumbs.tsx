@@ -31,7 +31,7 @@ export default function Breadcrumbs({ items, showHome = true, className }: Bread
           {item.href ? (
             <Link
               href={item.href}
-              className="flex items-center gap-1.5 transition-colors hover:text-cyan-300"
+              className="flex items-center gap-1.5 transition-colors hover:text-blue-400"
             >
               {index === 0 ? (
                 <>
@@ -61,7 +61,7 @@ export function BackButton({ href, label = "Go Back" }: { href?: string; label?:
   return (
     <Link
       href={backHref}
-      className="inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-cyan-300"
+      className="inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-blue-400"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

@@ -31,7 +31,7 @@ export default function ServicesEcosystem() {
             animateOpacity
           >
             <div className="mb-12 sm:mb-16 max-w-3xl">
-              <p className="text-xs font-semibold tracking-widest text-cyan-300">
+              <p className="text-xs font-semibold tracking-widest bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                 CYBERLOK SERVICES ECOSYSTEM
               </p>
 
@@ -58,7 +58,7 @@ export default function ServicesEcosystem() {
                   className={`whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition
                     ${
                       active === key
-                        ? "bg-cyan-400 text-black"
+                        ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-black"
                         : "border border-white/15 text-white/70"
                     }`}
                 >
@@ -196,9 +196,9 @@ function ServiceBlock({
   const isOpen = active === title;
 
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/5">
+    <div className={`rounded-3xl border ${isOpen ? 'border-cyan-400/50' : 'border-white/10'} bg-white/5`}>
 
-      <ClickSpark sparkColor="#22d3ee" sparkSize={6} sparkRadius={18} sparkCount={6} duration={350}>
+      <ClickSpark sparkColor="#3b82f6" sparkSize={6} sparkRadius={18} sparkCount={6} duration={350}>
         <button
           onClick={() => setActive(title)}
           className="flex w-full items-center justify-between p-5 sm:p-6 text-left"
@@ -223,7 +223,7 @@ function ServiceBlock({
             <ul className="mt-4 space-y-2 text-sm text-white/70">
               {services.map((s) => (
                 <li key={s} className="flex gap-2">
-                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-cyan-400" />
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500" />
                   {s}
                 </li>
               ))}
@@ -232,7 +232,7 @@ function ServiceBlock({
             <ClickSpark sparkColor="#000" sparkSize={7} sparkRadius={16} sparkCount={8} duration={400}>
               <Link
                 href="/contact"
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-cyan-500 px-5 py-2 text-sm font-semibold text-black"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-5 py-2 text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30"
               >
                 Consult with Us →
               </Link>
@@ -256,7 +256,7 @@ function ServicesWheel({
   setActive: (v: ServiceKey) => void;
 }) {
   const color = (key: ServiceKey) =>
-    active === key ? "#22d3ee" : "#0b1220";
+    active === key ? "#3b82f6" : "#0b1220";
 
   const labelColor = (key: ServiceKey) =>
     active === key ? "#000" : "#fff";

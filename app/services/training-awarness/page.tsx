@@ -167,11 +167,11 @@ export default function TrainingAwarenessPage() {
           <div className="px-2 py-10 sm:py-14 md:py-20">
             <Breadcrumbs items={[{ label: "Services", href: "/services" }, { label: "Training & Awareness" }]} />
             <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 sm:px-4 py-2 text-xs sm:text-sm text-white/70">
-              <GraduationCap className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-300" /> Training & Awareness
+              <GraduationCap className="h-3 w-3 sm:h-4 sm:w-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" /> Training & Awareness
             </p>
             <h1 className="mt-4 sm:mt-6 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-tight">
               Build Your{" "}
-              <span className="text-cyan-300">Human Firewall</span>
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Human Firewall</span>
             </h1>
             <p className="mt-3 sm:mt-5 max-w-3xl text-base sm:text-lg leading-relaxed text-white/70">
               The human element is the weakest link in security. Cyberlok&apos;s training and awareness programs
@@ -181,7 +181,7 @@ export default function TrainingAwarenessPage() {
             <div className="mt-6 sm:mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 sm:px-6 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-5 sm:px-6 py-3 text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30 transition"
               >
                 Start Training Program <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
               </Link>
@@ -202,7 +202,7 @@ export default function TrainingAwarenessPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 py-8 sm:py-12">
             {stats.map((stat) => (
               <div key={stat.label} className="text-center">
-                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-300">{stat.value}</p>
+                <p className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">{stat.value}</p>
                 <p className="mt-1 text-xs sm:text-sm text-white/60">{stat.label}</p>
               </div>
             ))}
@@ -231,12 +231,12 @@ export default function TrainingAwarenessPage() {
                 >
                   <div className="flex items-start gap-4">
                     <span className="inline-flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl border border-cyan-400/20 bg-cyan-500/10">
-                      <program.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
+                      <program.icon className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                     </span>
                     <div className="flex-1">
                       <h3 className="text-base sm:text-lg font-semibold">{program.title}</h3>
                       <p className="mt-2 text-xs sm:text-sm text-white/60 leading-relaxed">{program.desc}</p>
-                      <p className="mt-2 text-xs text-cyan-400">{program.duration}</p>
+                      <p className="mt-2 text-xs bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">{program.duration}</p>
                     </div>
                   </div>
 
@@ -280,7 +280,7 @@ export default function TrainingAwarenessPage() {
                   className="rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6"
                 >
                   <span className="inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl sm:rounded-2xl border border-cyan-400/20 bg-cyan-500/10">
-                    <feature.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
+                    <feature.icon className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                   </span>
                   <p className="mt-4 sm:mt-5 font-semibold text-sm sm:text-base">{feature.title}</p>
                   <p className="mt-2 text-xs sm:text-sm text-white/60 leading-relaxed">{feature.desc}</p>
@@ -310,7 +310,7 @@ export default function TrainingAwarenessPage() {
                   key={p.step}
                   className="rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6"
                 >
-                  <span className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-cyan-500/10 text-sm font-bold text-cyan-300">
+                  <span className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-cyan-500/10 text-sm font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                     {p.step}
                   </span>
                   <p className="mt-3 sm:mt-4 font-semibold text-sm sm:text-base">{p.title}</p>
@@ -345,11 +345,11 @@ export default function TrainingAwarenessPage() {
                   ].map((item) => (
                     <div key={item.stat} className="flex items-start gap-3">
                       <span className="inline-flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 border border-cyan-400/20">
-                        <item.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
+                        <item.icon className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                       </span>
                       <div>
                         <p className="font-semibold text-sm sm:text-base">
-                          <span className="text-cyan-300">{item.stat}</span> {item.text}
+                          <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">{item.stat}</span> {item.text}
                         </p>
                       </div>
                     </div>
@@ -359,7 +359,7 @@ export default function TrainingAwarenessPage() {
 
               <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-8">
                 <div className="flex items-center gap-3 mb-5 sm:mb-6">
-                  <ShieldCheck className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-300" />
+                  <ShieldCheck className="h-5 w-5 sm:h-6 sm:w-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                   <p className="font-semibold text-sm sm:text-base">Key Program Outcomes</p>
                 </div>
                 <ul className="space-y-3">
@@ -374,7 +374,7 @@ export default function TrainingAwarenessPage() {
                     "Reduced risk of human-initiated breaches",
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-400 mt-0.5 shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mt-0.5 shrink-0" />
                       <p className="text-xs sm:text-sm text-white/70">{item}</p>
                     </li>
                   ))}
@@ -425,7 +425,7 @@ export default function TrainingAwarenessPage() {
                 </div>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 sm:px-7 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition w-full sm:w-auto mt-4 md:mt-0"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-5 sm:px-7 py-3 text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30 transition w-full sm:w-auto mt-4 md:mt-0"
                 >
                   Request Free Assessment <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Link>
@@ -433,15 +433,15 @@ export default function TrainingAwarenessPage() {
 
               <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 sm:gap-8">
                 <div className="flex items-center gap-3">
-                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-400" />
+                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                   <p className="text-xs sm:text-sm text-white/70">Customized for your industry</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-400" />
+                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                   <p className="text-xs sm:text-sm text-white/70">Multi-language support</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-400" />
+                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                   <p className="text-xs sm:text-sm text-white/70">Detailed compliance reports</p>
                 </div>
               </div>

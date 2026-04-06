@@ -178,7 +178,7 @@ export default function OffensiveSecurityPage() {
               transition={{ duration: 0.5 }}
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 sm:px-4 py-2 text-xs sm:text-sm text-white/70"
             >
-              <Bug className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-300" /> Offensive Security
+              <Bug className="h-3 w-3 sm:h-4 sm:w-4 text-blue-400" /> Offensive Security
             </motion.p>
             
             <motion.h1
@@ -188,7 +188,7 @@ export default function OffensiveSecurityPage() {
               className="mt-4 sm:mt-6 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-tight"
             >
               Find Vulnerabilities Before{" "}
-              <span className="text-cyan-300">Attackers Do</span>
+              <span className="text-blue-400">Attackers Do</span>
             </motion.h1>
             
             <motion.p
@@ -209,7 +209,7 @@ export default function OffensiveSecurityPage() {
             >
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 sm:px-6 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-5 sm:px-6 py-3 text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30 transition"
               >
                 Request Penetration Test <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
               </Link>
@@ -237,7 +237,7 @@ export default function OffensiveSecurityPage() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="text-center"
               >
-                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-300">{stat.value}</p>
+                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-400">{stat.value}</p>
                 <p className="mt-1 text-xs sm:text-sm text-white/60">{stat.label}</p>
               </motion.div>
             ))}
@@ -286,12 +286,12 @@ export default function OffensiveSecurityPage() {
                     >
                       <div className="flex items-center justify-between">
                         <span className="inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl sm:rounded-2xl border border-cyan-400/20 bg-cyan-500/10 group-hover:bg-cyan-500/20 transition">
-                          <service.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
+                          <service.icon className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400" />
                         </span>
-                        <ArrowRight className="h-4 w-4 text-cyan-400 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                        <ArrowRight className="h-4 w-4 text-blue-400 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                       </div>
 
-                      <h3 className="mt-4 sm:mt-5 text-base sm:text-lg font-semibold group-hover:text-cyan-300 transition-colors">
+                      <h3 className="mt-4 sm:mt-5 text-base sm:text-lg font-semibold group-hover:text-blue-400 transition-colors">
                         {service.title}
                       </h3>
                       <p className="mt-2 text-xs sm:text-sm leading-relaxed text-white/60">{service.desc}</p>
@@ -301,7 +301,7 @@ export default function OffensiveSecurityPage() {
                         <ul className="space-y-1.5">
                           {service.deliverables.slice(0, 2).map((d) => (
                             <li key={d} className="flex items-start gap-2 text-xs sm:text-sm text-white/70">
-                              <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-400 mt-0.5 shrink-0" />
+                              <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-blue-400 mt-0.5 shrink-0" />
                               {d}
                             </li>
                           ))}
@@ -311,7 +311,7 @@ export default function OffensiveSecurityPage() {
                   ) : (
                     <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6 hover:bg-white/[0.08] transition">
                       <span className="inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl sm:rounded-2xl border border-cyan-400/20 bg-cyan-500/10">
-                        <service.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
+                        <service.icon className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400" />
                       </span>
 
                       <h3 className="mt-4 sm:mt-5 text-base sm:text-lg font-semibold">{service.title}</h3>
@@ -322,7 +322,7 @@ export default function OffensiveSecurityPage() {
                         <ul className="space-y-1.5">
                           {service.deliverables.slice(0, 2).map((d) => (
                             <li key={d} className="flex items-start gap-2 text-xs sm:text-sm text-white/70">
-                              <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-400 mt-0.5 shrink-0" />
+                              <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-blue-400 mt-0.5 shrink-0" />
                               {d}
                             </li>
                           ))}
@@ -379,13 +379,13 @@ export default function OffensiveSecurityPage() {
                         transition={{ duration: 0.3, delay: i * 0.1 + 0.2, type: "spring" }}
                         className="flex h-14 w-14 items-center justify-center rounded-full border border-cyan-400/30 bg-black shadow-[0_0_20px_rgba(34,211,238,0.3)]"
                       >
-                        <step.icon className="h-6 w-6 text-cyan-300" />
+                        <step.icon className="h-6 w-6 text-blue-400" />
                       </motion.div>
                     </div>
 
                     <div className="md:ml-20 rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6 hover:border-cyan-400/20 transition-all hover:shadow-[0_0_20px_rgba(34,211,238,0.1)]">
                       <div className="flex items-center gap-3">
-                        <span className="flex md:hidden h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-cyan-500/10 text-sm font-bold text-cyan-300">
+                        <span className="flex md:hidden h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-cyan-500/10 text-sm font-bold text-blue-400">
                           {i + 1}
                         </span>
                         <div>
@@ -438,7 +438,7 @@ export default function OffensiveSecurityPage() {
                       transition={{ duration: 0.3, delay: i * 0.1 }}
                       className="flex items-start gap-3"
                     >
-                      <ShieldCheck className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-400 mt-0.5 shrink-0" />
+                      <ShieldCheck className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400 mt-0.5 shrink-0" />
                       <p className="text-xs sm:text-sm text-white/70">{item}</p>
                     </motion.div>
                   ))}
@@ -515,7 +515,7 @@ export default function OffensiveSecurityPage() {
                     >
                       <span className="font-semibold text-sm sm:text-base pr-2">{faq.q}</span>
                       <ChevronDown
-                        className={`h-4 w-4 sm:h-5 sm:w-5 text-cyan-400 shrink-0 transition-transform duration-300 ${
+                        className={`h-4 w-4 sm:h-5 sm:w-5 text-blue-400 shrink-0 transition-transform duration-300 ${
                           openFaq === i ? "rotate-180" : ""
                         }`}
                       />
@@ -586,7 +586,7 @@ export default function OffensiveSecurityPage() {
                         transition={{ duration: 0.3, delay: 0.2 + i * 0.1 }}
                         className="flex items-center gap-2"
                       >
-                        <item.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-400" />
+                        <item.icon className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400" />
                         <span className="text-xs sm:text-sm text-white/70">{item.text}</span>
                       </motion.div>
                     ))}
@@ -600,7 +600,7 @@ export default function OffensiveSecurityPage() {
                   transition={{ duration: 0.5, delay: 0.2 }}
                   className="flex flex-col sm:flex-row gap-3 lg:flex-col"
                 >
-                  <ClickSpark sparkColor="#22d3ee" sparkSize={8} sparkRadius={20} sparkCount={10}>
+                  <ClickSpark sparkColor="#3b82f6" sparkSize={8} sparkRadius={20} sparkCount={10}>
                     <Link
                       href="/contact"
                       className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-bold text-black shadow-[0_0_30px_rgba(34,211,238,0.4)] hover:shadow-[0_0_40px_rgba(34,211,238,0.6)] transition-all duration-300 hover:scale-105"
@@ -620,7 +620,7 @@ export default function OffensiveSecurityPage() {
                     transition={{ duration: 0.3, delay: 0.4 }}
                     className="flex items-center justify-center gap-2 text-xs sm:text-sm text-white/50"
                   >
-                    <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-400/60" />
+                    <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-blue-400/60" />
                     <span>No commitment required</span>
                   </motion.div>
                 </motion.div>

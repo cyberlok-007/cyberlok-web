@@ -25,16 +25,16 @@ function AnimatedBackground() {
       {/* Base gradient: neutral dark */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-[#050A12] to-black" />
 
-      {/* Center glow (reduced cyan) */}
+      {/* Center glow (blue) */}
       <motion.div
-        className="absolute -top-52 left-1/2 h-[720px] w-[720px] -translate-x-1/2 rounded-full bg-cyan-500/7 blur-[140px]"
+        className="absolute -top-52 left-1/2 h-[720px] w-[720px] -translate-x-1/2 rounded-full bg-blue-500/7 blur-[140px]"
         animate={{ scale: [1, 1.12, 1], opacity: [0.35, 0.55, 0.35] }}
         transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* Subtle orb left */}
       <motion.div
-        className="absolute -top-32 -left-40 h-[560px] w-[560px] rounded-full bg-cyan-500/6 blur-3xl"
+        className="absolute -top-32 -left-40 h-[560px] w-[560px] rounded-full bg-blue-500/6 blur-3xl"
         animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
         transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -172,7 +172,7 @@ export function CyberlokServicesCarousel() {
                 className="relative overflow-hidden rounded-[34px] border border-white/10 bg-gradient-to-b from-white/[0.07] via-white/[0.04] to-black/30 backdrop-blur-xl shadow-[0_0_80px_rgba(0,0,0,0.50)]"
               >
                 {/* Glow accent */}
-                <div className="pointer-events-none absolute -top-24 left-1/2 h-[240px] w-[240px] -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
+                <div className="pointer-events-none absolute -top-24 left-1/2 h-[240px] w-[240px] -translate-x-1/2 rounded-full bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent blur-3xl" />
 
                 {/* IMAGE - full visible */}
                 <div className="relative overflow-hidden rounded-t-[34px] border-b border-white/10 bg-black/30 flex items-center justify-center">
@@ -187,7 +187,7 @@ export function CyberlokServicesCarousel() {
                 {/* CONTENT */}
                 <div className="p-8">
                   <div className="flex items-center justify-between">
-                    <div className="inline-flex items-center rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-1.5 text-xs font-medium text-cyan-200">
+                    <div className="inline-flex items-center rounded-full border border-blue-400/20 bg-blue-400/10 px-4 py-1.5 text-xs font-medium text-blue-200">
                       Cyberlok Services
                     </div>
 
@@ -223,7 +223,7 @@ export function CyberlokServicesCarousel() {
                       initial={{ width: "0%" }}
                       animate={{ width: "100%" }}
                       transition={{ duration: 4, ease: "linear" }}
-                      className="h-full bg-cyan-400/60"
+                      className="h-full bg-blue-400/60"
                     />
                   </div>
                 </div>
@@ -249,42 +249,26 @@ export default function WhoWeAre() {
       <AnimatedBackground />
 
       <Container>
-        <div className="relative pt-6 pb-14 grid gap-10 lg:grid-cols-2 items-start">
-
-          {/* LEFT CONTENT */}
-          <div className="max-w-xl">
-            <div className="inline-flex items-center rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-1.5 text-sm text-cyan-200 backdrop-blur">
-              Who We Are
-            </div>
-
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-4xl">
-              Securing Trust in a Zero-Trust World.
+        <div className="relative pt-6 pb-14">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-12 text-center"
+          >
+            <p className="text-xs font-semibold tracking-widest text-blue-400">OUR SERVICES</p>
+            <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight">
+              What Cyberlok Offers
             </h2>
+            <p className="mt-3 mx-auto max-w-xl text-sm sm:text-base text-white/65">
+              Comprehensive cybersecurity services tailored for Indian organizations.
+            </p>
+          </motion.div>
 
-            <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-7 backdrop-blur-xl shadow-[0_0_40px_rgba(0,0,0,0.25)]">
-              <p className="text-white/70 leading-8 text-base md:text-lg">
-                Cyberlok is a next-generation cybersecurity company delivering
-                advanced security services, managed security solutions, and cyber risk
-                advisory to organizations across India and worldwide. We help
-                businesses protect critical digital assets, reduce real-world cyber
-                risk, and build resilient security programs across business
-                infrastructure, cloud environments, networks, and human attack
-                surfaces.
-              </p>
-
-              <div className="my-6 h-px w-full bg-white/10" />
-
-              <p className="text-sm tracking-wide text-cyan-300">Our Vision</p>
-              <p className="mt-2 text-white/70 leading-8 text-base md:text-lg">
-                To become a globally trusted cybersecurity partner that empowers
-                organizations of every size to operate securely and confidently in an
-                increasingly hostile digital world.
-              </p>
-            </div>
-          </div>
-
-          {/* RIGHT SIDE */}
-          <div className="flex justify-center lg:justify-end">
+          {/* Carousel - Centered */}
+          <div className="flex justify-center">
             <CyberlokServicesCarousel />
           </div>
         </div>

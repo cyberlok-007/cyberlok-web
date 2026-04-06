@@ -36,12 +36,12 @@ export default function ClientInfo() {
       "
     >
       {/* glow */}
-      <div className="pointer-events-none absolute -top-20 -right-20 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl" />
+      <div className="pointer-events-none absolute -top-20 -right-20 h-72 w-72 rounded-full bg-gradient-to-br from-cyan-400/20 via-blue-500/10 to-transparent blur-3xl" />
 
       {/* header */}
       <div className="flex items-center gap-3">
         <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-cyan-400/30 bg-cyan-500/10">
-          <Calendar className="h-5 w-5 text-cyan-300" />
+          <Calendar className="h-5 w-5 text-blue-400" />
         </span>
         <div>
           <h3 className="text-lg font-semibold">
@@ -114,13 +114,13 @@ export default function ClientInfo() {
           disabled={loading}
           className="
             group inline-flex w-full items-center justify-center gap-2
-            rounded-full bg-cyan-500 px-6 py-3
+            rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-6 py-3
             font-semibold text-black transition
             hover:bg-cyan-400 disabled:opacity-60
           "
         >
           {loading ? "Submitting..." : "Request Free Consultation"}
-          <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+          <ArrowRight className="h-4 w-4 text-white transition group-hover:translate-x-0.5" />
         </button>
       </form>
     </motion.div>

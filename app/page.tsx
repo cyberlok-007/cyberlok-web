@@ -28,12 +28,10 @@ import {
   CheckCircle2,
   GraduationCap,
   TrendingUp,
-  ShieldAlert,
   Lock,
   Mail,
   Globe,
   KeyRound,
-  Eye,
   Database,
   Server,
   Fingerprint,
@@ -42,6 +40,7 @@ import {
 import { AnimatePresence } from "framer-motion";
 import AnimatedContent from "@/components/AnimatedContent/AnimatedContent";
 import ClickSpark from "@/components/ClickSpark/ClickSpark";
+import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 
 const ServicesEcosystem = dynamic(() => import("@/components/home/ServicesEcosystem"), {
   loading: () => <div className="h-96 animate-pulse bg-white/5" />,
@@ -82,7 +81,7 @@ function RotatingText({
   }, [phrases.length, interval]);
 
   return (
-    <span className="relative inline-block whitespace-nowrap text-cyan-300">
+    <span className="relative inline-block whitespace-nowrap text-blue-400">
       {/* height reservation to prevent layout jump */}
       <span className="invisible block h-[1.2em]">
         {phrases[0]}
@@ -98,7 +97,7 @@ function RotatingText({
             duration: 0.45,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="absolute left-0 top-0 text-cyan-300"
+          className="absolute left-0 top-0 text-blue-400"
 
         >
           {phrases[index]}
@@ -120,48 +119,6 @@ const fadeUp: Variants = {
       duration: 0.65,
       ease: [0.22, 1, 0.36, 1],
       delay: i * 0.08,
-    },
-  }),
-};
-
-/** Scale in animation */
-const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  show: (i: number = 0) => ({
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],
-      delay: i * 0.1,
-    },
-  }),
-};
-
-/** Slide in from left */
-const slideInLeft: Variants = {
-  hidden: { opacity: 0, x: -30 },
-  show: (i: number = 0) => ({
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
-      delay: i * 0.1,
-    },
-  }),
-};
-
-/** Slide in from right */
-const slideInRight: Variants = {
-  hidden: { opacity: 0, x: 30 },
-  show: (i: number = 0) => ({
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
-      delay: i * 0.1,
     },
   }),
 };
@@ -210,7 +167,7 @@ function AnimatedCounter({
   }, [to, duration]);
 
   return (
-    <div ref={ref} className="text-3xl font-semibold tracking-tight">
+    <div ref={ref} className="text-3xl font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-500">
       {value}
       {suffix}
     </div>
@@ -220,8 +177,9 @@ function AnimatedCounter({
 const audiences = [
   {
     title: "Individuals",
-    desc: "Personal security, awareness, fraud protection.",
+    desc: "Personal & Family Security, Awareness, fraud protection.",
     icon: Users,
+    color: "from-blue-500 to-indigo-500",
     href: "/solutions/individuals",
     tag: "Cyber Hygiene",
   },
@@ -229,27 +187,23 @@ const audiences = [
     title: "SMEs",
     desc: "Affordable packages with rapid deployment.",
     icon: Building2,
+    color: "from-green-500 to-emerald-500",
     href: "/solutions/smes",
     tag: "Security Starter",
   },
   {
-    title: "Corporates",
-    desc: "Compliance + risk reduction at scale.",
+    title: "Corporates & Enterprises",
+    desc: "Enterprise-grade security for established organizations.",
     icon: Cpu,
+    color: "from-purple-500 to-pink-500",
     href: "/solutions/corporates",
     tag: "Risk-Based",
-  },
-  {
-    title: "Enterprises",
-    desc: "SOC/MDR, SIEM/SOAR & cloud posture.",
-    icon: Rocket,
-    href: "/solutions/enterprises",
-    tag: "Enterprise Ready",
   },
   {
     title: "Government",
     desc: "Critical infra and national initiatives.",
     icon: Landmark,
+    color: "from-orange-500 to-red-500",
     href: "/solutions/government",
     tag: "National Impact",
   },
@@ -266,6 +220,7 @@ const capabilities = [
     detail:
       "This capability continuously identifies and tracks exposed assets across web, cloud, and internet-facing infrastructure—helping organizations understand what attackers can see and prioritize remediation before exploitation occurs.",
     icon: Radar,
+    color: "from-blue-500 to-indigo-500",
   },
   {
     title: "Identity Protection",
@@ -273,6 +228,7 @@ const capabilities = [
     detail:
       "This capability strengthens identity security by improving access controls, enforcing least privilege, and reducing credential abuse—addressing one of the most common attack vectors used in modern breaches.",
     icon: LockKeyhole,
+    color: "from-purple-500 to-pink-500",
   },
   {
     title: "Cloud Posture & Hardening",
@@ -280,6 +236,7 @@ const capabilities = [
     detail:
       "This capability focuses on identifying misconfigurations, excessive permissions, and insecure defaults within cloud environments—helping teams reduce risk while maintaining agility and operational efficiency.",
     icon: Cloud,
+    color: "from-cyan-500 to-blue-500",
   },
   {
     title: "Security Program & Compliance",
@@ -287,6 +244,7 @@ const capabilities = [
     detail:
       "This capability helps organizations establish and mature security programs aligned with regulatory and industry standards—ensuring governance, risk management, and security controls are implemented in a practical and sustainable way.",
     icon: FileCheck2,
+    color: "from-green-500 to-emerald-500",
   },
 ];
 
@@ -300,23 +258,8 @@ export default function HomePage() {
       <section className="relative overflow-hidden border-b border-white/10">
         {/* ================= BACKGROUND ================= */}
         <div className="pointer-events-none absolute inset-0">
-          {/* glow orbs */}
-          <motion.div
-            className="absolute -top-24 left-1/2 h-[560px] w-[560px] -translate-x-1/2 rounded-full bg-cyan-400/12 blur-3xl"
-            animate={{ y: [0, 22, 0], opacity: [0.3, 0.55, 0.3] }}
-            transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute -bottom-40 -left-40 h-[600px] w-[600px] rounded-full bg-white/6 blur-3xl"
-            animate={{ x: [0, 20, 0], opacity: [0.22, 0.38, 0.22] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          />
-
-          {/* gradient */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(34,211,238,0.20),transparent_45%),radial-gradient(circle_at_80%_30%,rgba(34,211,238,0.10),transparent_55%)]" />
-
-          {/* grid overlay */}
-          <div className="absolute inset-0 opacity-[0.16] [background-image:linear-gradient(rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:48px_48px]" />
+          <div className="absolute -top-40 right-1/4 h-[700px] w-[700px] rounded-full bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-3xl" />
         </div>
 
         {/* ================= CONTENT ================= */}
@@ -328,16 +271,10 @@ export default function HomePage() {
 
               {/* ---------- LEFT COLUMN ---------- */}
               <motion.div initial="hidden" animate="show">
-                <motion.div custom={0} variants={fadeUp} className="flex flex-col sm:flex-row gap-2">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs sm:text-sm text-white/70">
-                    <Shield className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-300" />
-                    <span className="hidden xs:inline">Cybersecurity Services & Solutions</span>
-                    <span className="xs:hidden">Cyber Services</span>
-                  </span>
-
-                  <span className="hidden md:inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-500/10 px-4 py-2 text-sm text-cyan-200">
-                    <Sparkles className="h-4 w-4" />
-                    Enterprise-Grade Execution
+                <motion.div custom={0} variants={fadeUp}>
+                  <span className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-gradient-to-r from-blue-500/10 to-blue-500/10 px-4 py-2">
+                    <Shield className="h-4 w-4 text-blue-400" />
+                    <span className="text-sm font-medium text-blue-400">Cybersecurity Services & Solutions</span>
                   </span>
                 </motion.div>
 
@@ -360,7 +297,7 @@ export default function HomePage() {
                 <motion.p
                   custom={2}
                   variants={fadeUp}
-                  className="mt-4 sm:mt-6 max-w-3xl text-base sm:text-lg leading-relaxed text-white/70"
+                  className="mt-6 text-lg text-white/70 leading-relaxed"
                 >
                   Cyberlok secures individuals, SMEs, corporates, enterprises and government initiatives
                   through offensive security, SOC/monitoring, compliance, cloud security and security awareness.
@@ -372,17 +309,23 @@ export default function HomePage() {
                   className="mt-6 sm:mt-10 flex flex-col gap-3 sm:flex-row"
                 >
                   <Link
-                    href="/contact"
-                    className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 py-3 sm:px-7 sm:py-3 text-sm font-semibold text-black"
+                    href="/contact#send-message"
+                    className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-400 px-8 py-4 text-base font-semibold text-black overflow-hidden shadow-lg shadow-blue-500/30"
                   >
-                    <span className="absolute inset-0 rounded-full bg-white/20 opacity-0 blur-lg transition group-hover:opacity-100" />
-                    <span className="relative">Request Security Assessment</span>
-                    <ArrowRight className="relative h-4 w-4 sm:h-5 sm:w-5 transition group-hover:translate-x-0.5" />
+                    <span className="relative flex items-center gap-2">
+                      Request Security Assessment
+                      <motion.span
+                        animate={{ x: [0, 5, 0] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                      >
+                        <ArrowRight className="h-5 w-5 text-white" />
+                      </motion.span>
+                    </span>
                   </Link>
 
                   <Link
                     href="/services"
-                    className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-3 sm:px-7 sm:py-3 text-sm font-semibold text-white"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm hover:bg-white/10 transition"
                   >
                     Explore Services
                   </Link>
@@ -402,52 +345,52 @@ export default function HomePage() {
               variants={fadeUp}
               className="mt-10 sm:mt-16 grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4"
             >
-              {[
-                { label: "Security Assessments", to: 15, suffix: "+", icon: ClipboardCheck },
-                { label: "Critical Findings Resolved", to: 116, suffix: "+", icon: CheckCircle2 },
-                { label: "Professionals Trained", to: 80, suffix: "+", icon: GraduationCap },
-                { label: "Average Risk Reduction", to: 72, suffix: "%", icon: TrendingUp },
-              ].map((m, i) => (
+            {[
+              { label: "Security Assessments", to: 15, suffix: "+", icon: ClipboardCheck, color: "from-blue-500 to-indigo-500" },
+              { label: "Critical Findings Resolved", to: 116, suffix: "+", icon: CheckCircle2, color: "from-green-500 to-emerald-500" },
+              { label: "Professionals Trained", to: 80, suffix: "+", icon: GraduationCap, color: "from-purple-500 to-pink-500" },
+              { label: "Average Risk Reduction", to: 72, suffix: "%", icon: TrendingUp, color: "from-orange-500 to-red-500" },
+            ].map((m, i) => (
+              <motion.div
+                key={m.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6 transition hover:bg-white/10 cursor-pointer"
+              >
+                {/* glow */}
+                <div className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent blur-3xl opacity-0 transition group-hover:opacity-100" />
+                
+                {/* animated border */}
+                <div className="absolute inset-0 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 rounded-2xl sm:rounded-3xl border border-blue-400/30" />
+                </div>
+
+                {/* icon */}
                 <motion.div
-                  key={m.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  whileHover={{ y: -5, scale: 1.02 }}
-                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6 transition hover:bg-white/10 cursor-pointer"
+                  whileHover={{ rotate: 360, scale: 1.1 }}
+                  transition={{ duration: 0.6 }}
+                  className={`inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-br ${m.color} shadow-lg mb-3`}
                 >
-                  {/* glow */}
-                  <div className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-cyan-400/15 blur-3xl opacity-0 transition group-hover:opacity-100" />
-                  
-                  {/* animated border */}
-                  <div className="absolute inset-0 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute inset-0 rounded-2xl sm:rounded-3xl border border-cyan-400/30" />
-                  </div>
-
-                  {/* icon */}
-                  <motion.div
-                    className="inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl bg-cyan-500/10 border border-cyan-400/20 mb-3"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <m.icon className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-400" />
-                  </motion.div>
-
-                  {/* NUMBER */}
-                  <div className="text-2xl sm:text-3xl font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 to-cyan-500">
-                    <AnimatedCounter to={m.to} suffix={m.suffix} />
-                  </div>
-
-                  {/* LABEL */}
-                  <p className="mt-2 text-xs sm:text-sm font-semibold text-white/85">
-                    {m.label}
-                  </p>
-
-                  {/* divider */}
-                  <div className="mt-3 sm:mt-4 h-px w-full bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+                  <m.icon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                 </motion.div>
-              ))}
+
+                {/* NUMBER */}
+                <div className="text-2xl sm:text-3xl font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-500">
+                  <AnimatedCounter to={m.to} suffix={m.suffix} />
+                </div>
+
+                {/* LABEL */}
+                <p className="mt-2 text-xs sm:text-sm font-semibold text-white/85">
+                  {m.label}
+                </p>
+
+                {/* divider */}
+                <div className="mt-3 sm:mt-4 h-px w-full bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+              </motion.div>
+            ))}
             </motion.div>
 
           </div>
@@ -482,7 +425,7 @@ export default function HomePage() {
                      bg-white/5 px-5 py-2 text-white/70
                      backdrop-blur-md shadow-[0_0_20px_rgba(34,211,238,0.08)]"
               >
-                <item.icon className="h-4 w-4 text-cyan-300" />
+                <item.icon className="h-4 w-4 text-blue-400" />
                 {item.label}
               </span>
             ))}
@@ -501,7 +444,7 @@ export default function HomePage() {
                      bg-white/5 px-5 py-2 text-white/70
                      backdrop-blur-md shadow-[0_0_20px_rgba(34,211,238,0.08)]"
               >
-                <item.icon className="h-4 w-4 text-cyan-300" />
+                <item.icon className="h-4 w-4 text-blue-400" />
                 {item.label}
               </span>
             ))}
@@ -518,12 +461,8 @@ export default function HomePage() {
       <section className="relative overflow-hidden border-b border-white/10">
   {/* ================= BACKGROUND ACCENT ================= */}
   <div className="pointer-events-none absolute inset-0">
-    <div className="absolute -top-40 right-0 h-[520px] w-[520px] rounded-full bg-cyan-400/10 blur-3xl" />
-    <div
-      className="absolute inset-0 opacity-[0.12]
-      [background-image:radial-gradient(rgba(255,255,255,0.15)_1px,transparent_1px)]
-      [background-size:32px_32px]"
-    />
+    <div className="absolute -top-40 right-1/4 h-[700px] w-[700px] rounded-full bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent blur-3xl" />
+    <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-3xl" />
   </div>
 
   <Container>
@@ -540,7 +479,7 @@ export default function HomePage() {
       >
         <div className="flex flex-col gap-4 sm:gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
-            <p className="text-xs font-semibold tracking-widest text-cyan-300">
+            <p className="text-xs font-semibold tracking-widest text-blue-400">
               WHO WE SERVE
             </p>
 
@@ -555,7 +494,7 @@ export default function HomePage() {
           </div>
 
           <div className="hidden md:block">
-            <ClickSpark sparkColor="#22d3ee" sparkSize={6} sparkRadius={14} sparkCount={6}>
+            <ClickSpark sparkColor="#3b82f6" sparkSize={6} sparkRadius={14} sparkCount={6}>
               <Link
                 href="/solutions"
                 className="inline-flex items-center gap-2 rounded-full
@@ -564,7 +503,7 @@ export default function HomePage() {
                   transition hover:bg-white/10"
               >
                 Explore All Solutions
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-4 w-4 text-white" />
               </Link>
             </ClickSpark>
           </div>
@@ -581,7 +520,7 @@ export default function HomePage() {
         animateOpacity
         delay={0.05}
       >
-        <div className="mt-8 sm:mt-14 grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-8 sm:mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {audiences.map((a, i) => (
             <motion.div
               key={a.title}
@@ -592,35 +531,28 @@ export default function HomePage() {
               whileHover={{ y: -8, scale: 1.02 }}
             >
               <ClickSpark
-                sparkColor="#22d3ee"
+                sparkColor="#3b82f6"
                 sparkSize={6}
                 sparkRadius={16}
                 sparkCount={7}
               >
                 <Link
                   href={a.href}
-                  className="group relative flex h-full flex-col justify-between
-                    rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6
-                    transition
-                    hover:border-cyan-400/30 hover:bg-white/10"
+                  className="group relative flex h-full flex-col justify-between rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6 transition hover:border-blue-400/30 hover:bg-white/10"
                 >
-                  <div className="pointer-events-none absolute -top-24 -right-24
-                    h-56 w-56 rounded-full bg-cyan-400/15 blur-3xl
-                    opacity-0 transition group-hover:opacity-100"
-                  />
+                  <div className="pointer-events-none absolute -top-24 -right-24 h-56 w-56 rounded-full bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent blur-3xl opacity-0 transition group-hover:opacity-100" />
 
                   <div>
                     <div className="flex items-center justify-between">
-                      <motion.span 
-                        className="inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center
-                          rounded-xl sm:rounded-2xl border border-cyan-400/25 bg-cyan-500/10"
-                        whileHover={{ rotate: 5, scale: 1.05 }}
+                      <motion.div 
+                        whileHover={{ rotate: 360, scale: 1.1 }}
+                        transition={{ duration: 0.6 }}
+                        className={`inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-br ${a.color} shadow-lg`}
                       >
-                        <a.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
-                      </motion.span>
+                        <a.icon className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+                      </motion.div>
 
-                      <span className="rounded-full border border-white/10
-                        bg-black/40 px-2 sm:px-3 py-1 text-xs text-white/70">
+                      <span className="rounded-full border border-white/10 bg-black/40 px-2 sm:px-3 py-1 text-xs text-white/70">
                         {a.tag}
                       </span>
                     </div>
@@ -631,10 +563,9 @@ export default function HomePage() {
                     </p>
                   </div>
 
-                  <p className="mt-4 sm:mt-6 inline-flex items-center gap-1
-                    text-sm font-semibold text-cyan-300">
+                  <p className="mt-4 sm:mt-6 inline-flex items-center gap-1 text-sm font-semibold text-blue-400">
                     View Packages
-                    <ChevronRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                    <ChevronRight className="h-4 w-4 text-white transition group-hover:translate-x-1" />
                   </p>
                 </Link>
               </ClickSpark>
@@ -652,7 +583,7 @@ export default function HomePage() {
         animateOpacity
       >
         <div className="mt-8 sm:mt-12 text-center md:hidden">
-          <ClickSpark sparkColor="#22d3ee" sparkSize={6} sparkRadius={14} sparkCount={6}>
+          <ClickSpark sparkColor="#3b82f6" sparkSize={6} sparkRadius={14} sparkCount={6}>
             <Link
               href="/solutions"
               className="inline-flex items-center gap-2 rounded-full
@@ -660,7 +591,7 @@ export default function HomePage() {
                 px-6 py-3 text-sm font-semibold text-white"
             >
               Explore Solutions
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="h-4 w-4 text-white" />
             </Link>
           </ClickSpark>
         </div>
@@ -676,8 +607,8 @@ export default function HomePage() {
       {/* SECURITY SOLUTIONS */}
       <section className="relative border-b border-white/10 overflow-hidden">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-40 left-0 h-[500px] w-[500px] rounded-full bg-cyan-400/10 blur-3xl" />
-          <div className="absolute inset-0 opacity-[0.06] [background-image:radial-gradient(rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:36px_36px]" />
+          <div className="absolute -top-40 right-1/4 h-[700px] w-[700px] rounded-full bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-3xl" />
         </div>
         <Container>
           <div className="py-12 sm:py-16 md:py-20">
@@ -692,7 +623,7 @@ export default function HomePage() {
               animateOpacity
             >
               <div className="mb-8 sm:mb-12">
-                <p className="text-xs font-semibold tracking-widest text-cyan-300">
+                <p className="text-xs font-semibold tracking-widest text-blue-400">
                   SECURITY SOLUTIONS
                 </p>
                 <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight">
@@ -710,54 +641,63 @@ export default function HomePage() {
               {[
                 {
                   icon: Monitor,
+                  color: "from-blue-500 to-indigo-500",
                   title: "Endpoint Detection & Response (EDR)",
                   desc: "Advanced endpoint protection with real-time threat detection, investigation, and automated response capabilities.",
                   features: ["Real-time monitoring", "Threat hunting", "Automated containment", "Forensic analysis"],
                 },
                 {
                   icon: Database,
+                  color: "from-purple-500 to-pink-500",
                   title: "Data Loss Prevention (DLP)",
                   desc: "Protect sensitive data across endpoints, networks, and cloud with intelligent data classification and policy enforcement.",
                   features: ["Data classification", "Policy enforcement", "Endpoint protection", "Cloud DLP"],
                 },
                 {
                   icon: Mail,
+                  color: "from-cyan-500 to-blue-500",
                   title: "Email Security",
                   desc: "Comprehensive email protection against phishing, malware, BEC, and zero-day attacks with AI-powered detection.",
                   features: ["Anti-phishing", "BEC protection", "Malware detection", "Email archiving"],
                 },
                 {
                   icon: Globe,
+                  color: "from-green-500 to-emerald-500",
                   title: "Web Application Firewall (WAF)",
                   desc: "Protect your web applications from OWASP Top 10 threats, DDoS attacks, and application-layer vulnerabilities.",
                   features: ["OWASP protection", "DDoS mitigation", "API security", "Bot management"],
                 },
                 {
                   icon: Fingerprint,
+                  color: "from-orange-500 to-red-500",
                   title: "Zero Trust Architecture",
                   desc: "Implement zero trust security model with continuous verification, least privilege access, and micro-segmentation.",
                   features: ["Identity verification", "Micro-segmentation", "Least privilege", "Continuous monitoring"],
                 },
                 {
                   icon: Server,
+                  color: "from-yellow-500 to-orange-500",
                   title: "SIEM/SOAR",
                   desc: "Unified security monitoring with intelligent correlation, automated playbook execution, and compliance reporting.",
                   features: ["Log aggregation", "Threat correlation", "Automated response", "Compliance reports"],
                 },
                 {
                   icon: KeyRound,
+                  color: "from-violet-500 to-purple-500",
                   title: "SSO & Identity Management",
                   desc: "Enterprise single sign-on with seamless access to all applications while maintaining strong security controls.",
                   features: ["Single sign-on", "MFA integration", "Directory services", "Access governance"],
                 },
                 {
                   icon: Lock,
+                  color: "from-red-500 to-pink-500",
                   title: "Privileged Access Management (PAM)",
                   desc: "Secure and monitor privileged accounts with credential vaulting, session recording, and just-in-time access.",
                   features: ["Credential vaulting", "Session recording", "Just-in-time access", "Password rotation"],
                 },
                 {
                   icon: ShieldCheck,
+                  color: "from-teal-500 to-cyan-500",
                   title: "Enterprise Password Manager",
                   desc: "Secure password management for teams with shared vaults, breach monitoring, and secure password sharing.",
                   features: ["Password vault", "Breach monitoring", "Team sharing", "API access"],
@@ -770,11 +710,15 @@ export default function HomePage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
                   whileHover={{ y: -6 }}
-                  className="group relative rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-6 transition hover:border-cyan-400/30 hover:bg-white/[0.08]"
+                  className="group relative rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-6 transition hover:border-blue-400/30 hover:bg-white/[0.08]"
                 >
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-500/10 border border-cyan-400/20">
-                    <solution.icon className="h-7 w-7 text-cyan-300" />
-                  </div>
+                  <motion.div
+                    whileHover={{ rotate: 360, scale: 1.1 }}
+                    transition={{ duration: 0.6 }}
+                    className={`inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${solution.color} shadow-lg`}
+                  >
+                    <solution.icon className="h-7 w-7 text-white" />
+                  </motion.div>
 
                   <h3 className="mt-4 text-lg font-semibold">{solution.title}</h3>
                   <p className="mt-2 text-sm text-white/60 leading-relaxed">{solution.desc}</p>
@@ -782,7 +726,7 @@ export default function HomePage() {
                   <ul className="mt-4 space-y-1.5">
                     {solution.features.map((feature) => (
                       <li key={feature} className="flex items-center gap-2 text-xs text-white/70">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-cyan-400 shrink-0" />
+                        <CheckCircle2 className="h-3.5 w-3.5 text-blue-400 shrink-0" />
                         {feature}
                       </li>
                     ))}
@@ -790,9 +734,9 @@ export default function HomePage() {
 
                   <Link
                     href="/contact"
-                    className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-cyan-300 hover:text-cyan-200 transition"
+                    className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-blue-400 hover:text-blue-300"
                   >
-                    Learn More <ArrowRight className="h-4 w-4" />
+                    Learn More <ArrowRight className="h-4 w-4 text-white" />
                   </Link>
                 </motion.div>
               ))}
@@ -811,9 +755,9 @@ export default function HomePage() {
               </p>
               <Link
                 href="/contact"
-                className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition"
+                className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-400 px-6 py-3 text-sm font-semibold text-black hover:shadow-lg hover:shadow-blue-500/30 transition"
               >
-                Talk to Our Security Team <ArrowRight className="h-4 w-4" />
+                Talk to Our Security Team <ArrowRight className="h-4 w-4 text-white" />
               </Link>
             </motion.div>
 
@@ -822,7 +766,11 @@ export default function HomePage() {
       </section>
 
       {/* CAPABILITIES - interactive */}
-      <section className="border-b border-white/10">
+      <section className="relative overflow-hidden border-b border-white/10">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-40 right-1/4 h-[700px] w-[700px] rounded-full bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-3xl" />
+        </div>
   <Container>
     <div className="py-10 sm:py-16">
 
@@ -840,7 +788,7 @@ export default function HomePage() {
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.55 }}
         >
-          <p className="text-xs font-semibold tracking-widest text-cyan-300">
+          <p className="text-xs font-semibold tracking-widest text-blue-400">
             CORE SECURITY CAPABILITIES
           </p>
 
@@ -871,7 +819,7 @@ export default function HomePage() {
             {capabilities.map((cap, idx) => (
               <ClickSpark
                 key={cap.title}
-                sparkColor="#22d3ee"
+                sparkColor="#3b82f6"
                 sparkSize={6}
                 sparkRadius={18}
                 sparkCount={6}
@@ -884,18 +832,18 @@ export default function HomePage() {
                   className={cn(
                     "relative w-full text-left rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-5 transition",
                     activeCap === idx
-                      ? "bg-cyan-500/10 border-cyan-400/25 shadow-[0_0_0_1px_rgba(34,211,238,0.25)]"
-                      : "hover:bg-white/10 hover:border-cyan-400/20"
+                      ? "bg-blue-500/10 border-blue-400/25 shadow-[0_0_0_1px_rgba(34,211,238,0.25)]"
+                      : "hover:bg-white/10 hover:border-blue-400/20"
                   )}
                 >
                   <div className="flex items-start gap-3 sm:gap-4">
-                    <motion.span 
-                      className="inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl sm:rounded-2xl border border-cyan-400/20 bg-cyan-500/10"
-                      animate={activeCap === idx ? { rotate: [0, -5, 5, 0] } : {}}
-                      transition={{ duration: 0.5 }}
+                    <motion.div 
+                      whileHover={{ rotate: 360, scale: 1.1 }}
+                      transition={{ duration: 0.6 }}
+                      className={`inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl sm:rounded-2xl bg-gradient-to-br ${cap.color} shadow-lg`}
                     >
-                      <cap.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
-                    </motion.span>
+                      <cap.icon className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+                    </motion.div>
 
                     <div>
                       <p className="text-base sm:text-lg font-semibold">
@@ -913,7 +861,7 @@ export default function HomePage() {
                     animate={{ opacity: activeCap === idx ? 1 : 0, x: activeCap === idx ? 0 : 10 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <ChevronRight className="h-4 w-4 text-cyan-400" />
+                    <ChevronRight className="h-4 w-4 text-blue-400" />
                   </motion.div>
                 </motion.button>
               </ClickSpark>
@@ -934,9 +882,9 @@ export default function HomePage() {
             className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-8"
           >
             {/* glow */}
-            <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-cyan-400/15 blur-3xl" />
+            <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent blur-3xl" />
 
-            <p className="text-xs font-semibold text-cyan-300 tracking-widest">
+            <p className="text-xs font-semibold text-blue-400 tracking-widest">
               CYBERLOK CAPABILITY
             </p>
 
@@ -958,15 +906,15 @@ export default function HomePage() {
               >
                 <Link
                   href="/services"
-                  className="relative inline-flex items-center justify-center rounded-full bg-cyan-500 px-4 sm:px-6 py-2.5 sm:py-3 text-sm font-semibold text-black"
+                  className="relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-blue-400 px-4 sm:px-6 py-2.5 sm:py-3 text-sm font-semibold text-black"
                 >
                   Explore Services
-                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 text-white" />
                 </Link>
               </ClickSpark>
 
               <ClickSpark
-                sparkColor="#22d3ee"
+                sparkColor="#3b82f6"
                 sparkSize={6}
                 sparkRadius={16}
                 sparkCount={6}
@@ -995,8 +943,8 @@ export default function HomePage() {
       <section className="relative border-b border-white/10 overflow-hidden">
         {/* subtle background accent */}
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-40 right-0 h-[520px] w-[520px] rounded-full bg-cyan-400/10 blur-3xl" />
-          <div className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(rgba(255,255,255,0.15)_1px,transparent_1px)] [background-size:36px_36px]" />
+          <div className="absolute -top-40 right-1/4 h-[700px] w-[700px] rounded-full bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-3xl" />
         </div>
 
         <Container>
@@ -1009,7 +957,7 @@ export default function HomePage() {
               transition={{ duration: 0.55 }}
               className="max-w-2xl"
             >
-              <p className="text-xs font-semibold tracking-widest text-cyan-300">
+              <p className="text-xs font-semibold tracking-widest text-blue-400">
                 WHY CYBERLOK
               </p>
               <h2 className="mt-2 sm:mt-3 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight">
@@ -1027,21 +975,25 @@ export default function HomePage() {
                 {
                   title: "Outcome-Driven Security",
                   icon: Target,
+                  color: "from-blue-500 to-indigo-500",
                   desc: "We prioritize tangible risk reduction over checkbox compliance. Every engagement is built around clear objectives, measurable impact, and sustained improvement—not static reports.",
                 },
                 {
                   title: "Technical Depth with Business Context",
                   icon: Cpu,
+                  color: "from-purple-500 to-pink-500",
                   desc: "Our teams combine hands-on security expertise with a deep understanding of operations, compliance, and leadership priorities—bridging the gap between security and business.",
                 },
                 {
                   title: "Built for Scale and Maturity",
                   icon: Rocket,
+                  color: "from-orange-500 to-red-500",
                   desc: "From establishing your first security baseline to operating at enterprise scale, our approach adapts to your organization's size, complexity, and risk profile.",
                 },
                 {
                   title: "Beyond One-Time Assessments",
                   icon: ShieldCheck,
+                  color: "from-green-500 to-emerald-500",
                   desc: "Cyberlok stays engaged beyond discovery—supporting remediation, continuous monitoring, and long-term posture improvement as threats evolve.",
                 },
               ].map((d, idx) => (
@@ -1055,26 +1007,26 @@ export default function HomePage() {
                   className="group relative rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-7 transition hover:bg-white/10"
                 >
                   {/* glow */}
-                  <div className="pointer-events-none absolute -top-24 -right-24 h-48 w-48 rounded-full bg-cyan-400/15 blur-3xl opacity-0 transition group-hover:opacity-100" />
+                  <div className="pointer-events-none absolute -top-24 -right-24 h-48 w-48 rounded-full bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent blur-3xl opacity-0 transition group-hover:opacity-100" />
                   
                   {/* animated border */}
                   <div className="absolute inset-0 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute inset-0 rounded-2xl sm:rounded-3xl border border-cyan-400/20" />
+                    <div className="absolute inset-0 rounded-2xl sm:rounded-3xl border border-blue-400/20" />
                   </div>
 
                   <motion.div
-                    className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-500/10 border border-cyan-400/20 mb-4"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.5 }}
+                    whileHover={{ rotate: 360, scale: 1.1 }}
+                    transition={{ duration: 0.6 }}
+                    className={`inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${d.color} shadow-lg mb-4`}
                   >
-                    <d.icon className="h-6 w-6 text-cyan-300" />
+                    <d.icon className="h-6 w-6 text-white" />
                   </motion.div>
 
                   <p className="text-base sm:text-lg font-semibold">
                     {d.title}
                   </p>
 
-                  <div className="mt-2 sm:mt-3 h-px w-12 bg-gradient-to-r from-cyan-400/60 to-transparent" />
+                  <div className="mt-2 sm:mt-3 h-px w-12 bg-gradient-to-r from-blue-400/60 to-transparent" />
 
                   <p className="mt-3 sm:mt-4 text-xs sm:text-sm leading-relaxed text-white/65">
                     {d.desc}
@@ -1089,11 +1041,11 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="mt-8 sm:mt-16 rounded-2xl sm:rounded-3xl border border-cyan-400/15 bg-gradient-to-br from-cyan-500/10 via-white/5 to-transparent p-6 sm:p-10 relative overflow-hidden"
+              className="mt-8 sm:mt-16 rounded-2xl sm:rounded-3xl border border-blue-400/15 bg-gradient-to-br from-cyan-500/10 via-white/5 to-transparent p-6 sm:p-10 relative overflow-hidden"
             >
               {/* animated glow */}
               <motion.div
-                className="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-cyan-400/10 blur-3xl"
+                className="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent blur-3xl"
                 animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
                 transition={{ duration: 4, repeat: Infinity }}
               />
@@ -1106,7 +1058,7 @@ export default function HomePage() {
                   transition={{ duration: 0.5, delay: 0.1 }}
                   className="max-w-xl"
                 >
-                  <p className="text-xs sm:text-sm font-semibold text-cyan-300 tracking-widest">
+                  <p className="text-xs sm:text-sm font-semibold text-blue-400 tracking-widest">
                     READY TO MOVE FORWARD?
                   </p>
                   <h3 className="mt-2 text-xl sm:text-2xl font-semibold">
@@ -1124,16 +1076,16 @@ export default function HomePage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                  <ClickSpark sparkColor="#22d3ee" sparkSize={8} sparkRadius={20} sparkCount={10}>
+                  <ClickSpark sparkColor="#3b82f6" sparkSize={8} sparkRadius={20} sparkCount={10}>
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <Link
                         href="/contact"
-                        className="relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 px-6 sm:px-8 py-3 font-semibold text-black shadow-[0_0_30px_rgba(34,211,238,0.3)] hover:shadow-[0_0_40px_rgba(34,211,238,0.5)] transition-all w-full sm:w-auto mt-4 md:mt-0"
+                        className="relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-blue-400 px-6 sm:px-8 py-3 font-semibold text-black shadow-[0_0_30px_rgba(34,211,238,0.3)] hover:shadow-[0_0_40px_rgba(34,211,238,0.5)] transition-all w-full sm:w-auto mt-4 md:mt-0"
                       >
                         <span className="absolute inset-0 rounded-full bg-white/20 opacity-0 hover:opacity-100 blur-lg transition-opacity" />
                         <span className="relative flex items-center gap-2">
                           Request Assessment
-                          <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
+                          <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                         </span>
                       </Link>
                     </motion.div>
@@ -1145,6 +1097,7 @@ export default function HomePage() {
         </Container>
       </section>
 
+      <ScrollToTop />
 
     </div>
   );

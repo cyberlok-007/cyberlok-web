@@ -85,11 +85,11 @@ export default function PenetrationTestingPage() {
           <div className="px-2 py-10 sm:py-14 md:py-20">
             <Breadcrumbs items={[{ label: "Services", href: "/services" }, { label: "Penetration Testing" }]} />
             <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 sm:px-4 py-2 text-xs sm:text-sm text-white/70">
-              <Bug className="h-3 w-3 sm:h-4 sm:w-4 text-cyan-300" /> Penetration Testing
+              <Bug className="h-3 w-3 sm:h-4 sm:w-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" /> Penetration Testing
             </p>
             <h1 className="mt-4 sm:mt-6 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-tight">
               Deep Testing for{" "}
-              <span className="text-cyan-300">Real-World Impact</span>
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Real-World Impact</span>
             </h1>
             <p className="mt-3 sm:mt-5 max-w-3xl text-base sm:text-lg leading-relaxed text-white/70">
               Cyberlok&apos;s penetration testing goes beyond automated scans. Our certified testers combine
@@ -100,7 +100,7 @@ export default function PenetrationTestingPage() {
             <div className="mt-6 sm:mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 sm:px-6 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-5 sm:px-6 py-3 text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30 transition"
               >
                 Request Penetration Test <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
               </Link>
@@ -135,7 +135,7 @@ export default function PenetrationTestingPage() {
                   className="rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6 hover:bg-white/[0.08] transition"
                 >
                   <span className="inline-flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl sm:rounded-2xl border border-cyan-400/20 bg-cyan-500/10">
-                    <scope.icon className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-300" />
+                    <scope.icon className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                   </span>
                   <h3 className="mt-4 sm:mt-5 text-base sm:text-lg font-semibold">{scope.title}</h3>
                   <p className="mt-2 text-xs sm:text-sm text-white/60 leading-relaxed">{scope.desc}</p>
@@ -166,7 +166,7 @@ export default function PenetrationTestingPage() {
                   className="rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-6"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-cyan-500/10 text-sm font-bold text-cyan-300">
+                    <span className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-cyan-500/10 text-sm font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                       {i + 1}
                     </span>
                     <div>
@@ -197,7 +197,7 @@ export default function PenetrationTestingPage() {
                 <ul className="mt-6 sm:mt-8 space-y-2.5">
                   {deliverables.map((d) => (
                     <li key={d} className="flex items-start gap-3">
-                      <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-400 mt-0.5 shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mt-0.5 shrink-0" />
                       <p className="text-xs sm:text-sm text-white/70">{d}</p>
                     </li>
                   ))}
@@ -240,7 +240,7 @@ export default function PenetrationTestingPage() {
               <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                 <div className="flex items-center gap-4">
                   <span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl border border-cyan-400/20 bg-cyan-500/10">
-                    <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-300" />
+                    <Clock className="h-5 w-5 sm:h-6 sm:w-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                   </span>
                   <div>
                     <p className="font-semibold text-sm sm:text-base">Typical Turnaround</p>
@@ -251,7 +251,7 @@ export default function PenetrationTestingPage() {
                 </div>
                 <div className="flex items-center gap-4">
                   <span className="inline-flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl border border-cyan-400/20 bg-cyan-500/10">
-                    <ShieldCheck className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-300" />
+                    <ShieldCheck className="h-5 w-5 sm:h-6 sm:w-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent" />
                   </span>
                   <div>
                     <p className="font-semibold text-sm sm:text-base">Retesting Included</p>
@@ -306,7 +306,7 @@ export default function PenetrationTestingPage() {
                 </div>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-5 sm:px-7 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition w-full sm:w-auto mt-4 md:mt-0"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-5 sm:px-7 py-3 text-sm font-semibold text-black hover:shadow-lg hover:shadow-cyan-500/30 transition w-full sm:w-auto mt-4 md:mt-0"
                 >
                   Get a Quote <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Link>
